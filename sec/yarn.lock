@@ -5694,6 +5694,11 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   "version" "16.13.1"
 
+"react-native-call-record@^0.1.1":
+  "integrity" "sha512-BnlX0mGCbflCA/9xRBuea6E+vNI5nQDmHYZi0UsCkM7yPyoo48RA3wfH5UOcAA3k5zygeRdTkzGIXBHNu15oRg=="
+  "resolved" "https://registry.npmjs.org/react-native-call-record/-/react-native-call-record-0.1.1.tgz"
+  "version" "0.1.1"
+
 "react-native-codegen@^0.0.7":
   "integrity" "sha512-dwNgR8zJ3ALr480QnAmpTiqvFo+rDtq6V5oCggKhYFlRjzOmVSFn3YD41u8ltvKS5G2nQ8gCs2vReFFnRGLYng=="
   "resolved" "https://registry.npmjs.org/react-native-codegen/-/react-native-codegen-0.0.7.tgz"
@@ -5754,7 +5759,7 @@
     "prop-types" "^15.7.2"
     "yargs" "^16.1.1"
 
-"react-native@*", "react-native@>=0.57", "react-native@0.66.4":
+"react-native@*", "react-native@>=0.33.0", "react-native@>=0.57", "react-native@0.66.4":
   "integrity" "sha512-9vx5dlSfQlKbbDtr8+xMon6qsmSu7jvjdXWZpEKh3XVKpUidbbODv7048gwVKX8YAel1egeR7hN8vzSeI6ssTw=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.66.4.tgz"
   "version" "0.66.4"
