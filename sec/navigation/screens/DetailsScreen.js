@@ -72,7 +72,7 @@ export default function DetailsScreen({ navigation }) {
     // Web-scraping function for call type identification
     async function infoScrape(number) {
         const cheerio = require('react-native-cheerio');
-        const keywords = ['假冒','騙案','詐騙','自稱','+']
+        const keywords = ['假冒','騙案','詐騙','自稱']
 
         // Web Scraping
         setData("loading");
