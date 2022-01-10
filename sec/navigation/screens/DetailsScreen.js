@@ -5,7 +5,7 @@ import notifee, {AndroidImportance} from '@notifee/react-native';
 
 export default function DetailsScreen({ navigation }) {
     // Global variables
-    const [data, setData] = useState(null);
+    const [data, setData] = useState("loading");
     const [arr, setArr] = useState([]);
     const [listData, setListData] = useState([]);
     const [text, onChangeText] = useState(null);
@@ -75,7 +75,7 @@ export default function DetailsScreen({ navigation }) {
         const keywords = ['假冒','騙案','詐騙','自稱','+']
 
         // Web Scraping
-        setData(null);
+        setData("loading");
         const response = await fetch('https://hkjunkcall.com/?ft='+number);
         const text = await response.text();
         const $ = cheerio.load(text);
