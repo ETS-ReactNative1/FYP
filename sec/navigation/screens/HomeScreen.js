@@ -6,20 +6,18 @@ import { Marker } from 'react-native-maps';
 export default function HomeScreen({ navigation }) {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text
-                onPress={() => alert('This is the "Home" screen.')}
-                style={{ fontSize: 26, fontWeight: 'bold' }}>Home Screen</Text>
+            
             <MapView
                 style={styles.map}
                 initialRegion={{
                 latitude: 22.28312,    //location of HKU CB313
-                longitude: 114.13592,  //change this location if u have time
+                longitude: 114.13592,  //change this location if have time
                 latitudeDelta: 0.0,
                 longitudeDelta: 0.0,
                 }}
             >
                 <Marker
-                    coordinate={{ latitude : 22.28312 , longitude : 114.13592 }} //idk why cant see it
+                    coordinate={{ latitude : 22.28312 , longitude : 114.13592 }} //change this location if have time
                     title={"Current Location"}
                     description={"Info"}
                 />
@@ -27,8 +25,8 @@ export default function HomeScreen({ navigation }) {
     
 
             <Text
-                onPress={() => alert('This is the "Home" screen.')}
-                style={{ fontSize: 26, fontWeight: 'bold' }}>Home Screen</Text>
+                onPress={() => alert('This is the current location of the Elderly.')}
+                style={{ fontSize: 24, fontWeight: 'bold' }}>Current Location</Text>
         </View>
     );
 }
@@ -36,7 +34,7 @@ export default function HomeScreen({ navigation }) {
 const styles= StyleSheet.create({
     map: {
         width: '100%',
-        height: '90%',
+        height: '95%',
     }
 
 })

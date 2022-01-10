@@ -116,7 +116,7 @@ export default function DetailsScreen({ navigation }) {
       }
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%', }}>
             <SafeAreaView>
                 <ScrollView style={{flex: 1}}>
                   <Text style={{ fontSize: 26, fontWeight: 'bold' }}>Test Functions</Text>
@@ -149,7 +149,7 @@ export default function DetailsScreen({ navigation }) {
                             keyExtractor={(item, index) => index.toString()}
                     />
                     <Text>{"\n"}</Text>
-                    <Text onPress={() => navigation.navigate('Home')}> [Return to Home Page] </Text>
+                    <Text onPress={() => navigation.navigate('Home')}> Return to Home Page </Text>
                 </ScrollView>
                 
             </SafeAreaView>
@@ -162,12 +162,14 @@ const styles = StyleSheet.create({
     container: {
      flex: 1,
      padding: 10,
-     paddingTop: 22
+     paddingTop: 22,
+     width: '100%'
     },
     item: {
       padding: 10,
       fontSize: 18,
       height: 44,
+      width: '100%',
     },
     input: {
       height: 40,
