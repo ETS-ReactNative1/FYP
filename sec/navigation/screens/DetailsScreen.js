@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import { PermissionsAndroid, Platform, View, Text, SafeAreaView, ScrollView, StyleSheet, Button, FlatList} from 'react-native';
+import { PermissionsAndroid, Platform, View, Text, SafeAreaView, ScrollView, StyleSheet, Button, FlatList, TextInput} from 'react-native';
 import CallLogs from 'react-native-call-log';
 import notifee, {AndroidImportance} from '@notifee/react-native';
 
 export default function DetailsScreen({ navigation }) {
     // Global variables
-    const [data, setData] = useState("Normal");
+    const [data, setData] = useState(null);
     const [arr, setArr] = useState([]);
     const [listData, setListData] = useState([]);
+    const [text, onChangeText] = useState(null);
 
     // Loading Call Log
     async function loadCallLog() {
@@ -48,6 +49,20 @@ export default function DetailsScreen({ navigation }) {
           </View>
         );
     };
+
+    // Item separator for Call log
+    const ItemSeparatorView = () => {
+      return (
+        // FlatList Item Separator
+        <View
+          style={{
+            height: 0.5,
+            width: '100%',
+            backgroundColor: '#C8C8C8',
+          }}
+        />
+      );
+    };
     
     // Automatically load call log when the app is launched
     useEffect (() => {
@@ -55,12 +70,13 @@ export default function DetailsScreen({ navigation }) {
     },[]);
 
     // Web-scraping function for call type identification
-    async function infoScrape() {
+    async function infoScrape(number) {
         const cheerio = require('react-native-cheerio');
         const keywords = ['假冒','騙案','詐騙','自稱','+']
 
         // Web Scraping
-        const response = await fetch('https://hkjunkcall.com/?ft=94097792');
+        setData(null);
+        const response = await fetch('https://hkjunkcall.com/?ft='+number);
         const text = await response.text();
         const $ = cheerio.load(text);
         const res = $('meta[property="og:title"]').attr('content');
@@ -74,7 +90,10 @@ export default function DetailsScreen({ navigation }) {
               setData("Malicious");
             }
           });
-        });  
+        }); 
+        if (data == null) {
+          setData("Safe");
+        } 
     }
 
     // Delivers dummy notification when called
@@ -88,7 +107,7 @@ export default function DetailsScreen({ navigation }) {
     
         // Display a notification
         await notifee.displayNotification({
-          title: 'Notification Title',
+          title: 'Test Notification',
           body: 'Main body content of the notification',
           android: {
             channelId,
@@ -99,28 +118,37 @@ export default function DetailsScreen({ navigation }) {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <SafeAreaView>
-                <Button title="Display Notification" onPress={() => onDisplayNotification()} />
-                <Button title="Test scraping" onPress={() => infoScrape()} />
-                <Text
-                    style={{ fontSize: 26, fontWeight: 'bold' }}>Welcome to Call log!</Text>
                 <ScrollView style={{flex: 1}}>
+                  <Text style={{ fontSize: 26, fontWeight: 'bold' }}>Test Functions</Text>
+                    <Text>{"\n"}</Text>
+                    <Button title="Test Notification" onPress={() => onDisplayNotification()} />
+                    <Text>{"\n"}</Text>
+                    <TextInput
+                      style={styles.input}
+                      onChangeText={onChangeText}
+                      value={text}
+                      placeholder='Enter phone number'
+                    />
+                    <Button title="Test scraping" onPress={() => infoScrape(text)} />
+                    
                     <Text>
-                    {"\n"}
-                        FlyJJ will do this part :) 
-                        {"\n"}
-                    {"\n"}
+                      {"Call type: "+data}
+                      {"\n"}{"\n"}
+                      {"Info scraped:"}
                     </Text>
-                    <Text>{data}</Text>
                     <FlatList nestedScrollEnabled
                             data={arr}
                             renderItem={({item}) => <Text>{item}</Text>}
                     />
-                    <Text nestedScrollEnabled>{"\n"}</Text>
+                    <Text>{"\n"}</Text>
+                    <Text style={{ fontSize: 26, fontWeight: 'bold' }}>Call log</Text>
                     <FlatList nestedScrollEnabled
                             data={listData}
+                            ItemSeparatorComponent={ItemSeparatorView}
                             renderItem={ItemView}
                             keyExtractor={(item, index) => index.toString()}
                     />
+                    <Text>{"\n"}</Text>
                     <Text onPress={() => navigation.navigate('Home')}> [Return to Home Page] </Text>
                 </ScrollView>
                 
@@ -133,11 +161,22 @@ export default function DetailsScreen({ navigation }) {
 const styles = StyleSheet.create({
     container: {
      flex: 1,
+     padding: 10,
      paddingTop: 22
     },
     item: {
       padding: 10,
       fontSize: 18,
       height: 44,
+    },
+    input: {
+      height: 40,
+      //margin: 12,
+      borderWidth: 1,
+      padding: 10,
+    },
+    textStyle: {
+      fontSize: 16,
+      marginVertical: 10,
     },
 });
