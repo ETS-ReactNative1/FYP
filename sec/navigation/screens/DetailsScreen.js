@@ -91,7 +91,7 @@ export default function DetailsScreen({ navigation }) {
             }
           });
         }); 
-        if (data == null) {
+        if (data == "loading") {
           setData("Safe");
         } 
     }
