@@ -1,0 +1,9 @@
+<Text>
+                      {"Call type: "+data}
+                      {"\n"}{"\n"}
+                      {"Info scraped:"}
+                    </Text>
+                    <FlatList nestedScrollEnabled
+                            data={arr}
+                            renderItem={({item}) => <Text>{item}</Text>}
+                    />

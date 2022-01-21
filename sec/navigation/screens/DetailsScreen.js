@@ -9,6 +9,7 @@ export default function DetailsScreen({ navigation }) {
     const [arr, setArr] = useState([]);
     const [listData, setListData] = useState([]);
     const [text, onChangeText] = useState(null);
+    const cheerio = require('react-native-cheerio');
 
     // Loading Call Log
     async function loadCallLog() {
@@ -71,7 +72,6 @@ export default function DetailsScreen({ navigation }) {
 
     // Web-scraping function for call type identification
     async function infoScrape(number) {
-        const cheerio = require('react-native-cheerio');
         const keywords = ['假冒','騙案','詐騙','自稱']
 
         // Web Scraping
@@ -80,24 +80,29 @@ export default function DetailsScreen({ navigation }) {
         const text = await response.text();
         const $ = cheerio.load(text);
         const res = $('meta[property="og:title"]').attr('content');
-        
+        var type = 'unidentified';
+          
         // Data manipulation & checking
         const resArr = (res.slice(3)).split(" ");
-        setArr(resArr);
         resArr.forEach(element => {
           keywords.forEach(element2 => {
             if (element.includes(element2)){
-              setData("Malicious");
+              //setData("Malicious");
+              type = 'Malicious';
             }
           });
         }); 
         if (data == "loading") {
-          setData("Safe");
-        } 
+          //setData("Safe");
+          type = 'Safe';
+      }
+
+      // Deliver notification
+      onDisplayNotification(number, type);
     }
 
     // Delivers dummy notification when called
-    async function onDisplayNotification() {
+    async function onDisplayNotification(number, data) {
         // Create a channel
         const channelId = await notifee.createChannel({
           id: 'default',
@@ -107,8 +112,8 @@ export default function DetailsScreen({ navigation }) {
     
         // Display a notification
         await notifee.displayNotification({
-          title: 'Test Notification',
-          body: 'Main body content of the notification',
+          title: 'Phone Number Checking',
+          body: 'The phone number '+number+' is found to be '+data+'.',
           android: {
             channelId,
           },
@@ -118,10 +123,8 @@ export default function DetailsScreen({ navigation }) {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%', }}>
             <SafeAreaView>
-                <ScrollView style={{flex: 1}}>
-                  <Text style={{ fontSize: 26, fontWeight: 'bold' }}>Test Functions</Text>
-                    <Text>{"\n"}</Text>
-                    <Button title="Test Notification" onPress={() => onDisplayNotification()} />
+                
+                  <Text style={{ fontSize: 26, fontWeight: 'bold' }}>Phone Number Checking</Text>
                     <Text>{"\n"}</Text>
                     <TextInput
                       style={styles.input}
@@ -129,17 +132,8 @@ export default function DetailsScreen({ navigation }) {
                       value={text}
                       placeholder='Enter phone number'
                     />
-                    <Button title="Test scraping" onPress={() => infoScrape(text)} />
-                    
-                    <Text>
-                      {"Call type: "+data}
-                      {"\n"}{"\n"}
-                      {"Info scraped:"}
-                    </Text>
-                    <FlatList nestedScrollEnabled
-                            data={arr}
-                            renderItem={({item}) => <Text>{item}</Text>}
-                    />
+                    <Button title="Check!" onPress={() => infoScrape(text)} />
+                    <Text>{"A notification will be delivered once the checking is done."}</Text>
                     <Text>{"\n"}</Text>
                     <Text style={{ fontSize: 26, fontWeight: 'bold' }}>Call log</Text>
                     <FlatList nestedScrollEnabled
@@ -148,9 +142,7 @@ export default function DetailsScreen({ navigation }) {
                             renderItem={ItemView}
                             keyExtractor={(item, index) => index.toString()}
                     />
-                    <Text>{"\n"}</Text>
-                    <Text onPress={() => navigation.navigate('Home')}> Return to Home Page </Text>
-                </ScrollView>
+                    <Text>{"\n"}</Text>                
                 
             </SafeAreaView>
             
