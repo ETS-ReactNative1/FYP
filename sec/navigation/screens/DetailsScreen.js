@@ -24,7 +24,7 @@ export default function DetailsScreen({ navigation }) {
                     buttonPositive: 'OK',
                 }
             ).then(() => {
-                CallLogs.loadAll().then((c) => setListData(c));
+                CallLogs.load(10,isDistinct=true).then((c) => setListData(c));
             })
         } else {
             console.log("iOS device, no call log available");
