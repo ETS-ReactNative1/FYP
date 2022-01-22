@@ -124,8 +124,8 @@ export default function DetailsScreen({ navigation }) {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%', }}>
             <SafeAreaView>
                 
-                  <Text style={{ fontSize: 26, fontWeight: 'bold' }}>Phone Number Checking</Text>
-                    <Text>{"\n"}</Text>
+                  <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#282828',marginBottom:10 }}>Phone Number Checker</Text>
+                    {/*<Text>{"\n"}</Text>*/}
                     <TextInput
                       style={styles.input}
                       onChangeText={onChangeText}
@@ -134,13 +134,15 @@ export default function DetailsScreen({ navigation }) {
                     />
                     <Button title="Check!" onPress={() => infoScrape(text)} />
                     <Text>{"A notification will be delivered once the checking is done."}</Text>
-                    <Text>{"\n"}</Text>
-                    <Text style={{ fontSize: 26, fontWeight: 'bold' }}>Call log</Text>
+                    <Text style={{borderBottomColor: 'black', borderBottomWidth: 1,}}>{"\n"}</Text>
+                    <Text style={{ fontSize: 26, fontWeight: 'bold', backgroundColor: 'white', 
+                    borderBottomColor: 'black', borderBottomWidth: 1, color: '#282828'}}>Call log</Text>
                     <FlatList nestedScrollEnabled
                             data={listData}
                             ItemSeparatorComponent={ItemSeparatorView}
                             renderItem={ItemView}
                             keyExtractor={(item, index) => index.toString()}
+                            style={{backgroundColor: 'white'}}
                     />
                     <Text>{"\n"}</Text>                
                 
