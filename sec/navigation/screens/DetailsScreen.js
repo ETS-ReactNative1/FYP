@@ -35,7 +35,7 @@ export default function DetailsScreen({ navigation }) {
     const ItemView = ({item}) => {
         return (
           // FlatList Item
-          <View>
+          <View style={styles.logStyle}>
             <Text style={styles.textStyle}>
               Name : {item.name ? item.name : 'NA'}
               {'\n'}
@@ -57,9 +57,9 @@ export default function DetailsScreen({ navigation }) {
         // FlatList Item Separator
         <View
           style={{
-            height: 0.5,
+            height: 5,
             width: '100%',
-            backgroundColor: '#C8C8C8',
+            //backgroundColor: '#C8C8C8',
           }}
         />
       );
@@ -124,7 +124,7 @@ export default function DetailsScreen({ navigation }) {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%', }}>
             <SafeAreaView>
                 
-                  <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#282828',marginBottom:10 }}>Phone Number Checker</Text>
+                  <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom:10 }}>Phone Number Checker</Text>
                     {/*<Text>{"\n"}</Text>*/}
                     <TextInput
                       style={styles.input}
@@ -132,17 +132,16 @@ export default function DetailsScreen({ navigation }) {
                       value={text}
                       placeholder='Enter phone number'
                     />
-                    <Button title="Check!" onPress={() => infoScrape(text)} />
+                    <Button color='tomato' title="Check!" onPress={() => infoScrape(text)} />
                     <Text>{"A notification will be delivered once the checking is done."}</Text>
-                    <Text style={{borderBottomColor: 'black', borderBottomWidth: 1,}}>{"\n"}</Text>
-                    <Text style={{ fontSize: 26, fontWeight: 'bold', backgroundColor: 'white', 
-                    borderBottomColor: 'black', borderBottomWidth: 1, color: '#282828'}}>Call log</Text>
+                    <Text style={{borderBottomColor: 'black', borderBottomWidth: 1, marginBottom:10 }}>{"\n"}</Text>
+                    <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom:10 }}>Call log</Text>
                     <FlatList nestedScrollEnabled
                             data={listData}
                             ItemSeparatorComponent={ItemSeparatorView}
                             renderItem={ItemView}
                             keyExtractor={(item, index) => index.toString()}
-                            style={{backgroundColor: 'white'}}
+                            //style={{backgroundColor: 'white'}}
                     />
                     <Text>{"\n"}</Text>                
                 
@@ -174,5 +173,10 @@ const styles = StyleSheet.create({
     textStyle: {
       fontSize: 16,
       marginVertical: 10,
+      paddingLeft: 10,
     },
+    logStyle: {
+      backgroundColor: 'white',
+      borderRadius: 20,
+    }
 });
