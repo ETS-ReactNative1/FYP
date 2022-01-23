@@ -59,18 +59,18 @@ export default function HomeScreen({ navigation }) {
                 style={styles.map}
                 initialRegion={{
                 latitude: 22.28312,    //location of HKU CB313
-                longitude: 114.13592,  //change this location if have time
+                longitude: 114.13592,  //change this location using state.location after present
                 latitudeDelta: 0.0,
                 longitudeDelta: 0.0,
                 }}
             >
-                {/*}
+                
                 <Marker
-                    coordinate={this.state.location}
+                    coordinate = {{latitude: 22.28312,longitude: 114.13592}} //change this location using state.location after present
                     title={"Current Location"}
                     description={"Info"}
                 />
-                */}
+                
             </MapView>
     
 
