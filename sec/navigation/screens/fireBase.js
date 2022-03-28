@@ -10,6 +10,12 @@ export default class Helper{
 
     }
 }
+import database from '@react-native-firebase/database';
+let addItem = item => {
+  database().ref('/items').push({
+    name: item
+  });
+};
 
 
 FirebaseFirestore db = FirebaseFirestore.getInstance();

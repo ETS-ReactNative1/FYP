@@ -6,6 +6,8 @@ import IonIcons from 'react-native-vector-icons/Ionicons';
 import HomeScreen from './screens/HomeScreen';
 import DetailsScreen from './screens/DetailsScreen';
 import SettingsScreen from './screens/SettingsScreen';
+import AddItem from './screens/AddItem';
+
 
 //give names
 const homeName = "Home";
@@ -47,6 +49,7 @@ export default function MainContainer(){
             <Tab.Screen name={homeName} component={HomeScreen} />
             <Tab.Screen name={detailsName} component={DetailsScreen} />
             <Tab.Screen name={settingsName} component={SettingsScreen} />
+            <Tab.Screen name="AddItem" component={AddItem} />
     
             </Tab.Navigator>
         </NavigationContainer>

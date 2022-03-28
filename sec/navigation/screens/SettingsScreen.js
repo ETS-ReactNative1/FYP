@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
 
 export default function SettingsScreen({ navigation }) {
     return (  
@@ -12,6 +12,10 @@ export default function SettingsScreen({ navigation }) {
                 onPress={() => navigation.navigate('Home')}
                 style={{ fontSize: 26, fontWeight: 'bold' }}>Settings Screen</Text>
             <Text>return to HOME</Text>
+            <Button
+                title="Add an Item"
+                onPress={() => navigation.navigate('AddItem')}
+            />
         </View>
     );
 }
