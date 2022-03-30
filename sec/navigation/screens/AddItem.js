@@ -8,11 +8,15 @@ import {
   Alert
 } from 'react-native';
 
-import database from '@react-native-firebase/database';
+import {firebase, database} from '@react-native-firebase/database';
 
+const reference = firebase
+  .app()
+  .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
+  .ref('/items');
 
 let addItem = item => {
-    database().ref('/items').push({
+    reference.push({
         name: item
   });
 };
