@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, {useEffect, useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   View,
@@ -10,7 +11,7 @@ import {
   Button
 } from 'react-native';
 
-import {firebase, database} from '@react-native-firebase/database';
+import {firebase} from '@react-native-firebase/database';
 
 const reference = firebase
   .app()
@@ -25,12 +26,54 @@ let addItem = item => {
 
 export default function SettingsScreen({ navigation }) {
     const [name, onChangeText] = React.useState("");
+    var [code, setCode] = useState("");
+
     const  handleSubmit = () => {
         addItem(name);
         Alert.alert('Item saved successfully');
     };
+ 
+    async function storeCode(code) {
+        try {
+            await AsyncStorage.setItem(
+                'Code', code
+            );
+            } catch (error) {
+            // Error saving data
+            }
+    }
+
+    async function getCode() {
+        try {
+            const value = await AsyncStorage.getItem('Code');
+            if (value !== null) {
+                // Code is found
+                setCode(value);
+            }
+            } catch (error) {
+            // No code found; generate a code
+            genCode();
+            }
+    }
+
+    function genCode() {
+        var text = ""
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        
+        for (var i = 0; i < 6; i++)
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        storeCode(text);
+    }
+
+    // Automatically check for pairing code when the app is launched
+    useEffect (() => {
+        getCode();
+    },[]);
+
     return (
         <View style={styles.main}>
+        <Text> {code} </Text>
         <Text style={styles.title}>Add Item</Text>
         <TextInput style={styles.itemInput} onChangeText={text => onChangeText(text)} />
         <TouchableHighlight
