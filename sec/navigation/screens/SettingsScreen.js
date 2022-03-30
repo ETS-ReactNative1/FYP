@@ -39,7 +39,7 @@ export default function SettingsScreen({ navigation }) {
                 'Code', code
             );
             } catch (error) {
-            // Error saving data
+                // Error saving data
             }
     }
 
@@ -51,8 +51,8 @@ export default function SettingsScreen({ navigation }) {
                 setCode(value);
             }
             } catch (error) {
-            // No code found; generate a code
-            genCode();
+                // No code found; generate a code
+                genCode();
             }
     }
 
