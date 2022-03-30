@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "566445286176",
-    "project_id": "testing-a71c8",
-    "storage_bucket": "testing-a71c8.appspot.com"
+    "project_number": "472165463926",
+    "project_id": "fyp-project-337408",
+    "storage_bucket": "fyp-project-337408.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:566445286176:android:08b42e31c94604f057ed45",
+        "mobilesdk_app_id": "1:472165463926:android:3368dd59cffdfab91a2c57",
         "android_client_info": {
           "package_name": "com.sec"
         }
       },
       "oauth_client": [
         {
-          "client_id": "566445286176-o9lgupio5oaggar768lt1c6sndg0u49d.apps.googleusercontent.com",
+          "client_id": "472165463926-e12cehaqkjpcsahk66dt0msn2n5k1atq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAtVuN_STWZ0adDCXrJm2zthtKtzhv4UNo"
+          "current_key": "AIzaSyBLqaDfYYknN0Pqxl4DdDqJod70vYVClI4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "566445286176-o9lgupio5oaggar768lt1c6sndg0u49d.apps.googleusercontent.com",
+              "client_id": "472165463926-e12cehaqkjpcsahk66dt0msn2n5k1atq.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -36,4 +36,4 @@
     }
   ],
   "configuration_version": "1"
-}r
+}
