@@ -13,13 +13,13 @@ import {
 
 import {firebase} from '@react-native-firebase/database';
 
-const reference = firebase
+const reference1 = firebase
   .app()
   .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
-  .ref('/items');
+  .ref('/testItem');
 
 let addItem = item => {
-    reference.push({
+    reference1.push({
         name: item
   });
 };
@@ -75,6 +75,7 @@ export default function SettingsScreen({ navigation }) {
         <View style={styles.main}>
         <Text> {code} </Text>
         <Text style={styles.title}>Add Item</Text>
+
         <TextInput style={styles.itemInput} onChangeText={text => onChangeText(text)} />
         <TouchableHighlight
           style={styles.button}
