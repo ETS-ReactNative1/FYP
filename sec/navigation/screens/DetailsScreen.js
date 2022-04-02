@@ -1,7 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import { PermissionsAndroid, Platform, View, Text, SafeAreaView, ScrollView, StyleSheet, Button, FlatList, TextInput} from 'react-native';
+import { PermissionsAndroid, Platform, View, Text, SafeAreaView, ScrollView, StyleSheet, Button, FlatList, TextInput, TouchableHighlight, Alert} from 'react-native';
 import CallLogs from 'react-native-call-log';
 import notifee, {AndroidImportance} from '@notifee/react-native';
+import {firebase} from '@react-native-firebase/database';
+
+const reference2 = firebase
+  .app()
+  .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
+  .ref('/testUser/callRecord');
+
+let addItem = item => {
+    reference2.push({
+      record: item
+  });
+};
 
 export default function DetailsScreen({ navigation }) {
     // Global variables
@@ -10,6 +22,14 @@ export default function DetailsScreen({ navigation }) {
     const [listData, setListData] = useState([]);
     const [text, onChangeText] = useState(null);
     const cheerio = require('react-native-cheerio');
+
+    const [record, onChangeText2] = React.useState("");
+    var [code, setCode] = useState("");
+
+    const  handleSubmit2 = () => {
+        addItem(record);
+        Alert.alert('Item saved successfully');
+    };
 
     // Loading Call Log
     async function loadCallLog() {
@@ -25,6 +45,7 @@ export default function DetailsScreen({ navigation }) {
                 }
             ).then(() => {
                 CallLogs.load(10,isDistinct=true).then((c) => setListData(c));
+                CallLogs.load(10,isDistinct=true).then((c) => onChangeText2(c));
             })
         } else {
             console.log("iOS device, no call log available");
@@ -134,6 +155,14 @@ export default function DetailsScreen({ navigation }) {
                     />
                     <Button color='tomato' title="Check!" onPress={() => infoScrape(text)} />
                     <Text>{"A notification will be delivered once the checking is done."}</Text>
+
+                    <TouchableHighlight
+                      underlayColor="white"
+                        onPress={handleSubmit2}
+                    >
+                    <Text style={styles.buttonText}>Push Call Log</Text>
+                    </TouchableHighlight>
+
                     <Text style={{borderBottomColor: 'black', borderBottomWidth: 1, marginBottom:10 }}>{"\n"}</Text>
                     <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom:10 }}>Call log</Text>
                     <FlatList nestedScrollEnabled
@@ -178,5 +207,10 @@ const styles = StyleSheet.create({
     logStyle: {
       backgroundColor: 'white',
       borderRadius: 20,
+    },
+    buttonText: {
+      fontSize: 18,
+      color: '#111',
+      alignSelf: 'center'
     }
 });

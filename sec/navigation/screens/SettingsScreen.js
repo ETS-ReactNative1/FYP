@@ -16,7 +16,7 @@ import {firebase} from '@react-native-firebase/database';
 const reference1 = firebase
   .app()
   .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
-  .ref('/testItem');
+  .ref('/testUser');
 
 let addItem = item => {
     reference1.push({
