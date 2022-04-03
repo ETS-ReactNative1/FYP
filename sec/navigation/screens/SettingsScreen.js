@@ -26,7 +26,7 @@ let addItem = item => {
 
 export default function SettingsScreen({ navigation }) {
     const [name, onChangeText] = React.useState("");
-    var [code, setCode] = useState("");
+    var [code, setCode] = useState("none");
 
     const  handleSubmit = () => {
         addItem(name);
@@ -46,7 +46,7 @@ export default function SettingsScreen({ navigation }) {
     async function getCode() {
         try {
             var value = await AsyncStorage.getItem('Code');
-            if (value == "") {
+            if (value == null) {
                 // No code yet, generate a code
                 genCode();
             }
