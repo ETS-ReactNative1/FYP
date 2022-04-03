@@ -45,14 +45,16 @@ export default function SettingsScreen({ navigation }) {
 
     async function getCode() {
         try {
-            const value = await AsyncStorage.getItem('Code');
-            if (value !== null) {
-                // Code is found
-                setCode(value);
-            }
-            } catch (error) {
-                // No code found; generate a code
+            var value = await AsyncStorage.getItem('Code');
+            if (value == "") {
+                // No code yet, generate a code
                 genCode();
+            }
+            // Always try to display a code
+            value = await AsyncStorage.getItem('Code');
+            setCode(value);
+            } catch (error) {
+                // Error
             }
     }
 
