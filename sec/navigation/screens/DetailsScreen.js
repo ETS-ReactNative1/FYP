@@ -3,17 +3,7 @@ import { PermissionsAndroid, Platform, View, Text, SafeAreaView, ScrollView, Sty
 import CallLogs from 'react-native-call-log';
 import notifee, {AndroidImportance} from '@notifee/react-native';
 import {firebase} from '@react-native-firebase/database';
-
-const reference2 = firebase
-  .app()
-  .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
-  .ref('/testUser/callRecord');
-
-let addItem = item => {
-    reference2.push({
-      record: item
-  });
-};
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function DetailsScreen({ navigation }) {
     // Global variables
@@ -26,10 +16,47 @@ export default function DetailsScreen({ navigation }) {
     const [record, onChangeText2] = React.useState("");
     var [code, setCode] = useState("");
 
-    const  handleSubmit2 = () => {
+    var reference2 = firebase
+      .app()
+      .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
+      .ref('/'+code+'/callRecord');
+
+    let addItem = item => {
+      reference2.set(item);
+    };
+
+    const pushCallLog = () => {
         addItem(record);
         Alert.alert('Item saved successfully');
     };
+
+    async function getCode() {
+      try {
+          var value = await AsyncStorage.getItem('Code');
+          if (value == null) {
+              // No code yet, generate a code
+              genCode();
+          }
+          // Always try to display a code
+          value = await AsyncStorage.getItem('Code');
+          setCode(value);
+          } catch (error) {
+              // error
+          }
+          return Promise.resolve();
+    }
+
+    async function onLoad() {
+        const t1 = setTimeout(() => {
+          loadCallLog()
+        }, 1000);
+        const t2 = setTimeout(() => {
+          getCode()
+        }, 1000);
+        const t3 = setTimeout(() => {
+          pushCallLog()
+        }, 4000);
+    }
 
     // Loading Call Log
     async function loadCallLog() {
@@ -88,7 +115,7 @@ export default function DetailsScreen({ navigation }) {
     
     // Automatically load call log when the app is launched
     useEffect (() => {
-        loadCallLog();
+        onLoad();
     },[]);
 
     // Web-scraping function for call type identification
@@ -158,7 +185,7 @@ export default function DetailsScreen({ navigation }) {
 
                     <TouchableHighlight
                       underlayColor="white"
-                        onPress={handleSubmit2}
+                        onPress={pushCallLog}
                     >
                     <Text style={styles.buttonText}>Push Call Log</Text>
                     </TouchableHighlight>

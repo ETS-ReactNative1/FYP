@@ -7,3 +7,27 @@
                             data={arr}
                             renderItem={({item}) => <Text>{item}</Text>}
                     />
+
+
+const callLocation = () => {
+        GetLocation.getCurrentPosition({
+            enableHighAccuracy: true,
+            timeout: 15000,
+        })
+        .then(location => {
+            state.location.latitude = location.latitude;
+            state.location.longitude = location.longitude;
+            //state.location = location;
+            console.log("Hello there, location: ", location);
+            console.log("State location: ", state);
+            console.log(state.location.latitude, state.location.longitude);
+        })
+        .catch(error => {
+            const { code, message } = error;
+            console.warn(code, message);
+        })
+    };
+    state={
+        location: {latitude: 22.28312, longitude: 114.13592, latitudeDelta: 0.0, longitudeDelta: 0.0,},
+        errorMessage:''
+    };
