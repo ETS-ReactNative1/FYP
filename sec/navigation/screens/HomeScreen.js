@@ -4,14 +4,45 @@ import { Animated, View, Text, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import {Location, Permissions} from 'expo';
 import { Component } from 'react/cjs/react.production.min';
-
 import GetLocation from 'react-native-get-location';
+import {firebase} from '@react-native-firebase/database';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function HomeScreen({ navigation }) {
     var [lat, setLat] = useState(0)
     var [long, setLong] = useState(0)
+    var [code, setCode] = useState("");
 
-    const callLocation = () => {
+    var reference3 = firebase
+      .app()
+      .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
+      .ref('/'+code+'/Location');
+
+    let addItem = item => {
+      reference3.set(item);
+    };
+
+    async function getCode() {
+        try {
+            var value = await AsyncStorage.getItem('Code');
+            if (value == null) {
+                // No code yet, generate a code
+                genCode();
+            }
+            // Always try to display a code
+            value = await AsyncStorage.getItem('Code');
+            setCode(value);
+            } catch (error) {
+                // error
+            }
+    }
+
+    async function onLoad() {
+        await getCode();
+        callLocation();
+    }
+
+    callLocation = async () => {
         GetLocation.getCurrentPosition({
             enableHighAccuracy: true,
             timeout: 15000,
@@ -19,6 +50,7 @@ export default function HomeScreen({ navigation }) {
         .then(location => {
             setLat(location.latitude);
             setLong(location.longitude);
+            reference3.set(location);
             console.log(lat, long);
         })
         .catch(error => {
@@ -28,7 +60,8 @@ export default function HomeScreen({ navigation }) {
     };
 
     useEffect (() => {
-        callLocation();
+        //callLocation();
+        onLoad();
     },[]);
 
     return (

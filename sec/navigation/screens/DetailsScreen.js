@@ -13,7 +13,7 @@ export default function DetailsScreen({ navigation }) {
     const [text, onChangeText] = useState(null);
     const cheerio = require('react-native-cheerio');
 
-    const [record, onChangeText2] = React.useState("");
+    var [record, onChangeText2] = React.useState("");
     var [code, setCode] = useState("");
 
     var reference2 = firebase
@@ -25,7 +25,7 @@ export default function DetailsScreen({ navigation }) {
       reference2.set(item);
     };
 
-    const pushCallLog = () => {
+    pushCallLog = () => {
         addItem(record);
         Alert.alert('Item saved successfully');
     };
@@ -46,16 +46,13 @@ export default function DetailsScreen({ navigation }) {
           return Promise.resolve();
     }
 
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+
     async function onLoad() {
-        const t1 = setTimeout(() => {
-          loadCallLog()
-        }, 1000);
-        const t2 = setTimeout(() => {
-          getCode()
-        }, 1000);
-        const t3 = setTimeout(() => {
-          pushCallLog()
-        }, 4000);
+        await loadCallLog();
+        await getCode();
+        await delay(2000);
+        pushCallLog();
     }
 
     // Loading Call Log
