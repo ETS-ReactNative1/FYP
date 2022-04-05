@@ -14,20 +14,22 @@ import {
 import {firebase} from '@react-native-firebase/database';
 
 export default function SettingsScreen({ navigation }) {
-    const [name, onChangeText] = React.useState("");
+    const [inputCode, onChangeText] = React.useState("");
     var [code, setCode] = useState("none");
+    var [userCode, getUserCode] = useState("none");
 
     var reference1 = firebase
       .app()
       .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
-      .ref('/'+code);
+      .ref('/'+code+'/testingText');
 
     let addItem = item => {
         reference1.set(item);
     };
 
     const  handleSubmit = () => {
-        addItem(name);
+        addItem(inputCode);
+        getUserCode(inputCode);
         Alert.alert('Item saved successfully');
     };
  
@@ -51,6 +53,7 @@ export default function SettingsScreen({ navigation }) {
             // Always try to display a code
             value = await AsyncStorage.getItem('Code');
             setCode(value);
+            getUserCode(value);
             } catch (error) {
                 // Error
             }
