@@ -15,6 +15,7 @@ export default function DetailsScreen({ navigation }) {
 
     var [record, onChangeText2] = React.useState("");
     var [code, setCode] = useState("");
+    var [userCode, getUserCode] = useState("");
 
     var reference2 = firebase
       .app()
@@ -40,6 +41,11 @@ export default function DetailsScreen({ navigation }) {
           // Always try to display a code
           value = await AsyncStorage.getItem('Code');
           setCode(value);
+          var value2 = await AsyncStorage.getItem('Code2');
+          if (value2 == null) {
+            value2 = value;
+          }
+          getUserCode(value2);
           } catch (error) {
               // error
           }

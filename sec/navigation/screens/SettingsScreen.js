@@ -16,7 +16,7 @@ import {firebase} from '@react-native-firebase/database';
 export default function SettingsScreen({ navigation }) {
     const [inputCode, onChangeText] = React.useState("");
     var [code, setCode] = useState("none");
-    var [userCode, getUserCode] = useState("none");
+    var [userCode, getUserCode] = useState("");
 
     var reference1 = firebase
       .app()
@@ -30,17 +30,28 @@ export default function SettingsScreen({ navigation }) {
     const  handleSubmit = () => {
         addItem(inputCode);
         getUserCode(inputCode);
+        storeUserCode(inputCode)
         Alert.alert('Item saved successfully');
     };
  
-    async function storeCode(code) {
+    async function storeUserCode(userCode) {
         try {
             await AsyncStorage.setItem(
-                'Code', code
+                'Code2', userCode
             );
             } catch (error) {
                 // Error saving data
             }
+    }
+
+    async function storeCode(code) {
+      try {
+          await AsyncStorage.setItem(
+              'Code', code
+          );
+          } catch (error) {
+              // Error saving data
+          }
     }
 
     async function getCode() {
@@ -53,7 +64,12 @@ export default function SettingsScreen({ navigation }) {
             // Always try to display a code
             value = await AsyncStorage.getItem('Code');
             setCode(value);
-            getUserCode(value);
+
+            var value2 = await AsyncStorage.getItem('Code2');
+            if (value2 == null) {
+              value2 = value;
+            }
+            getUserCode(value2);
             } catch (error) {
                 // Error
             }
