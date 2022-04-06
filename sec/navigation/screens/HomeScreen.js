@@ -13,7 +13,7 @@ export default function HomeScreen({ navigation }) {
     var [long, setLong] = useState(0)
     var [code, setCode] = useState("");
     var [userCode, getUserCode] = useState("");
-
+//kkkr
     var reference3 = firebase
       .app()
       .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
@@ -22,7 +22,7 @@ export default function HomeScreen({ navigation }) {
     var newRef = firebase
       .app()
       .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
-      .ref('/'+code+'/Location');
+      .ref('/'+userCode+'/Location');
 
     let addItem = item => {
       reference3.set(item);
@@ -30,7 +30,9 @@ export default function HomeScreen({ navigation }) {
 
     function getLocation() {
         newRef.on('value', function (snapshot) {
-            console.log(snapshot.val())
+            setLong(snapshot.val().longitude);
+            setLat(snapshot.val().latitude);
+            console.log(snapshot.val());
         });
     }
 
