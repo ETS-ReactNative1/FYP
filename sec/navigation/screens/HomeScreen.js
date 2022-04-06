@@ -19,9 +19,20 @@ export default function HomeScreen({ navigation }) {
       .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
       .ref('/'+code+'/Location');
 
+    var newRef = firebase
+      .app()
+      .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
+      .ref('/'+code+'/Location');
+
     let addItem = item => {
       reference3.set(item);
     };
+
+    function getLocation() {
+        newRef.on('value', function (snapshot) {
+            console.log(snapshot.val())
+        });
+    }
 
     function genCode() {
         var text = ""
@@ -105,7 +116,7 @@ export default function HomeScreen({ navigation }) {
 
             <Text
                 //onPress={() => alert('This is the current location of the Elderly.')}
-                onPress={callLocation}
+                onPress={getLocation}//callLocation
                 style={{ fontSize: 24, fontWeight: 'bold' }}>Current Location</Text>
         </View>
     );
