@@ -9,7 +9,7 @@ export default function DetailsScreen({ navigation }) {
     // Global variables
     const [data, setData] = useState("loading");
     const [arr, setArr] = useState([]);
-    const [listData, setListData] = useState([]);
+    var [listData, setListData] = useState([]);
     const [text, onChangeText] = useState(null);
     const cheerio = require('react-native-cheerio');
 
@@ -22,9 +22,21 @@ export default function DetailsScreen({ navigation }) {
       .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
       .ref('/'+code+'/callRecord');
 
+    var newRef = firebase
+      .app()
+      .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
+      .ref('/'+userCode+'/callRecord');
+
     let addItem = item => {
       reference2.set(item);
     };
+
+    function getCallLog() {
+      newRef.on('value', function (snapshot) {
+          setListData(snapshot.val())
+          console.log(snapshot.val());
+      });
+    }
 
     pushCallLog = () => {
         addItem(record);
@@ -198,9 +210,9 @@ export default function DetailsScreen({ navigation }) {
 
                     <TouchableHighlight
                       underlayColor="white"
-                        onPress={pushCallLog}
+                        onPress={getCallLog}
                     >
-                    <Text style={styles.buttonText}>Push Call Log</Text>
+                    <Text style={styles.buttonText}>Pull Call Log</Text>
                     </TouchableHighlight>
 
                     <Text style={{borderBottomColor: 'black', borderBottomWidth: 1, marginBottom:10 }}>{"\n"}</Text>
