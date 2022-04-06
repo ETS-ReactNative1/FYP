@@ -12,6 +12,7 @@ export default function HomeScreen({ navigation }) {
     var [lat, setLat] = useState(0)
     var [long, setLong] = useState(0)
     var [code, setCode] = useState("");
+    var [userCode, getUserCode] = useState("");
 
     var reference3 = firebase
       .app()
@@ -32,6 +33,11 @@ export default function HomeScreen({ navigation }) {
             // Always try to display a code
             value = await AsyncStorage.getItem('Code');
             setCode(value);
+            var value2 = await AsyncStorage.getItem('Code2');
+            if (value2 == null) {
+                value2 = value;
+            }
+            getUserCode(value2);  
             } catch (error) {
                 // error
             }

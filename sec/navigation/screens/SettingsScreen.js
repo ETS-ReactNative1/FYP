@@ -93,7 +93,7 @@ export default function SettingsScreen({ navigation }) {
     return (
         <View style={styles.main}>
         <Text> {code} </Text>
-        <Text style={styles.title}>Add Item</Text>
+        <Text style={styles.title}>Add User Code</Text>
 
         <TextInput style={styles.itemInput} onChangeText={text => onChangeText(text)} />
         <TouchableHighlight

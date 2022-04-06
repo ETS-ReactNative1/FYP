@@ -45,7 +45,7 @@ export default function DetailsScreen({ navigation }) {
           if (value2 == null) {
             value2 = value;
           }
-          getUserCode(value2);
+          getUserCode(value2);  
           } catch (error) {
               // error
           }
