@@ -22,6 +22,16 @@ export default function HomeScreen({ navigation }) {
       reference3.set(item);
     };
 
+    function genCode() {
+        var text = ""
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        
+        for (var i = 0; i < 6; i++)
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        storeCode(text);
+    }
+
     async function getCode() {
         try {
             var value = await AsyncStorage.getItem('Code');

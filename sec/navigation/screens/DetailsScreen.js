@@ -31,6 +31,16 @@ export default function DetailsScreen({ navigation }) {
         Alert.alert('Item saved successfully');
     };
 
+    function genCode() {
+      var text = ""
+      var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      
+      for (var i = 0; i < 6; i++)
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+      storeCode(text);
+    }
+
     async function getCode() {
       try {
           var value = await AsyncStorage.getItem('Code');
