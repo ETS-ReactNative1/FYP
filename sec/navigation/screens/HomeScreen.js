@@ -119,7 +119,7 @@ export default function HomeScreen({ navigation }) {
             <Text
                 //onPress={() => alert('This is the current location of the Elderly.')}
                 onPress={getLocation}//callLocation
-                style={{ fontSize: 24, fontWeight: 'bold' }}>Current Location</Text>
+                style={{ fontSize: 24, fontWeight: 'bold' }}>update parent location</Text>
         </View>
     );
 }
