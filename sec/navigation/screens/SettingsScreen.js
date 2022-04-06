@@ -92,8 +92,9 @@ export default function SettingsScreen({ navigation }) {
 
     return (
         <View style={styles.main}>
-        <Text> {code} </Text>
-        <Text style={styles.title}>Add User Code</Text>
+        <Text style={styles.codetitle0}> My User Code: {code} </Text>
+        <Text style={styles.codetitle}> My Parent Code: {userCode} </Text>
+        <Text style={styles.title}>Add Parent Code</Text>
 
         <TextInput style={styles.itemInput} onChangeText={text => onChangeText(text)} />
         <TouchableHighlight
@@ -112,13 +113,33 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 30,
     flexDirection: 'column',
-    justifyContent: 'center',
+    //justifyContent: 'center',
     backgroundColor: '#6565fc'
   },
+  codetitle0: {
+    top: 0,
+    left: 0,
+    marginBottom: 5,
+    fontSize: 18,
+    textAlign: 'left',
+    color: 'lightgrey'
+  },
+  codetitle: {
+    top: 0,
+    left: 0,
+    marginBottom: '30%',
+    fontSize: 18,
+    textAlign: 'left',
+    color: 'lightgrey'
+  },
   title: {
+    marginTop: 20,
     marginBottom: 20,
     fontSize: 25,
-    textAlign: 'center'
+    textAlign: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    fontStyle: 'bold'
   },
   itemInput: {
     height: 50,
