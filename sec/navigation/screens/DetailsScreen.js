@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function DetailsScreen({ navigation }) {
     // Global variables
-    const [data, setData] = useState("loading");
+    var [data, setData] = useState("loading");
     const [arr, setArr] = useState([]);
     var [listData, setListData] = useState([]);
     const [text, onChangeText] = useState(null);
@@ -33,12 +33,11 @@ export default function DetailsScreen({ navigation }) {
 
     function getCallLog() {
       newRef.on('value', function (snapshot) {
-          setListData(snapshot.val())
-          console.log(snapshot.val());
+          setListData(snapshot.val());
       });
     }
 
-    pushCallLog = () => {
+    function pushCallLog() {
         addItem(record);
         Alert.alert('Item saved successfully');
     };
@@ -74,6 +73,7 @@ export default function DetailsScreen({ navigation }) {
           return Promise.resolve();
     }
 
+    // daly helper function
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
     async function onLoad() {
@@ -148,12 +148,11 @@ export default function DetailsScreen({ navigation }) {
         const keywords = ['假冒','騙案','詐騙','自稱']
 
         // Web Scraping
-        setData("loading");
+        setData("Safe");
         const response = await fetch('https://hkjunkcall.com/?ft='+number);
         const text = await response.text();
         const $ = cheerio.load(text);
         const res = $('meta[property="og:title"]').attr('content');
-        var type = 'unidentified';
           
         // Data manipulation & checking
         const resArr = (res.slice(3)).split(" ");
@@ -161,17 +160,11 @@ export default function DetailsScreen({ navigation }) {
           keywords.forEach(element2 => {
             if (element.includes(element2)){
               //setData("Malicious");
-              type = 'Malicious';
+              setData("Malicious");
             }
           });
         }); 
-        if (data == "loading") {
-          //setData("Safe");
-          type = 'Safe';
-      }
 
-      // Deliver notification
-      onDisplayNotification(number, type);
     }
 
     // Delivers dummy notification when called
@@ -193,6 +186,18 @@ export default function DetailsScreen({ navigation }) {
         });
       }
 
+    // driver function for automatic call checking
+    async function checkLogNumber() {
+      for (var i=0; i < listData.length; i++) {
+        if (!listData[i].name) {
+          // Not in call log
+          await infoScrape(listData[i].phoneNumber);
+          listData[i]["callType"] = data;
+          console.log(listData[i]);
+        }
+      }
+    }
+
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%', }}>
             <SafeAreaView>
@@ -213,6 +218,14 @@ export default function DetailsScreen({ navigation }) {
                         onPress={getCallLog}
                     >
                     <Text style={styles.buttonText}>Pull Call Log</Text>
+                    </TouchableHighlight>
+                    <Text>{"\n"}</Text>
+
+                    <TouchableHighlight
+                      underlayColor="white"
+                        onPress={checkLogNumber}
+                    >
+                    <Text style={styles.buttonText}>Check current call log</Text>
                     </TouchableHighlight>
 
                     <Text style={{borderBottomColor: 'black', borderBottomWidth: 1, marginBottom:10 }}>{"\n"}</Text>
