@@ -3787,6 +3787,11 @@ eventemitter2@^1.0.0:
   resolved "https://registry.npmjs.org/eventemitter2/-/eventemitter2-1.0.5.tgz"
   integrity sha1-+YNhBRexc3wLncZDvsqTiTwE3xg=
 
+eventemitter3@^4.0.7:
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-4.0.7.tgz#2de9b68f6528d5644ef5c59526a1b4a07306169f"
+  integrity sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==
+
 exec-sh@^0.3.2:
   version "0.3.6"
   resolved "https://registry.npmjs.org/exec-sh/-/exec-sh-0.3.6.tgz"
@@ -7046,6 +7051,13 @@ react-native-async-storage@^0.0.1:
   version "0.0.1"
   resolved "https://registry.npmjs.org/react-native-async-storage/-/react-native-async-storage-0.0.1.tgz"
   integrity sha1-Xy71/zDq5ktCSOJltTTnLqQc3Gk=
+
+react-native-background-actions@^2.6.6:
+  version "2.6.6"
+  resolved "https://registry.yarnpkg.com/react-native-background-actions/-/react-native-background-actions-2.6.6.tgz#54c50d760e9f2f06739d2d3ee82685e3d3ed75fa"
+  integrity sha512-kJPqCQ4ysnVL8p/2iv/HsUFR0yj3/M0NckDeR4qwb0ao4Avra7UVgJWuPqIlGATwY9W/+5KlLvEv52JHTp2YQQ==
+  dependencies:
+    eventemitter3 "^4.0.7"
 
 react-native-call-log@^2.1.2:
   version "2.1.2"
