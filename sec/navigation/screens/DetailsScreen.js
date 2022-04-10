@@ -211,7 +211,7 @@ export default function DetailsScreen({ navigation }) {
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%'}}>
-            <SafeAreaView style={{height: '110%' }}>
+            <SafeAreaView style={{height: '120%' }}>
                 
                   <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom:10 }}>Phone Number Checker</Text>
                     {/*<Text>{"\n"}</Text>*/}
