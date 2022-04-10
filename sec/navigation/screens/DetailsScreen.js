@@ -210,8 +210,8 @@ export default function DetailsScreen({ navigation }) {
     },[]);
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%', }}>
-            <SafeAreaView>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%'}}>
+            <SafeAreaView style={{height: '120%' }}>
                 
                   <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom:10 }}>Phone Number Checker</Text>
                     {/*<Text>{"\n"}</Text>*/}
@@ -257,16 +257,25 @@ export default function DetailsScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+    main: {
+      flex: 1,
+      padding: 30,
+      flexDirection: 'column',
+      //justifyContent: 'center',
+      backgroundColor: '#6565fc'
+    },
     container: {
      flex: 1,
      padding: 10,
+     flexDirection: 'column',
      paddingTop: 22,
+     //height: '100%',
      width: '100%'
     },
     item: {
       padding: 10,
       fontSize: 18,
-      height: 44,
+      height: '50%',
       width: '100%',
     },
     input: {
@@ -286,6 +295,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
       fontSize: 18,
+      //height: '100%',
       color: '#111',
       alignSelf: 'center'
     }
