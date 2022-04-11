@@ -41,7 +41,7 @@ export default function DetailsScreen({ navigation }) {
       });
     }
 
-    async function pushCallLog() {
+    function pushCallLog() {
         addItem(record);
         Alert.alert('Item saved successfully');
     };
@@ -74,6 +74,7 @@ export default function DetailsScreen({ navigation }) {
           } catch (error) {
               // error
           }
+          return Promise.resolve();
     }
 
     // Loading Call Log
@@ -160,11 +161,16 @@ export default function DetailsScreen({ navigation }) {
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
     async function onLoad() {
-        await loadCallLog();
-        await getCode();
-        await checkLogNumber();
-        await delay(2000);
-        pushCallLog();
+      await loadCallLog();
+      await getCode();  
+      //checkLogNumber();
+      //await delay(2000);
+      //await pushCallLog();
+    }
+
+    async function checkAndPush() {
+      await checkLogNumber();
+      pushCallLog();
     }
 
     // Formatting for call log display
@@ -209,6 +215,14 @@ export default function DetailsScreen({ navigation }) {
         onLoad();
     },[]);
 
+    useEffect (() => {
+      checkAndPush();
+    },[record]);
+
+    //useEffect (() => {
+      
+    //}, [record])
+
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%'}}>
             <SafeAreaView style={{height: '120%' }}>
@@ -239,10 +253,17 @@ export default function DetailsScreen({ navigation }) {
                     <Text style={styles.buttonText}>Check current call log</Text>
                     </TouchableHighlight>
 
+                    <TouchableHighlight
+                      underlayColor="white"
+                        onPress={pushCallLog}
+                    >
+                    <Text style={styles.buttonText}>Manually Push Local call log</Text>
+                    </TouchableHighlight>
+
                     <Text style={{borderBottomColor: 'black', borderBottomWidth: 1, marginBottom:10 }}>{"\n"}</Text>
                     <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom:10 }}>Call log</Text>
                     <FlatList nestedScrollEnabled
-                            data={listData}
+                            data={record}
                             ItemSeparatorComponent={ItemSeparatorView}
                             renderItem={ItemView}
                             keyExtractor={(item, index) => index.toString()}
