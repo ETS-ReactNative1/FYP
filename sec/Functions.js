@@ -12,16 +12,16 @@ import CallLogs from 'react-native-call-log';
 import notifee, {AndroidImportance} from '@notifee/react-native';
 
 export default function uploadMap(code) {
-    console.log("hello 0");//okay
+    console.log("hello");
     var lat = 0;
     var long = 0; 
-    console.log("hello1");//gg????
+
 
     var reference3 = firebase
       .app()
       .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
       .ref('/'+code+'/Location');
-    console.log("hello2");
+
 
     //call location 
     GetLocation.getCurrentPosition({

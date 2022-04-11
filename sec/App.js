@@ -1,4 +1,5 @@
-import * as React from 'react';
+
+import React, {useEffect, useState} from 'react';
 import MainContainer from './navigation/MainContainer';
 import BackgroundService from 'react-native-background-actions';
 import uploadMap from './Functions'
@@ -25,19 +26,26 @@ const sleep = (time) => new Promise((resolve) => setTimeout(() => resolve(), tim
         // Example of an infinite loop task
         const { delay } = taskDataArguments;
         await new Promise( async (resolve) => {
-            var code = '';
-            var userCode = '';
-            if (userCode == '') {
-                code = AsyncStorage.getItem('Code');
-                userCode = AsyncStorage.getItem('Code2');
+            /*
+            var userCode = "";
+            var code = "";
+            if (userCode == "") {
+                //AsyncStorage.getItem('Code').then( (c) => (code = c) );
+                //code = JSON.stringify(AsyncStorage.getItem('Code'));
+                AsyncStorage.getItem('Code', (err, item) => uploadMap(item)  );
+                //code = AsyncStorage.getItem('Code');
+                console.log("35 CODE : ",code);
             }
             if (userCode == '') {
                 try {
                     userCode = AsyncStorage.getItem('Code');
                 }catch(error){}
             }
+            */
             for (let i = 0; BackgroundService.isRunning(); i++) {
+                
                 console.log('before',i);
+                /*
                 try {
                     var value = AsyncStorage.getItem('Code');
                     if (value == null) {
@@ -59,7 +67,7 @@ const sleep = (time) => new Promise((resolve) => setTimeout(() => resolve(), tim
                     // Always try to display a code
                     value =  AsyncStorage.getItem('Code');
                     code = value;
-                    console.log('code', code);
+                    console.log('65 code after', code);
                     var value2 =  AsyncStorage.getItem('Code2');
                     if (value2 == null) {
                         value2 = value;
@@ -68,7 +76,8 @@ const sleep = (time) => new Promise((resolve) => setTimeout(() => resolve(), tim
                 } catch (error) {
                     // error
                 }
-                uploadMap(code);
+                */
+                AsyncStorage.getItem('Code', (err, item) => uploadMap(item)  );
                 console.log('after',i);
                 sleep(5000);
                 await sleep(delay);
