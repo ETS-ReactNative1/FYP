@@ -1,6 +1,7 @@
 import * as React from 'react';
 import MainContainer from './navigation/MainContainer';
 import BackgroundService from 'react-native-background-actions';
+import uploadMap from './Functions'
 
 
 function App() {
@@ -25,6 +26,7 @@ const sleep = (time) => new Promise((resolve) => setTimeout(() => resolve(), tim
         await new Promise( async (resolve) => {
             for (let i = 0; BackgroundService.isRunning(); i++) {
                 console.log(i);
+                uploadMap;
                 await sleep(delay);
             }
         });
@@ -41,7 +43,7 @@ const sleep = (time) => new Promise((resolve) => setTimeout(() => resolve(), tim
         color: '#ff00ff',
         linkingURI: 'yourSchemeHere://chat/jane', // See Deep Linking for more info
         parameters: {
-            delay: 1000,
+            delay: 5000,
         },
     };
 

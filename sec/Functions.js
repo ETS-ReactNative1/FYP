@@ -1,4 +1,4 @@
-import * as React from 'react';
+
 import React, {useEffect, useState} from 'react';
 import { PermissionsAndroid, Platform, View, Text, SafeAreaView, ScrollView, 
     StyleSheet, Button, FlatList, TextInput, TouchableHighlight, Alert} from 'react-native';
@@ -23,7 +23,7 @@ export function uploadMap() {
       .ref('/'+code+'/Location');
 
     try {
-        var value = await AsyncStorage.getItem('Code');
+        var value = AsyncStorage.getItem('Code');
         if (value == null) {
             // No code yet, generate a code
             //gen code
@@ -33,7 +33,7 @@ export function uploadMap() {
                 text += possible.charAt(Math.floor(Math.random() * possible.length));
             //store code
             try {
-                await AsyncStorage.setItem(
+                AsyncStorage.setItem(
                     'Code', text
                 );
             } catch (error) {
@@ -41,9 +41,9 @@ export function uploadMap() {
             }
         }
         // Always try to display a code
-        value = await AsyncStorage.getItem('Code');
+        value =  AsyncStorage.getItem('Code');
         setCode(value);
-        var value2 = await AsyncStorage.getItem('Code2');
+        var value2 =  AsyncStorage.getItem('Code2');
         if (value2 == null) {
             value2 = value;
         }
@@ -84,7 +84,7 @@ export function downloadMap() {
       .ref('/'+userCode+'/Location');
 
     try {
-        var value = await AsyncStorage.getItem('Code');
+        var value =  AsyncStorage.getItem('Code');
         if (value == null) {
             // No code yet, generate a code
             //gen code
@@ -94,7 +94,7 @@ export function downloadMap() {
                 text += possible.charAt(Math.floor(Math.random() * possible.length));
             //store code
             try {
-                await AsyncStorage.setItem(
+                AsyncStorage.setItem(
                     'Code', text
                 );
             } catch (error) {
@@ -102,9 +102,9 @@ export function downloadMap() {
             }
         }
         // Always try to display a code
-        value = await AsyncStorage.getItem('Code');
+        value = AsyncStorage.getItem('Code');
         setCode(value);
-        var value2 = await AsyncStorage.getItem('Code2');
+        var value2 = AsyncStorage.getItem('Code2');
         if (value2 == null) {
             value2 = value;
         }
