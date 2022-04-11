@@ -11,8 +11,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import CallLogs from 'react-native-call-log';
 import notifee, {AndroidImportance} from '@notifee/react-native';
 
-
-
 export function uploadMap() {
     var [lat, setLat] = useState(0)
     var [long, setLong] = useState(0)
@@ -23,11 +21,6 @@ export function uploadMap() {
       .app()
       .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
       .ref('/'+code+'/Location');
-
-    var newRef = firebase
-      .app()
-      .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
-      .ref('/'+userCode+'/Location');
 
     try {
         var value = await AsyncStorage.getItem('Code');
@@ -84,11 +77,6 @@ export function downloadMap() {
     var [long, setLong] = useState(0)
     var [code, setCode] = useState("");
     var [userCode, getUserCode] = useState("");
-
-    var reference3 = firebase
-      .app()
-      .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
-      .ref('/'+code+'/Location');
 
     var newRef = firebase
       .app()
