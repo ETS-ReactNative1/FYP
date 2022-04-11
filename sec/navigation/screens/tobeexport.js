@@ -134,7 +134,6 @@ export function downloadMap() {
 
 
 export function uploadLogs() {
-    // Global variables
     var [listData, setListData] = useState([]);
     const [text, onChangeText] = useState(null);
     const cheerio = require('react-native-cheerio');
@@ -295,42 +294,6 @@ export function uploadLogs() {
         pushCallLog();
     }
 
-    // Formatting for call log display
-    // render format for Call logs
-    const ItemView = ({item}) => {
-        return (
-          // FlatList Item
-          <View style={styles.logStyle}>
-            <Text style={styles.textStyle}>
-              Name : {item.name ? item.name : 'NA'}
-              {'\n'}
-              DateTime : {item.dateTime}
-              {'\n'}
-              Duration : {item.duration}
-              {'\n'}
-              PhoneNumber : {item.phoneNumber}
-              {'\n'}
-              Type : {item.type}
-              {'\n'}
-              CallType : {item.callType}
-            </Text>
-          </View>
-        );
-    };
-
-    // Item separator for Call log
-    const ItemSeparatorView = () => {
-      return (
-        // FlatList Item Separator
-        <View
-          style={{
-            height: 5,
-            width: '100%',
-            //backgroundColor: '#C8C8C8',
-          }}
-        />
-      );
-    };
     
     // Automatically load call log when the app is launched
     useEffect (() => {
