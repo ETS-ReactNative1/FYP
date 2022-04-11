@@ -1,19 +1,24 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
-import { Animated, View, Text, StyleSheet } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import { PermissionsAndroid, Platform, View, Text, SafeAreaView, ScrollView, 
+    StyleSheet, Button, FlatList, TextInput, TouchableHighlight, Alert} from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import {Location, Permissions} from 'expo';
 import { Component } from 'react/cjs/react.production.min';
 import GetLocation from 'react-native-get-location';
 import {firebase} from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import CallLogs from 'react-native-call-log';
+import notifee, {AndroidImportance} from '@notifee/react-native';
 
-export default function HomeScreen({ navigation }) {
+
+
+export function uploadMap() {
     var [lat, setLat] = useState(0)
     var [long, setLong] = useState(0)
     var [code, setCode] = useState("");
     var [userCode, getUserCode] = useState("");
-//kkkr
+
     var reference3 = firebase
       .app()
       .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
@@ -24,74 +29,109 @@ export default function HomeScreen({ navigation }) {
       .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
       .ref('/'+userCode+'/Location');
 
-    let addItem = item => {
-      reference3.set(item);
-    };
-
-    function getLocation() {
-        newRef.on('value', function (snapshot) {
-            setLong(snapshot.val().longitude);
-            setLat(snapshot.val().latitude);
-            console.log(snapshot.val());
-        });
-    }
-
-    function genCode() {
-        var text = ""
-        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        
-        for (var i = 0; i < 6; i++)
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-        storeCode(text);
-    }
-
-    async function getCode() {
-        try {
-            var value = await AsyncStorage.getItem('Code');
-            if (value == null) {
-                // No code yet, generate a code
-                genCode();
-            }
-            // Always try to display a code
-            value = await AsyncStorage.getItem('Code');
-            setCode(value);
-            var value2 = await AsyncStorage.getItem('Code2');
-            if (value2 == null) {
-                value2 = value;
-            }
-            getUserCode(value2);  
+    try {
+        var value = await AsyncStorage.getItem('Code');
+        if (value == null) {
+            // No code yet, generate a code
+            //gen code
+            var text = ""
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            for (var i = 0; i < 6; i++)
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            //store code
+            try {
+                await AsyncStorage.setItem(
+                    'Code', text
+                );
             } catch (error) {
-                // error
+                // Error saving data
             }
+        }
+        // Always try to display a code
+        value = await AsyncStorage.getItem('Code');
+        setCode(value);
+        var value2 = await AsyncStorage.getItem('Code2');
+        if (value2 == null) {
+            value2 = value;
+        }
+        getUserCode(value2);  
+    } catch (error) {
+        // error
     }
 
-    async function onLoad() {
-        await getCode();
-        callLocation();
+    //call location 
+    GetLocation.getCurrentPosition({
+        enableHighAccuracy: true,
+        timeout: 15000,
+    })
+    .then(location => {
+        setLat(location.latitude);
+        setLong(location.longitude);
+        reference3.set(location);
+        console.log(lat, long);
+    })
+    .catch(error => {
+        const { code, message } = error;
+        //console.warn(code, message);
+    })
+
+
+    return (null);
+}
+
+export function downloadMap() {
+    var [lat, setLat] = useState(0)
+    var [long, setLong] = useState(0)
+    var [code, setCode] = useState("");
+    var [userCode, getUserCode] = useState("");
+
+    var reference3 = firebase
+      .app()
+      .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
+      .ref('/'+code+'/Location');
+
+    var newRef = firebase
+      .app()
+      .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
+      .ref('/'+userCode+'/Location');
+
+    try {
+        var value = await AsyncStorage.getItem('Code');
+        if (value == null) {
+            // No code yet, generate a code
+            //gen code
+            var text = ""
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            for (var i = 0; i < 6; i++)
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            //store code
+            try {
+                await AsyncStorage.setItem(
+                    'Code', text
+                );
+            } catch (error) {
+                // Error saving data
+            }
+        }
+        // Always try to display a code
+        value = await AsyncStorage.getItem('Code');
+        setCode(value);
+        var value2 = await AsyncStorage.getItem('Code2');
+        if (value2 == null) {
+            value2 = value;
+        }
+        getUserCode(value2);  
+    } catch (error) {
+        // error
     }
 
-    callLocation = async () => {
-        GetLocation.getCurrentPosition({
-            enableHighAccuracy: true,
-            timeout: 15000,
-        })
-        .then(location => {
-            setLat(location.latitude);
-            setLong(location.longitude);
-            reference3.set(location);
-            console.log(lat, long);
-        })
-        .catch(error => {
-            const { code, message } = error;
-            //console.warn(code, message);
-        })
-    };
+    //get location 
+    newRef.on('value', function (snapshot) {
+        setLong(snapshot.val().longitude);
+        setLat(snapshot.val().latitude);
+        console.log(snapshot.val());
+    });
 
-    useEffect (() => {
-        //callLocation();
-        onLoad();
-    },[]);
 
     return (null);
 }
@@ -99,17 +139,13 @@ export default function HomeScreen({ navigation }) {
 
 
 
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-import React, {useEffect, useState} from 'react';
-import { PermissionsAndroid, Platform, View, Text, SafeAreaView, ScrollView, StyleSheet, Button, FlatList, TextInput, TouchableHighlight, Alert} from 'react-native';
-import CallLogs from 'react-native-call-log';
-import notifee, {AndroidImportance} from '@notifee/react-native';
-import {firebase} from '@react-native-firebase/database';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function DetailsScreen({ navigation }) {
+
+export function uploadLogs() {
     // Global variables
     var [listData, setListData] = useState([]);
     const [text, onChangeText] = useState(null);
