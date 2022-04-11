@@ -2,6 +2,7 @@ import * as React from 'react';
 import MainContainer from './navigation/MainContainer';
 import BackgroundService from 'react-native-background-actions';
 import uploadMap from './Functions'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 function App() {
@@ -24,9 +25,52 @@ const sleep = (time) => new Promise((resolve) => setTimeout(() => resolve(), tim
         // Example of an infinite loop task
         const { delay } = taskDataArguments;
         await new Promise( async (resolve) => {
+            var code = '';
+            var userCode = '';
+            if (userCode == '') {
+                code = AsyncStorage.getItem('Code');
+                userCode = AsyncStorage.getItem('Code2');
+            }
+            if (userCode == '') {
+                try {
+                    userCode = AsyncStorage.getItem('Code');
+                }catch(error){}
+            }
             for (let i = 0; BackgroundService.isRunning(); i++) {
-                console.log(i);
-                uploadMap;
+                console.log('before',i);
+                try {
+                    var value = AsyncStorage.getItem('Code');
+                    if (value == null) {
+                        // No code yet, generate a code
+                        //gen code
+                        var text = ""
+                        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                        for (var j = 0; j < 6; j++)
+                            text += possible.charAt(Math.floor(Math.random() * possible.length));
+                        //store code
+                        try {
+                            AsyncStorage.setItem(
+                                'Code', text
+                            );
+                        } catch (error) {
+                            // Error saving data
+                        }
+                    }
+                    // Always try to display a code
+                    value =  AsyncStorage.getItem('Code');
+                    code = value;
+                    console.log('code', code);
+                    var value2 =  AsyncStorage.getItem('Code2');
+                    if (value2 == null) {
+                        value2 = value;
+                    }
+                    userCode = value2;  
+                } catch (error) {
+                    // error
+                }
+                uploadMap(code);
+                console.log('after',i);
+                sleep(5000);
                 await sleep(delay);
             }
         });

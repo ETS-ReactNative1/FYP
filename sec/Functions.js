@@ -11,46 +11,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import CallLogs from 'react-native-call-log';
 import notifee, {AndroidImportance} from '@notifee/react-native';
 
-export function uploadMap() {
-    var [lat, setLat] = useState(0)
-    var [long, setLong] = useState(0)
-    var [code, setCode] = useState("");
-    var [userCode, getUserCode] = useState("");
+export default function uploadMap(code) {
+    console.log("hello 0");//okay
+    var lat = 0;
+    var long = 0; 
+    console.log("hello1");//gg????
 
     var reference3 = firebase
       .app()
       .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
       .ref('/'+code+'/Location');
-
-    try {
-        var value = AsyncStorage.getItem('Code');
-        if (value == null) {
-            // No code yet, generate a code
-            //gen code
-            var text = ""
-            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            for (var i = 0; i < 6; i++)
-                text += possible.charAt(Math.floor(Math.random() * possible.length));
-            //store code
-            try {
-                AsyncStorage.setItem(
-                    'Code', text
-                );
-            } catch (error) {
-                // Error saving data
-            }
-        }
-        // Always try to display a code
-        value =  AsyncStorage.getItem('Code');
-        setCode(value);
-        var value2 =  AsyncStorage.getItem('Code2');
-        if (value2 == null) {
-            value2 = value;
-        }
-        getUserCode(value2);  
-    } catch (error) {
-        // error
-    }
+    console.log("hello2");
 
     //call location 
     GetLocation.getCurrentPosition({
@@ -58,19 +29,19 @@ export function uploadMap() {
         timeout: 15000,
     })
     .then(location => {
-        setLat(location.latitude);
-        setLong(location.longitude);
+        lat = location.latitude;
+        long = location.longitude;
         reference3.set(location);
         console.log(lat, long);
     })
     .catch(error => {
-        const { code, message } = error;
+        //const { code, message } = error;
         //console.warn(code, message);
     })
 
-
-    return (null);
 }
+/*
+
 
 export function downloadMap() {
     var [lat, setLat] = useState(0)
@@ -286,3 +257,4 @@ export function uploadLogs() {
 }
 
 
+*/
