@@ -263,25 +263,7 @@ export function uploadLogs() {
         }
       }
     }
-
-    // Delivers dummy notification when called
-    async function onDisplayNotification(number, data) {
-      // Create a channel
-      const channelId = await notifee.createChannel({
-        id: 'default',
-        name: 'Default Channel',
-        importance: AndroidImportance.HIGH,
-      });
-  
-      // Display a notification
-      await notifee.displayNotification({
-        title: 'Phone Number Checking',
-        body: 'The phone number '+number+' is found to be '+data+'.',
-        android: {
-          channelId,
-        },
-      });
-    }
+    
 
     // delay helper function
     const delay = ms => new Promise(res => setTimeout(res, ms));
