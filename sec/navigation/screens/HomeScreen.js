@@ -64,8 +64,8 @@ export default function HomeScreen({ navigation }) {
 
     async function onLoad() {
         await getCode();
-        //callLocation();
-        getLocation();
+        callLocation();
+        //getLocation();
     }
 
     callLocation = async () => {
@@ -76,17 +76,16 @@ export default function HomeScreen({ navigation }) {
         .then(location => {
             setLat(location.latitude);
             setLong(location.longitude);
-            //reference3.set(location);
+            reference3.set(location);
+            //getLocation();
             console.log(lat, long);
         })
         .catch(error => {
             const { code, message } = error;
-            //console.warn(code, message);
         })
     };
 
     useEffect (() => {
-        //callLocation();
         onLoad();
     },[]);
 
