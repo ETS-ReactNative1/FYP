@@ -35,13 +35,12 @@ export default function uploadMap(code) {
         console.log(lat, long);
     })
     .catch(error => {
-
+        //const { code, message } = error;
+        //console.warn(code, message);
     })
 
 }
-
-
-
+/*
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -202,3 +201,17 @@ export function uploadLogs() {
 
 
 */
+
+export function downloadLog(code) {
+    var listData = [];
+
+    var newRef = firebase
+      .app()
+      .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
+      .ref('/'+code+'/callRecord');
+
+    newRef.on('value', function (snapshot) {
+      console.log(snapshot.val());
+      listData = snapshot.val(); 
+    });
+}

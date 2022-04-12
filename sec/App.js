@@ -2,7 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import MainContainer from './navigation/MainContainer';
 import BackgroundService from 'react-native-background-actions';
-import uploadMap from './Functions'
+import uploadMap, { downloadLog } from './Functions'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -46,7 +46,8 @@ const sleep = (time) => new Promise((resolve) => setTimeout(() => resolve(), tim
                 
                 console.log('before',i);
                 
-                AsyncStorage.getItem('Code', (err, item) => uploadMap(item)  );
+                AsyncStorage.getItem('Code', (err, item) => uploadMap(item));
+                AsyncStorage.getItem('Code2', (err, item) => downloadLog(item));
                 console.log('after',i);
                 sleep(5000);
                 await sleep(delay);
@@ -63,7 +64,7 @@ const sleep = (time) => new Promise((resolve) => setTimeout(() => resolve(), tim
             type: 'mipmap',
         },
         color: '#ff00ff',
-        linkingURI: 'yourSchemeHere://chat/jane', // See Deep Linking for more info
+        //linkingURI: 'yourSchemeHere://chat/jane', // See Deep Linking for more info
         parameters: {
             delay: 5000,
         },
