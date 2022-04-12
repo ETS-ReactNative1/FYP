@@ -25,6 +25,7 @@ export default function HomeScreen({ navigation }) {
       .ref('/'+userCode+'/Location');
 
     function getLocation() {
+        getCode();
         newRef.on('value', function (snapshot) {
             if (snapshot.val() != null) {
                 setLat(snapshot.val().latitude);
@@ -120,7 +121,7 @@ export default function HomeScreen({ navigation }) {
             <Text
                 //onPress={() => alert('This is the current location of the Elderly.')}
                 onPress={getLocation}//callLocation
-                style={{ fontSize: 24, fontWeight: 'bold' }}>update parent location</Text>
+                style={{ fontSize: 24, fontWeight: 'bold' }}>UPDATE</Text>
         </View>
     );
 }

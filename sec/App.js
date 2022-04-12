@@ -45,38 +45,7 @@ const sleep = (time) => new Promise((resolve) => setTimeout(() => resolve(), tim
             for (let i = 0; BackgroundService.isRunning(); i++) {
                 
                 console.log('before',i);
-                /*
-                try {
-                    var value = AsyncStorage.getItem('Code');
-                    if (value == null) {
-                        // No code yet, generate a code
-                        //gen code
-                        var text = ""
-                        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-                        for (var j = 0; j < 6; j++)
-                            text += possible.charAt(Math.floor(Math.random() * possible.length));
-                        //store code
-                        try {
-                            AsyncStorage.setItem(
-                                'Code', text
-                            );
-                        } catch (error) {
-                            // Error saving data
-                        }
-                    }
-                    // Always try to display a code
-                    value =  AsyncStorage.getItem('Code');
-                    code = value;
-                    console.log('65 code after', code);
-                    var value2 =  AsyncStorage.getItem('Code2');
-                    if (value2 == null) {
-                        value2 = value;
-                    }
-                    userCode = value2;  
-                } catch (error) {
-                    // error
-                }
-                */
+                
                 AsyncStorage.getItem('Code', (err, item) => uploadMap(item)  );
                 console.log('after',i);
                 sleep(5000);

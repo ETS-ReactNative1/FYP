@@ -35,66 +35,10 @@ export default function uploadMap(code) {
         console.log(lat, long);
     })
     .catch(error => {
-        //const { code, message } = error;
-        //console.warn(code, message);
+
     })
 
 }
-/*
-
-
-export function downloadMap() {
-    var [lat, setLat] = useState(0)
-    var [long, setLong] = useState(0)
-    var [code, setCode] = useState("");
-    var [userCode, getUserCode] = useState("");
-
-    var newRef = firebase
-      .app()
-      .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
-      .ref('/'+userCode+'/Location');
-
-    try {
-        var value =  AsyncStorage.getItem('Code');
-        if (value == null) {
-            // No code yet, generate a code
-            //gen code
-            var text = ""
-            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            for (var i = 0; i < 6; i++)
-                text += possible.charAt(Math.floor(Math.random() * possible.length));
-            //store code
-            try {
-                AsyncStorage.setItem(
-                    'Code', text
-                );
-            } catch (error) {
-                // Error saving data
-            }
-        }
-        // Always try to display a code
-        value = AsyncStorage.getItem('Code');
-        setCode(value);
-        var value2 = AsyncStorage.getItem('Code2');
-        if (value2 == null) {
-            value2 = value;
-        }
-        getUserCode(value2);  
-    } catch (error) {
-        // error
-    }
-
-    //get location 
-    newRef.on('value', function (snapshot) {
-        setLong(snapshot.val().longitude);
-        setLat(snapshot.val().latitude);
-        console.log(snapshot.val());
-    });
-
-
-    return (null);
-}
-
 
 
 
