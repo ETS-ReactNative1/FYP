@@ -32,7 +32,7 @@ import {firebase} from '@react-native-firebase/database';
 export default function SettingsScreen({ navigation }) {
     const [inputCode, onChangeText] = React.useState("");
     var [code, setCode] = useState("none");
-    var [userCode, getUserCode] = useState("");
+    var [userCode, setUserCode] = useState("");
 
     var reference1 = firebase
       .app()
@@ -85,7 +85,7 @@ export default function SettingsScreen({ navigation }) {
             if (value2 == null) {
               value2 = value;
             }
-            getUserCode(value2);
+            setUserCode(value2);
             } catch (error) {
                 // Error
             }
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center',
     color: 'white',
-    fontStyle: 'bold'
+    //fontStyle: 'bold'
   },
   itemInput: {
     height: 50,

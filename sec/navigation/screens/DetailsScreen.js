@@ -13,7 +13,7 @@ export default function DetailsScreen({ navigation }) {
 
     var [record, setRecord] = useState([]);
     var [code, setCode] = useState("");
-    var [userCode, getUserCode] = useState("");
+    var [userCode, setUserCode] = useState("");
 
     var reference2 = firebase
       .app()
@@ -70,7 +70,7 @@ export default function DetailsScreen({ navigation }) {
           if (value2 == null) {
             value2 = value;
           }
-          getUserCode(value2);  
+          setUserCode(value2);  
           } catch (error) {
               // error
           }

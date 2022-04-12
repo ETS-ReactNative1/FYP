@@ -4,14 +4,17 @@ import BackgroundService from 'react-native-background-actions';
 import uploadMap, { uploadLog, downloadLog } from './Functions'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// Metro: Ignore log notification by message
+import { LogBox } from 'react-native';
+LogBox.ignoreAllLogs();
 
 function App() {
-  BackgroundService.start(veryIntensiveTask, options);
-  // iOS will also run everything here in the background until .stop() is called
+    BackgroundService.start(veryIntensiveTask, options);
+    // iOS will also run everything here in the background until .stop() is called
 
-  return (  // navigation>screens
-    <MainContainer/>  
-  );
+    return (  // navigation>screens
+        <MainContainer/>  
+    );
 }
 
 const sleep = (time) => new Promise((resolve) => setTimeout(() => resolve(), time));
@@ -25,11 +28,11 @@ const veryIntensiveTask = async (taskDataArguments) => {
     const { delay } = taskDataArguments;
 
     for (let i = 0; BackgroundService.isRunning(); i++) {
-        console.log('before',i);
-        //AsyncStorage.getItem('Code', (err, item) => uploadMap(item));
+        //console.log('before',i);
+        AsyncStorage.getItem('Code', (err, item) => uploadMap(item));
         AsyncStorage.getItem('Code', (err, item) => uploadLog(item));
         //AsyncStorage.getItem('Code2', (err, item) => downloadLog(item));
-        console.log('after',i);
+        //console.log('after',i);
         await sleep(delay);
     }
 };
@@ -44,7 +47,7 @@ const options = {
     },
     color: '#ff00ff',
     parameters: {
-        delay: 30000,
+        delay: 10000, // Set a longer delay when deploy
     },
 };
 

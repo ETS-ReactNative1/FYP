@@ -11,7 +11,6 @@ import CallLogs from 'react-native-call-log';
 import notifee, {AndroidImportance} from '@notifee/react-native';
 
 export default function uploadMap(code) {
-    console.log("hello");
     var lat = 0;
     var long = 0; 
 
@@ -30,8 +29,8 @@ export default function uploadMap(code) {
     .then(location => {
         lat = location.latitude;
         long = location.longitude;
-        reference3.set(location);
         console.log(lat, long);
+        reference3.set(location);
     })
     .catch(error => {
         //const { code, message } = error;
@@ -73,7 +72,7 @@ async function infoScrape(number) {
 
 // driver function for automatic call checking
 async function checkLogNumber(record) {
-  //return record;
+  return record;
   for (var i=0; i < record.length; i++) {
     if (!record[i].name) {
       // Not in call log
@@ -119,7 +118,7 @@ export function uploadLog(code) {
     }    
 }
 
-
+// Unfinished
 export function downloadLog(code) {
     var listData = [];
 
