@@ -24,10 +24,6 @@ export default function HomeScreen({ navigation }) {
       .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
       .ref('/'+userCode+'/Location');
 
-    let addItem = item => {
-      reference3.set(item);
-    };
-
     function getLocation() {
         newRef.on('value', function (snapshot) {
             setLong(snapshot.val().longitude);
@@ -68,7 +64,8 @@ export default function HomeScreen({ navigation }) {
 
     async function onLoad() {
         await getCode();
-        callLocation();
+        //callLocation();
+        getLocation();
     }
 
     callLocation = async () => {
@@ -79,7 +76,7 @@ export default function HomeScreen({ navigation }) {
         .then(location => {
             setLat(location.latitude);
             setLong(location.longitude);
-            reference3.set(location);
+            //reference3.set(location);
             console.log(lat, long);
         })
         .catch(error => {
