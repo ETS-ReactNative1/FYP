@@ -66,8 +66,6 @@ export default function HomeScreen({ navigation }) {
 
     async function onLoad() {
         await getCode();
-        callLocation();
-        //getLocation();
     }
 
     callLocation = async () => {
@@ -90,6 +88,11 @@ export default function HomeScreen({ navigation }) {
     useEffect (() => {
         onLoad();
     },[]);
+
+    useEffect (() => {
+        //callLocation();
+        getLocation();
+    },[userCode]);
 
     return (
         
