@@ -28,6 +28,10 @@ In case it does not work, you may manually install the following:
 5. yarn add @react-navigation/bottom-tabs
 6. yarn add @notifee/react-native
 7. npm i react-native-call-log
+~~~~
+8. npm i react-native-maps
+9. npm install --force rimraf
+10. npm install --force fs-extra
 After installation, you may restart the app.
 
 ~~~~~~~~~~~~~~~~~~~~~~~
