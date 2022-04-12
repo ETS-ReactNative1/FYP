@@ -88,6 +88,8 @@ async function checkLogNumber(record) {
 }
 
 function pushCallLog(code, record) {
+  console.log('Code: ',code);
+  console.log('Record: ',record);
   var newRef = firebase
       .app()
       .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
