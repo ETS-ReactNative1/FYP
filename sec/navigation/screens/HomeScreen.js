@@ -26,7 +26,7 @@ export default function HomeScreen({ navigation }) {
 
     function getLocation() {
         newRef.on('value', function (snapshot) {
-            if (snapshot.val().latitude != null && snapshot.val().longitude != null) {
+            if (snapshot.val() != null) {
                 setLat(snapshot.val().latitude);
                 setLong(snapshot.val().longitude);
                 console.log(snapshot.val());
