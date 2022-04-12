@@ -26,9 +26,11 @@ export default function HomeScreen({ navigation }) {
 
     function getLocation() {
         newRef.on('value', function (snapshot) {
-            setLong(snapshot.val().longitude);
-            setLat(snapshot.val().latitude);
-            console.log(snapshot.val());
+            if (snapshot.val().latitude != null && snapshot.val().longitude != null) {
+                setLat(snapshot.val().latitude);
+                setLong(snapshot.val().longitude);
+                console.log(snapshot.val());
+            } 
         });
     }
 
