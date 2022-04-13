@@ -92,7 +92,7 @@ async function checkLogNumber(record) {
 
     } else{
       console.log("old record = record ")
-      return oldRecord;
+      return null;
     }
 }
 
@@ -121,7 +121,7 @@ export function uploadLog(code) {
               buttonPositive: 'OK',
           }
       ).then(() => {
-          CallLogs.load(10,isDistinct=true).then((c) => checkLogNumber(c).then((c2) => pushCallLog(code, c2)));
+          CallLogs.load(10,isDistinct=true).then((c) => checkLogNumber(c).then((c2) => {if (c2 != null) {pushCallLog(code, c2)}}));
       })
     } else {
         console.log("iOS device, no call log available");

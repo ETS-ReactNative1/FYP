@@ -36,18 +36,11 @@ export default function DetailsScreen({ navigation }) {
     }
 
     function getCallLog() {
-      //getCode();
-      //await delay(1000);
       console.log('Code & userCode: ', code, userCode);
       newRef.on('value', function (snapshot) {
           setRecord(snapshot.val()); 
       });
     }
-
-    function pushCallLog() {
-        addItem(record);
-        //Alert.alert('Item saved successfully');
-    };
 
     function genCode() {
       var text = ""
@@ -249,7 +242,7 @@ export default function DetailsScreen({ navigation }) {
                       value={text}
                       placeholder='Enter phone number'
                     />
-                    <Button color='#266C45' title="Check!" onPress={() => infoScrape(text)} />
+                    <Button color='#266C45' title="Check!" onPress={() => infoScrape(text).then((c) => onDisplayNotification(text, c))} />
                     <Text>{"A notification will be delivered once the checking is done."}</Text>
 
                     <TouchableHighlight
