@@ -272,11 +272,11 @@ export default function DetailsScreen({ navigation }) {
                       underlayColor="white"
                         onPress={getCallLog}
                     >
-                    <Text style={styles.buttonText}>Pull Call Log</Text>
+                    <Text style={styles.buttonText}>Pull Call Logs</Text>
                     </TouchableHighlight>
               
                     <Text style={{borderBottomColor: 'black', borderBottomWidth: 1, marginBottom:10 }}></Text>
-                    <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom:10 }}>Call log</Text>
+                    <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom:10 }}>Call logs</Text>
                     <FlatList nestedScrollEnabled
                             data={record}
                             ItemSeparatorComponent={ItemSeparatorView}
