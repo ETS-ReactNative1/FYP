@@ -163,9 +163,9 @@ export default function DetailsScreen({ navigation }) {
           // FlatList Item
           <View style={styles.contactStyle}>
             <Text style={styles.textStyle}>
-              Name : {item.name ? item.name : 'NA'}
+              名稱 : {item.name ? item.name : 'NA'}
               {'\n'}
-              CallType : {item.callType}
+              檢查結果 : {item.callType}
             </Text>
           </View>
         );
@@ -174,13 +174,13 @@ export default function DetailsScreen({ navigation }) {
           // FlatList Item
           <View style={styles.safeStyle}>
             <Text style={styles.textStyle}>
-              PhoneNumber : {item.phoneNumber}
+              電話號碼 : {item.phoneNumber}
               {'\n'}
-              DateTime : {item.dateTime}
+              日期 : {item.dateTime}
               {'\n'}
-              Duration : {item.duration}
+              類型 : {item.type}
               {'\n'}
-              Type : {item.type}
+              檢查結果 : {item.callType}
             </Text>
           </View>
         );
@@ -190,15 +190,15 @@ export default function DetailsScreen({ navigation }) {
           // FlatList Item
           <View style={styles.mStyle}>
             <Text style={styles.textStyle}>
-              PhoneNumber : {item.phoneNumber}
+              電話號碼 : {item.phoneNumber}
               {'\n'}
-              DateTime : {item.dateTime}
+              日期 : {item.dateTime}
               {'\n'}
               Duration : {item.duration}
               {'\n'}
-              Type : {item.type}
+              類型 : {item.type}
               {'\n'}
-              CallType : {item.callType}
+              檢查結果 : {item.callType}
             </Text>
           </View>
         );
@@ -234,15 +234,15 @@ export default function DetailsScreen({ navigation }) {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%'}}>
             <SafeAreaView style={{height: '110%' }}>
                 
-                  <Text style={{ position: 'relative',   top: 26, fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom:10 }}>Phone Number Checker</Text>
+                  <Text style={{ position: 'relative',   top: 26, fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom:10 }}>檢查電話號碼</Text>
                     <Text></Text>
                     <TextInput
                       style={styles.input}
                       onChangeText={onChangeText}
                       value={text}
-                      placeholder='Enter phone number'
+                      placeholder='輸入電話號碼'
                     />
-                    <Button color='#266C45' title="Check!" onPress={() => infoScrape(text).then((c) => onDisplayNotification(text, c))} />
+                    <Button color='#266C45' title="檢查" onPress={() => infoScrape(text).then((c) => onDisplayNotification(text, c))} />
                     <Text>{"A notification will be delivered once the checking is done."}</Text>
 
                     <TouchableHighlight
@@ -253,7 +253,7 @@ export default function DetailsScreen({ navigation }) {
                     </TouchableHighlight>
               
                     <Text style={{borderBottomColor: 'black', borderBottomWidth: 1, marginBottom:10 }}></Text>
-                    <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom:10 }}>Call logs</Text>
+                    <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom:10 }}>通話記錄</Text>
                     <FlatList nestedScrollEnabled
                             data={record}
                             ItemSeparatorComponent={ItemSeparatorView}
