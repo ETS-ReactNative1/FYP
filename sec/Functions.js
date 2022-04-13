@@ -53,7 +53,7 @@ export function downloadLog(code) {
     .ref('/'+code+'/callRecord');
 
   newRef.on('value', function (snapshot) {
-    console.log("[Background] Call log from firebase: ", snapshot.val());
+    //console.log("[Background] Call log from firebase: ", snapshot.val());
     // Check if the latest log time and phone number are same or not
     AsyncStorage.getItem("myDateTime").then(
       (c) => {
@@ -110,7 +110,7 @@ async function infoScrape(number) {
 async function checkLogNumber(record) {
   var oldRecord = await AsyncStorage.getItem('myRecord');
   var oldDateTime = await AsyncStorage.getItem('myDateTime');
-    if ((oldRecord != record[0].phoneNumber) && (oldDateTime != record[0].dateTime)) {
+    if ((oldRecord != record[0].phoneNumber) || (oldDateTime != record[0].dateTime)) {
       for (var i=0; i < record.length; i++) {
         if (!record[i].name) {
           // Not in call log
@@ -135,8 +135,8 @@ async function checkLogNumber(record) {
 }
 
 function pushCallLog(code, record) {
-  console.log('Code: ',code);
-  console.log('Record: ',record);
+  //console.log('Code: ',code);
+  //console.log('Record: ',record);
   var newRef = firebase
       .app()
       .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
