@@ -36,8 +36,9 @@ export default function DetailsScreen({ navigation }) {
     }
 
     function getCallLog() {
+      getCode();
       newRef.on('value', function (snapshot) {
-          setListData(snapshot.val()); 
+          setRecord(snapshot.val()); 
       });
     }
 
@@ -176,17 +177,43 @@ export default function DetailsScreen({ navigation }) {
     // Formatting for call log display
     // render format for Call logs
     const ItemView = ({item}) => {
+      if (item.callType == "In Contact List" ) {
         return (
           // FlatList Item
-          <View style={styles.logStyle}>
+          <View style={styles.contactStyle}>
             <Text style={styles.textStyle}>
               Name : {item.name ? item.name : 'NA'}
+              {'\n'}
+              CallType : {item.callType}
+            </Text>
+          </View>
+        );
+      }else if (item.callType == "Safe" ){
+        return (
+          // FlatList Item
+          <View style={styles.safeStyle}>
+            <Text style={styles.textStyle}>
+              PhoneNumber : {item.phoneNumber}
               {'\n'}
               DateTime : {item.dateTime}
               {'\n'}
               Duration : {item.duration}
               {'\n'}
+              Type : {item.type}
+            </Text>
+          </View>
+        );
+
+      }else{
+        return (
+          // FlatList Item
+          <View style={styles.mStyle}>
+            <Text style={styles.textStyle}>
               PhoneNumber : {item.phoneNumber}
+              {'\n'}
+              DateTime : {item.dateTime}
+              {'\n'}
+              Duration : {item.duration}
               {'\n'}
               Type : {item.type}
               {'\n'}
@@ -194,6 +221,9 @@ export default function DetailsScreen({ navigation }) {
             </Text>
           </View>
         );
+
+      }
+        
     };
 
     // Item separator for Call log
@@ -225,10 +255,10 @@ export default function DetailsScreen({ navigation }) {
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%'}}>
-            <SafeAreaView style={{height: '120%' }}>
+            <SafeAreaView style={{height: '110%' }}>
                 
-                  <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom:10 }}>Phone Number Checker</Text>
-                    <Text>{"\n"}</Text>
+                  <Text style={{ position: 'relative',   top: 26, fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom:10 }}>Phone Number Checker</Text>
+                    <Text></Text>
                     <TextInput
                       style={styles.input}
                       onChangeText={onChangeText}
@@ -244,23 +274,8 @@ export default function DetailsScreen({ navigation }) {
                     >
                     <Text style={styles.buttonText}>Pull Call Log</Text>
                     </TouchableHighlight>
-                    <Text>{"\n"}</Text>
-
-                    <TouchableHighlight
-                      underlayColor="white"
-                        onPress={checkLogNumber}
-                    >
-                    <Text style={styles.buttonText}>Check current call log</Text>
-                    </TouchableHighlight>
-
-                    <TouchableHighlight
-                      underlayColor="white"
-                        onPress={pushCallLog}
-                    >
-                    <Text style={styles.buttonText}>Manually Push Local call log</Text>
-                    </TouchableHighlight>
-
-                    <Text style={{borderBottomColor: 'black', borderBottomWidth: 1, marginBottom:10 }}>{"\n"}</Text>
+              
+                    <Text style={{borderBottomColor: 'black', borderBottomWidth: 1, marginBottom:10 }}></Text>
                     <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom:10 }}>Call log</Text>
                     <FlatList nestedScrollEnabled
                             data={record}
@@ -269,7 +284,7 @@ export default function DetailsScreen({ navigation }) {
                             keyExtractor={(item, index) => index.toString()}
                             //style={{backgroundColor: 'white'}}
                     />
-                    <Text>{"\n"}</Text>                
+                    <Text></Text>                
                 
             </SafeAreaView>
             
@@ -307,11 +322,20 @@ const styles = StyleSheet.create({
     },
     textStyle: {
       fontSize: 16,
+      color: 'black',
       marginVertical: 10,
       paddingLeft: 10,
     },
-    logStyle: {
-      backgroundColor: 'white',
+    contactStyle: {
+      backgroundColor: 'lightgreen',
+      borderRadius: 20,
+    },
+    safeStyle: {
+      backgroundColor: 'lightyellow',
+      borderRadius: 20,
+    },
+    mStyle: {
+      backgroundColor: 'lightred',
       borderRadius: 20,
     },
     buttonText: {

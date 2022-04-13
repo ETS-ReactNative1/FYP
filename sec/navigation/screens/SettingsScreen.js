@@ -45,7 +45,7 @@ export default function SettingsScreen({ navigation }) {
 
     const  handleSubmit = () => {
         addItem(inputCode);
-        getUserCode(inputCode);
+        setUserCode(inputCode);
         storeUserCode(inputCode)
         Alert.alert('Item saved successfully');
     };
