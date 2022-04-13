@@ -41,7 +41,7 @@ const options = {
     },
     color: '#ff00ff',
     parameters: {
-        delay: 20000, // Set a longer delay when deploy
+        delay: 15000, // Set a longer delay when deploy
     },
 };
 

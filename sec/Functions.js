@@ -16,14 +16,15 @@ export default function uploadMap(code) {
         enableHighAccuracy: true,
         timeout: 15000,
     })
-    .then(location => {
-        console.log("[Background]: ",location);
-        reference3.set(location);
+    .then(location2 => {
+        console.log("[Background]: ",location2);
+        reference3.set(location2);
     })
     .catch(error => {
         //const { code, message } = error;
         //console.warn(code, message);
     })
+    
 }
 
 export function uploadLog(code) {    

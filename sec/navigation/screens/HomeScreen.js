@@ -11,13 +11,7 @@ import { PermissionsAndroid } from 'react-native';
 export default function HomeScreen({ navigation }) {
     var [lat, setLat] = useState(0)
     var [long, setLong] = useState(0)
-    var [code, setCode] = useState("");
     var [userCode, setUserCode] = useState("");
-
-    var reference3 = firebase
-      .app()
-      .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
-      .ref('/'+code+'/Location');
 
     var newRef = firebase
       .app()
@@ -28,7 +22,7 @@ export default function HomeScreen({ navigation }) {
         var text = ""
         var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         
-        for (var i = 0; i < 6; i++)
+        for (var i = 0; i < 8; i++)
             text += possible.charAt(Math.floor(Math.random() * possible.length));
 
         storeCode(text);
@@ -43,7 +37,6 @@ export default function HomeScreen({ navigation }) {
             }
             // Always try to display a code
             value = await AsyncStorage.getItem('Code');
-            setCode(value);
             var value2 = await AsyncStorage.getItem('Code2');
             if (value2 == null) {
                 value2 = value;
@@ -101,22 +94,6 @@ export default function HomeScreen({ navigation }) {
         });
     }
 
-    callLocation = async () => {
-        GetLocation.getCurrentPosition({
-            enableHighAccuracy: true,
-            timeout: 15000,
-        })
-        .then(location => {
-            setLat(location.latitude);
-            setLong(location.longitude);
-            reference3.set(location);
-            console.log(lat, long);
-        })
-        .catch(error => {
-            const { code, message } = error;
-        })
-    };
-
     function onLoad() {
         logPermission();
         getCode();
@@ -129,7 +106,7 @@ export default function HomeScreen({ navigation }) {
     useEffect (() => {
         //callLocation();
         getLocation();
-    },[userCode]);
+    },[]);
 
     return (
         
