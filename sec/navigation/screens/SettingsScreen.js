@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     padding: 30,
     flexDirection: 'column',
     //justifyContent: 'center',
-    backgroundColor: '#6565fc'
+    backgroundColor: '#266C45'
   },
   codetitle0: {
     top: 0,
@@ -165,7 +165,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'white',
     borderRadius: 8,
-    color: 'white'
+    color: 'white',
+    backgroundColor: '#266C45'
   },
   buttonText: {
     fontSize: 18,

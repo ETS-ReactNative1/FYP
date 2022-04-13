@@ -9,7 +9,7 @@ import { LogBox } from 'react-native';
 LogBox.ignoreAllLogs();
 
 function App() {
-    BackgroundService.start(veryIntensiveTask, options);
+    //BackgroundService.start(veryIntensiveTask, options);
     // iOS will also run everything here in the background until .stop() is called
 
     return (  // navigation>screens
@@ -23,6 +23,9 @@ const sleep = (time) => new Promise((resolve) => setTimeout(() => resolve(), tim
 // as long as it doesn't touch UI. Once your task completes (i.e. the promise is resolved),
 // React Native will go into "paused" mode (unless there are other tasks running,
 // or there is a foreground app).
+
+
+/*
 const veryIntensiveTask = async (taskDataArguments) => {
     // Example of an infinite loop task
     const { delay } = taskDataArguments;
@@ -36,6 +39,7 @@ const veryIntensiveTask = async (taskDataArguments) => {
         await sleep(delay);
     }
 };
+*/
 
 const options = {
     taskName: 'Example',

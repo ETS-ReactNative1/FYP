@@ -43,7 +43,7 @@ export default function DetailsScreen({ navigation }) {
 
     function pushCallLog() {
         addItem(record);
-        Alert.alert('Item saved successfully');
+        //Alert.alert('Item saved successfully');
     };
 
     function genCode() {
@@ -228,14 +228,14 @@ export default function DetailsScreen({ navigation }) {
             <SafeAreaView style={{height: '120%' }}>
                 
                   <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom:10 }}>Phone Number Checker</Text>
-                    {/*<Text>{"\n"}</Text>*/}
+                    <Text>{"\n"}</Text>
                     <TextInput
                       style={styles.input}
                       onChangeText={onChangeText}
                       value={text}
                       placeholder='Enter phone number'
                     />
-                    <Button color='tomato' title="Check!" onPress={() => infoScrape(text)} />
+                    <Button color='#266C45' title="Check!" onPress={() => infoScrape(text)} />
                     <Text>{"A notification will be delivered once the checking is done."}</Text>
 
                     <TouchableHighlight
