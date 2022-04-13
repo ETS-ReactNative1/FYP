@@ -82,9 +82,9 @@ export default function SettingsScreen({ navigation }) {
 
     return (
         <View style={styles.main}>
-        <Text style={styles.codetitle0}> My User Code: {code} </Text>
-        <Text style={styles.codetitle}> Connected Code: {userCode} </Text>
-        <Text style={styles.title}>Connect Code</Text>
+        <Text style={styles.codetitle0}> 你的代碼: {code} </Text>
+        <Text style={styles.codetitle}> 已連結的代碼: {userCode} </Text>
+        <Text style={styles.title}>連結新的代碼</Text>
 
         <TextInput style={styles.itemInput} onChangeText={text => onChangeText(text)} />
         <TouchableHighlight
