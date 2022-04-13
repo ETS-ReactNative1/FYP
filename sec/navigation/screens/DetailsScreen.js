@@ -111,7 +111,7 @@ export default function DetailsScreen({ navigation }) {
               {'\n'}
             </Text>
             <Text style = {styles.typeStyle}>
-              在通訊錄內
+              通訊錄聯絡人
             </Text>
           </View>
         );
@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
     typeStyle: {
       fontSize: 22,
       color: 'black',
-      marginVertical: 10,
+      //marginVertical: 10,
       paddingRight: 10,
       textAlign: 'right',
     },
