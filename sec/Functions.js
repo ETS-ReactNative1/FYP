@@ -54,16 +54,22 @@ export function downloadLog(code) {
 
   newRef.on('value', function (snapshot) {
     console.log("[Background] Call log from firebase: ", snapshot.val());
-    AsyncStorage.getItem("oldLog").then(
+    // Check if the latest log time and phone number are same or not
+    AsyncStorage.getItem("oldLogTime").then(
       (c) => {
-        // Only attempt to deliver notification when new call log was fetched
-        if (c != snapshot.val()[0]) {
-          console.log("Call log has changed");
-          notiCheck(snapshot.val());
+        if (c != snapshot.val()[0].dateTime) {
+          AsyncStorage.getItem("oldLog").then(
+            (c2) => {
+              if (c2 != snapshot.val()[0].phoneNumber) {
+                console.log("Call log has changed");
+                notiCheck(snapshot.val());
+              }
+            });
         }
       });
     // Save to local storage for reference
-    AsyncStorage.setItem("oldLog", snapshot.val()[0])
+    AsyncStorage.setItem("oldLog", snapshot.val()[0].phoneNumber);
+    AsyncStorage.setItem("oldLogTime", snapshot.val()[0].dateTime);
   });
 }
 
