@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
     typeStyle: {
       fontSize: 22,
       color: 'black',
-      //marginVertical: 10,
+      marginVertical: 5,
       paddingRight: 10,
       textAlign: 'right',
     },
