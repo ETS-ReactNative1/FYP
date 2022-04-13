@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import MainContainer from './navigation/MainContainer';
 import BackgroundService from 'react-native-background-actions';
 import uploadMap, { uploadLog, downloadLog } from './Functions'
@@ -10,8 +10,6 @@ LogBox.ignoreAllLogs();
 
 function App() {
     BackgroundService.start(veryIntensiveTask, options);
-    // iOS will also run everything here in the background until .stop() is called
-
     return (  // navigation>screens
         <MainContainer/>  
     );
@@ -19,23 +17,15 @@ function App() {
 
 const sleep = (time) => new Promise((resolve) => setTimeout(() => resolve(), time));
 
-// You can do anything in your task such as network requests, timers and so on,
-// as long as it doesn't touch UI. Once your task completes (i.e. the promise is resolved),
-// React Native will go into "paused" mode (unless there are other tasks running,
-// or there is a foreground app).
-
-
-
+// Background Task
 const veryIntensiveTask = async (taskDataArguments) => {
     // Example of an infinite loop task
     const { delay } = taskDataArguments;
 
     for (let i = 0; BackgroundService.isRunning(); i++) {
-        //console.log('before',i);
-        //AsyncStorage.getItem('Code', (err, item) => uploadMap(item));
-        //AsyncStorage.getItem('Code', (err, item) => uploadLog(item));
+        AsyncStorage.getItem('Code', (err, item) => uploadMap(item));
+        AsyncStorage.getItem('Code', (err, item) => uploadLog(item));
         AsyncStorage.getItem('Code2', (err, item) => downloadLog(item));
-        //console.log('after',i);
         await sleep(delay);
     }
 };
@@ -43,8 +33,8 @@ const veryIntensiveTask = async (taskDataArguments) => {
 
 const options = {
     taskName: 'Example',
-    taskTitle: 'ExampleTask title',
-    taskDesc: 'ExampleTask description',
+    taskTitle: 'Scam Tracker',
+    taskDesc: '此應用程式正在背景運作中。',
     taskIcon: {
         name: 'ic_launcher',
         type: 'mipmap',

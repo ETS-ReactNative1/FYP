@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { Animated, View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import {Location, Permissions} from 'expo';
-import { Component } from 'react/cjs/react.production.min';
 import GetLocation from 'react-native-get-location';
 import {firebase} from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -98,7 +96,7 @@ export default function HomeScreen({ navigation }) {
             if (snapshot.val() != null) {
                 setLat(snapshot.val().latitude);
                 setLong(snapshot.val().longitude);
-                console.log(snapshot.val());
+                console.log("[HomeScreen] Location: ",snapshot.val());
             } 
         });
     }
@@ -124,16 +122,13 @@ export default function HomeScreen({ navigation }) {
         getCode();
     }
 
-    // delay helper function
-    const delay = ms => new Promise(res => setTimeout(res, ms));
-
     useEffect (() => {
         onLoad();
     },[]);
 
     useEffect (() => {
-        callLocation();
-        //getLocation();
+        //callLocation();
+        getLocation();
     },[userCode]);
 
     return (
@@ -149,19 +144,15 @@ export default function HomeScreen({ navigation }) {
                 longitudeDelta: 0.0,
                 }}
             >
-                
                 <Marker
                     coordinate = {{latitude: lat, longitude: long}}
-                    title={"Current Location"}
+                    title={"目前位置"}
                     description={"Info"}
                 />
-                
             </MapView>
-    
 
             <Text
-                //onPress={() => alert('This is the current location of the Elderly.')}
-                onPress={getLocation}//callLocation
+                onPress={getLocation} //callLocation
                 style={{ fontSize: 24, fontWeight: 'bold' }}>UPDATE</Text>
         </View>
     );

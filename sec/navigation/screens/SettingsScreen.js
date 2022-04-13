@@ -1,31 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
-//import messaging from '@react-native-firebase/messaging';
-/*
-}
-async function requestUserPermission() {
-  const authStatus = await messaging().requestPermission();
-  const enabled =
-    authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-    authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-  if (enabled) {
-    console.log('Authorization status:', authStatus);
-  }
-}
-*/
-
-
-import {
-  View,
-  Text,
-  TouchableHighlight,
-  StyleSheet,
-  TextInput,
-  Alert,
-  Button
-} from 'react-native';
+import { View, Text, TouchableHighlight, StyleSheet, TextInput, Alert } from 'react-native';
 
 import {firebase} from '@react-native-firebase/database';
 
@@ -43,7 +18,7 @@ export default function SettingsScreen({ navigation }) {
         reference1.set(item);
     };
 
-    const  handleSubmit = () => {
+    const handleSubmit = () => {
         addItem(inputCode);
         setUserCode(inputCode);
         storeUserCode(inputCode)
@@ -101,7 +76,6 @@ export default function SettingsScreen({ navigation }) {
         storeCode(text);
     }
 
-    // Automatically check for pairing code when the app is launched
     useEffect (() => {
         getCode();
     },[]);
@@ -155,7 +129,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center',
     color: 'white',
-    //fontStyle: 'bold'
   },
   itemInput: {
     height: 50,

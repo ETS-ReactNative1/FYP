@@ -1,25 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import { PermissionsAndroid, Platform, View, Text, SafeAreaView, ScrollView, 
-    StyleSheet, Button, FlatList, TextInput, TouchableHighlight, Alert} from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
-import {Location, Permissions} from 'expo';
-import { Component } from 'react/cjs/react.production.min';
+import { PermissionsAndroid, Platform } from 'react-native';
 import GetLocation from 'react-native-get-location';
 import {firebase} from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CallLogs from 'react-native-call-log';
 import notifee, {AndroidImportance} from '@notifee/react-native';
 
-export default function uploadMap(code) {
-    var lat = 0;
-    var long = 0; 
-
-
+export function uploadMap(code) {
     var reference3 = firebase
       .app()
       .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
       .ref('/'+code+'/Location');
-
 
     //call location 
     GetLocation.getCurrentPosition({
@@ -27,19 +17,59 @@ export default function uploadMap(code) {
         timeout: 15000,
     })
     .then(location => {
-        lat = location.latitude;
-        long = location.longitude;
-        console.log(lat, long);
+        console.log("[Background]: ",location);
         reference3.set(location);
     })
     .catch(error => {
         //const { code, message } = error;
         //console.warn(code, message);
     })
-
 }
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export function uploadLog(code) {    
+  // Loading Call Log
+  if (Platform.OS === 'android') {
+    PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_CALL_LOG,
+        {
+            'title': 'Call Log',
+            'message': 'Access your call logs',
+            buttonNeutral: 'Ask Me Later',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+        }
+    ).then(() => {
+        CallLogs.load(10,isDistinct=true).then((c) => checkLogNumber(c).then((c2) => {if (c2 != null) {pushCallLog(code, c2)}}));
+    })
+  } else {
+      console.log("iOS device, no call log available");
+  }    
+}
+
+export function downloadLog(code) {
+  var newRef = firebase
+    .app()
+    .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
+    .ref('/'+code+'/callRecord');
+
+  newRef.on('value', function (snapshot) {
+    console.log("[Background] Call log from firebase: ", snapshot.val());
+    AsyncStorage.getItem("oldLog").then(
+      (c) => {
+        // Only attempt to deliver notification when new call log was fetched
+        if (c != snapshot.val()[0].phoneNumber) {
+          console.log("Call log has changed");
+          notiCheck(snapshot.val());
+        }
+      });
+    // Save to local storage for reference
+    AsyncStorage.setItem("oldLog", snapshot.val()[0].phoneNumber)
+  });
+}
+
+// -------------------------------------
+// Helper functions
+// -------------------------------------
 
 
 const cheerio = require('react-native-cheerio');
@@ -70,7 +100,7 @@ async function infoScrape(number) {
   return type;
 }
 
-// driver function for automatic call checking
+// Driver function for call checking
 async function checkLogNumber(record) {
   var oldRecord = await AsyncStorage.getItem('myRecord');
     if (oldRecord != record[0].phoneNumber) {
@@ -84,14 +114,13 @@ async function checkLogNumber(record) {
           record[i]["callType"] = "In Contact List";
         }
       }
-      await AsyncStorage.setItem(
-        'myRecord', record[0].phoneNumber
-      );
+      await AsyncStorage.setItem('myRecord', record[0].phoneNumber);
       console.log("old record not equal to record! ")
+      // Record updated, should upload to firebase
       return record;
-
-    } else{
+    } else {
       console.log("old record = record ")
+      // No changes, skip this upload
       return null;
     }
 }
@@ -108,27 +137,8 @@ function pushCallLog(code, record) {
   newRef.set(record);
 }
 
-export function uploadLog(code) {    
-    // Loading Call Log
-    if (Platform.OS === 'android') {
-      PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.READ_CALL_LOG,
-          {
-              'title': 'Call Log',
-              'message': 'Access your call logs',
-              buttonNeutral: 'Ask Me Later',
-              buttonNegative: 'Cancel',
-              buttonPositive: 'OK',
-          }
-      ).then(() => {
-          CallLogs.load(10,isDistinct=true).then((c) => checkLogNumber(c).then((c2) => {if (c2 != null) {pushCallLog(code, c2)}}));
-      })
-    } else {
-        console.log("iOS device, no call log available");
-    }    
-}
 
-// Delivers dummy notification when called
+// Delivers notification when called
 async function onDisplayNotification() {
   // Create a channel
   const channelId = await notifee.createChannel({
@@ -139,19 +149,27 @@ async function onDisplayNotification() {
 
   // Display a notification
   await notifee.displayNotification({
-    title: 'Malicious call warning',
-    body: 'The elderly has received Malicious call in last 30 minutes.',
+    title: 'Scam Tracker',
+    body: '長者最近接到了可疑來電，請提高警覺。',
     android: {
       channelId,
     },
   });
 }
 
+// Deliver notifications if needed
 function notiCheck(listData) {
-  // Deliver notifications if needed
   if (listData.length > 3) {
     for (var i=0; i<3; i++) {
-      console.log(listData[i].callType);
+      if (listData[i].callType == "Malicious") {
+        // Send warning
+        console.log("Should send warning.")
+        onDisplayNotification();
+        break;
+      }
+    }
+  } else {
+    for (var i=0; i<listData.length; i++) {
       if (listData[i].callType == "Malicious") {
         // Send warning
         console.log("Should send warning.")
@@ -160,28 +178,4 @@ function notiCheck(listData) {
       }
     }
   }
-  else {
-    for (var i=0; i<listData.length; i++) {
-      console.log(listData[i].callType);
-      if (listData[i].callType == "Malicious") {
-        // Send warning
-        onDisplayNotification();
-        break;
-      }
-    }
-  }
-}
-
-export function downloadLog(code) {
-    var newRef = firebase
-      .app()
-      .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
-      .ref('/'+code+'/callRecord');
-
-    console.log("Code: ", code);
-
-    newRef.on('value', function (snapshot) {
-      console.log(snapshot.val().length);
-      notiCheck(snapshot.val());
-    });
 }

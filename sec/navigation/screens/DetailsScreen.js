@@ -1,13 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import { PermissionsAndroid, Platform, View, Text, SafeAreaView, ScrollView, StyleSheet, Button, FlatList, TextInput, TouchableHighlight, Alert} from 'react-native';
-import CallLogs from 'react-native-call-log';
+import { View, Text, SafeAreaView, StyleSheet, Button, FlatList, TextInput, TouchableHighlight } from 'react-native';
 import notifee, {AndroidImportance} from '@notifee/react-native';
 import {firebase} from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function DetailsScreen({ navigation }) {
     // Global variables
-    var [listData, setListData] = useState([]);
     const [text, onChangeText] = useState(null);
     const cheerio = require('react-native-cheerio');
 
@@ -15,28 +13,13 @@ export default function DetailsScreen({ navigation }) {
     var [code, setCode] = useState("");
     var [userCode, setUserCode] = useState("");
 
-    var reference2 = firebase
-      .app()
-      .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
-      .ref('/'+code+'/callRecord');
-
     var newRef = firebase
       .app()
       .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
       .ref('/'+userCode+'/callRecord');
 
-    let addItem = item => {
-      reference2.set(item);
-    };
-
-    function getMyCallLog() {
-      reference2.on('value', function (snapshot) {
-          setListData(snapshot.val()); 
-      });
-    }
-
     function getCallLog() {
-      console.log('Code & userCode: ', code, userCode);
+      console.log('[DetailScreen] Code & userCode: ', code, userCode);
       newRef.on('value', function (snapshot) {
           setRecord(snapshot.val()); 
       });
@@ -72,27 +55,6 @@ export default function DetailsScreen({ navigation }) {
           }
     }
 
-    // Loading Call Log
-    async function loadCallLog() {
-        if (Platform.OS === 'android') {
-            PermissionsAndroid.request(
-                PermissionsAndroid.PERMISSIONS.READ_CALL_LOG,
-                {
-                    'title': 'Call Log',
-                    'message': 'Access your call logs',
-                    buttonNeutral: 'Ask Me Later',
-                    buttonNegative: 'Cancel',
-                    buttonPositive: 'OK',
-                }
-            ).then(() => {
-                CallLogs.load(10,isDistinct=true).then((c) => setListData(c));
-                CallLogs.load(10,isDistinct=true).then((c) => setRecord(c));
-            })
-        } else {
-            console.log("iOS device, no call log available");
-        }
-    }
-
     // Web-scraping function for call type identification
     async function infoScrape(number) {
       const keywords = ['假冒','騙案','詐騙','自稱']
@@ -119,20 +81,6 @@ export default function DetailsScreen({ navigation }) {
       return type;
     }
 
-    // driver function for automatic call checking
-    async function checkLogNumber() {
-      for (var i=0; i < record.length; i++) {
-        if (!record[i].name) {
-          // Not in call log
-          var data = await infoScrape(record[i].phoneNumber);
-          record[i]["callType"] = data;
-        }
-        else {
-          record[i]["callType"] = "In Contact List";
-        }
-      }
-    }
-
     // Delivers dummy notification when called
     async function onDisplayNotification(number, data) {
       // Create a channel
@@ -152,11 +100,7 @@ export default function DetailsScreen({ navigation }) {
       });
     }
 
-    // delay helper function
-    const delay = ms => new Promise(res => setTimeout(res, ms));
-
-    // Formatting for call log display
-    // render format for Call logs
+    // Render format for Call logs
     const ItemView = ({item}) => {
       if (item.callType == "In Contact List" ) {
         return (
@@ -165,7 +109,7 @@ export default function DetailsScreen({ navigation }) {
             <Text style={styles.textStyle}>
               名稱 : {item.name ? item.name : 'NA'}
               {'\n'}
-              檢查結果 : {item.callType}
+              檢查結果 : 在通訊錄內
             </Text>
           </View>
         );
@@ -180,7 +124,7 @@ export default function DetailsScreen({ navigation }) {
               {'\n'}
               類型 : {item.type}
               {'\n'}
-              檢查結果 : {item.callType}
+              檢查結果 : 安全
             </Text>
           </View>
         );
@@ -194,11 +138,9 @@ export default function DetailsScreen({ navigation }) {
               {'\n'}
               日期 : {item.dateTime}
               {'\n'}
-              Duration : {item.duration}
-              {'\n'}
               類型 : {item.type}
               {'\n'}
-              檢查結果 : {item.callType}
+              檢查結果 : 可疑電話
             </Text>
           </View>
         );
@@ -215,13 +157,11 @@ export default function DetailsScreen({ navigation }) {
           style={{
             height: 5,
             width: '100%',
-            //backgroundColor: '#C8C8C8',
           }}
         />
       );
     };
 
-    // Automatically load call log when the app is launched
     useEffect (() => {
       getCode();
     },[]);
@@ -231,10 +171,10 @@ export default function DetailsScreen({ navigation }) {
     }, [userCode])
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%'}}>
-            <SafeAreaView style={{height: '110%' }}>
+        <View style={{ flex: 1, paddingLeft: 20, paddingRight: 20, width: '100%'}}>
+            <SafeAreaView style={{height: '100%' }}>
                 
-                  <Text style={{ position: 'relative',   top: 26, fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom:10 }}>檢查電話號碼</Text>
+                  <Text style={{ position: 'relative', top: 15, fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom:10 }}>檢查電話號碼</Text>
                     <Text></Text>
                     <TextInput
                       style={styles.input}
@@ -243,7 +183,7 @@ export default function DetailsScreen({ navigation }) {
                       placeholder='輸入電話號碼'
                     />
                     <Button color='#266C45' title="檢查" onPress={() => infoScrape(text).then((c) => onDisplayNotification(text, c))} />
-                    <Text>{"A notification will be delivered once the checking is done."}</Text>
+                    <Text>{"電話號碼檢查完成後，將會發送通知提供結果。"}</Text>
 
                     <TouchableHighlight
                       underlayColor="white"
@@ -259,7 +199,6 @@ export default function DetailsScreen({ navigation }) {
                             ItemSeparatorComponent={ItemSeparatorView}
                             renderItem={ItemView}
                             keyExtractor={(item, index) => index.toString()}
-                            //style={{backgroundColor: 'white'}}
                     />
                     <Text></Text>                
                 
@@ -270,21 +209,6 @@ export default function DetailsScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-    main: {
-      flex: 1,
-      padding: 30,
-      flexDirection: 'column',
-      //justifyContent: 'center',
-      backgroundColor: '#6565fc'
-    },
-    container: {
-     flex: 1,
-     padding: 10,
-     flexDirection: 'column',
-     paddingTop: 22,
-     //height: '100%',
-     width: '100%'
-    },
     item: {
       padding: 10,
       fontSize: 18,
@@ -312,7 +236,7 @@ const styles = StyleSheet.create({
       borderRadius: 20,
     },
     mStyle: {
-      backgroundColor: 'lightred',
+      backgroundColor: '#F58B70',
       borderRadius: 20,
     },
     buttonText: {
