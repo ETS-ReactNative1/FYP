@@ -172,9 +172,9 @@ export default function DetailsScreen({ navigation }) {
 
     return (
         <View style={{ flex: 1, paddingLeft: 20, paddingRight: 20, width: '100%'}}>
-            <SafeAreaView style={{height: '100%' }}>
+            <SafeAreaView style={{height: '105%' }}>
                 
-                  <Text style={{ position: 'relative', top: 15, fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom:10 }}>檢查電話號碼</Text>
+                  <Text style={{ position: 'relative', top: 15, fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom:10 }}>查詢電話號碼</Text>
                     <Text></Text>
                     <TextInput
                       style={styles.input}
@@ -182,7 +182,7 @@ export default function DetailsScreen({ navigation }) {
                       value={text}
                       placeholder='輸入電話號碼'
                     />
-                    <Button color='#266C45' title="檢查" onPress={() => infoScrape(text).then((c) => onDisplayNotification(text, c))} />
+                    <Button color='#266C45' title="查詢" onPress={() => infoScrape(text).then((c) => onDisplayNotification(text, c))} />
                     <Text>{"電話號碼檢查完成後，將會發送通知提供結果。"}</Text>
 
                     <TouchableHighlight

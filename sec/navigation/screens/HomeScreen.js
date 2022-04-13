@@ -147,13 +147,13 @@ export default function HomeScreen({ navigation }) {
                 <Marker
                     coordinate = {{latitude: lat, longitude: long}}
                     title={"目前位置"}
-                    description={"Info"}
+                    description={"已連線用戶的位置"}
                 />
             </MapView>
 
             <Text
                 onPress={getLocation} //callLocation
-                style={{ fontSize: 24, fontWeight: 'bold' }}>UPDATE</Text>
+                style={{ fontSize: 24, fontWeight: 'bold' }}>即時更新</Text>
         </View>
     );
 }
