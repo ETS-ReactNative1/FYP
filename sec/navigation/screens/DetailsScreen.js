@@ -36,7 +36,9 @@ export default function DetailsScreen({ navigation }) {
     }
 
     function getCallLog() {
-      getCode();
+      //getCode();
+      //await delay(1000);
+      console.log('Code & userCode: ', code, userCode);
       newRef.on('value', function (snapshot) {
           setRecord(snapshot.val()); 
       });
@@ -71,11 +73,10 @@ export default function DetailsScreen({ navigation }) {
           if (value2 == null) {
             value2 = value;
           }
-          setUserCode(value2);  
+          setUserCode(value2); 
           } catch (error) {
               // error
           }
-          return Promise.resolve();
     }
 
     // Loading Call Log
@@ -161,19 +162,6 @@ export default function DetailsScreen({ navigation }) {
     // delay helper function
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
-    async function onLoad() {
-      await loadCallLog();
-      await getCode();  
-      //checkLogNumber();
-      //await delay(2000);
-      //await pushCallLog();
-    }
-
-    async function checkAndPush() {
-      await checkLogNumber();
-      pushCallLog();
-    }
-
     // Formatting for call log display
     // render format for Call logs
     const ItemView = ({item}) => {
@@ -239,19 +227,15 @@ export default function DetailsScreen({ navigation }) {
         />
       );
     };
-    
+
     // Automatically load call log when the app is launched
     useEffect (() => {
-        onLoad();
+      getCode();
     },[]);
 
     useEffect (() => {
-      checkAndPush();
-    },[record]);
-
-    //useEffect (() => {
-      
-    //}, [record])
+      getCallLog();
+    }, [userCode])
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%'}}>
