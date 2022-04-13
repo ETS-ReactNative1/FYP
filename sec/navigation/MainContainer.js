@@ -10,9 +10,9 @@ import SettingsScreen from './screens/SettingsScreen';
 
 
 //give names
-const homeName = "Location";
-const detailsName = "Logs";
-const settingsName = "Settings";
+const homeName = "位置";
+const detailsName = "通話記錄";
+const settingsName = "連線";
 const Tab = createBottomTabNavigator();
 
 export default function MainContainer(){

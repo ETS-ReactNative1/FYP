@@ -109,8 +109,8 @@ export default function SettingsScreen({ navigation }) {
     return (
         <View style={styles.main}>
         <Text style={styles.codetitle0}> My User Code: {code} </Text>
-        <Text style={styles.codetitle}> My Parent Code: {userCode} </Text>
-        <Text style={styles.title}>Add Parent Code</Text>
+        <Text style={styles.codetitle}> Connected Code: {userCode} </Text>
+        <Text style={styles.title}>Connect Code</Text>
 
         <TextInput style={styles.itemInput} onChangeText={text => onChangeText(text)} />
         <TouchableHighlight
