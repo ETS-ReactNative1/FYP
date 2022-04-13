@@ -107,9 +107,11 @@ export default function DetailsScreen({ navigation }) {
           // FlatList Item
           <View style={styles.contactStyle}>
             <Text style={styles.textStyle}>
-              名稱 : {item.name ? item.name : 'NA'}
+              與 {item.name} 的通話
               {'\n'}
-              檢查結果 : 在通訊錄內
+            </Text>
+            <Text style = {styles.typeStyle}>
+              在通訊錄內
             </Text>
           </View>
         );
@@ -123,8 +125,9 @@ export default function DetailsScreen({ navigation }) {
               日期 : {item.dateTime}
               {'\n'}
               類型 : {item.type}
-              {'\n'}
-              檢查結果 : 安全
+            </Text>
+            <Text style = {styles.typeStyle}>
+              安全
             </Text>
           </View>
         );
@@ -139,8 +142,9 @@ export default function DetailsScreen({ navigation }) {
               日期 : {item.dateTime}
               {'\n'}
               類型 : {item.type}
-              {'\n'}
-              檢查結果 : 可疑電話
+            </Text>
+            <Text style = {styles.typeStyle}>
+              可疑電話
             </Text>
           </View>
         );
@@ -238,6 +242,13 @@ const styles = StyleSheet.create({
     mStyle: {
       backgroundColor: '#F58B70',
       borderRadius: 20,
+    },
+    typeStyle: {
+      fontSize: 22,
+      color: 'black',
+      marginVertical: 10,
+      paddingRight: 10,
+      textAlign: 'right',
     },
     buttonText: {
       fontSize: 18,
