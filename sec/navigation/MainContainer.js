@@ -12,7 +12,7 @@ import SettingsScreen from './screens/SettingsScreen';
 //give names
 const homeName = "位置";
 const detailsName = "通話記錄";
-const settingsName = "連線";
+const settingsName = "連結";
 const Tab = createBottomTabNavigator();
 
 export default function MainContainer(){

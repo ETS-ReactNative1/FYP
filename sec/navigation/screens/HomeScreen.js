@@ -153,7 +153,7 @@ export default function HomeScreen({ navigation }) {
 
             <Text
                 onPress={getLocation} //callLocation
-                style={{ fontSize: 24, fontWeight: 'bold' }}>即時更新</Text>
+                style={{ fontSize: 24, fontWeight: 'bold' }}>更新位置</Text>
         </View>
     );
 }
