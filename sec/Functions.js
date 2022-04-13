@@ -57,13 +57,13 @@ export function downloadLog(code) {
     AsyncStorage.getItem("oldLog").then(
       (c) => {
         // Only attempt to deliver notification when new call log was fetched
-        if (c != snapshot.val()[0].phoneNumber) {
+        if (c != snapshot.val()[0]) {
           console.log("Call log has changed");
           notiCheck(snapshot.val());
         }
       });
     // Save to local storage for reference
-    AsyncStorage.setItem("oldLog", snapshot.val()[0].phoneNumber)
+    AsyncStorage.setItem("oldLog", snapshot.val()[0])
   });
 }
 
