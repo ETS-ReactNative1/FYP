@@ -4,6 +4,7 @@ import {firebase} from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CallLogs from 'react-native-call-log';
 import notifee, {AndroidImportance} from '@notifee/react-native';
+import { or } from 'react-native-reanimated';
 
 export default function uploadMap(code) {
     var reference3 = firebase
@@ -103,7 +104,8 @@ async function infoScrape(number) {
 // Driver function for call checking
 async function checkLogNumber(record) {
   var oldRecord = await AsyncStorage.getItem('myRecord');
-    if (oldRecord != record[0].phoneNumber) {
+  var oldDateTime = await AsyncStorage.getItem('myDateTime');
+    if ((oldRecord != record[0].phoneNumber) && (oldDateTime != record[0].dateTime)) {
       for (var i=0; i < record.length; i++) {
         if (!record[i].name) {
           // Not in call log
@@ -115,6 +117,8 @@ async function checkLogNumber(record) {
         }
       }
       await AsyncStorage.setItem('myRecord', record[0].phoneNumber);
+      await AsyncStorage.setItem('myDateTime', record[0].dateTime);
+
       console.log("old record not equal to record! ")
       // Record updated, should upload to firebase
       return record;

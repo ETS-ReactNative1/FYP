@@ -107,7 +107,7 @@ export default function DetailsScreen({ navigation }) {
           // FlatList Item
           <View style={styles.contactStyle}>
             <Text style={styles.textStyle}>
-              與 {item.name} 的通話
+              與 {item.name}的通話
               {'\n'}
             </Text>
             <Text style = {styles.typeStyle}>
