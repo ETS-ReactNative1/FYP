@@ -4,7 +4,6 @@ import {firebase} from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CallLogs from 'react-native-call-log';
 import notifee, {AndroidImportance} from '@notifee/react-native';
-import { or } from 'react-native-reanimated';
 
 export default function uploadMap(code) {
     var reference3 = firebase
@@ -56,10 +55,10 @@ export function downloadLog(code) {
   newRef.on('value', function (snapshot) {
     console.log("[Background] Call log from firebase: ", snapshot.val());
     // Check if the latest log time and phone number are same or not
-    AsyncStorage.getItem("oldLogTime").then(
+    AsyncStorage.getItem("myDateTime").then(
       (c) => {
         if (c != snapshot.val()[0].dateTime) {
-          AsyncStorage.getItem("oldLog").then(
+          AsyncStorage.getItem("myRecord").then(
             (c2) => {
               if (c2 != snapshot.val()[0].phoneNumber) {
                 console.log("Call log has changed");
@@ -69,8 +68,8 @@ export function downloadLog(code) {
         }
       });
     // Save to local storage for reference
-    AsyncStorage.setItem("oldLog", snapshot.val()[0].phoneNumber);
-    AsyncStorage.setItem("oldLogTime", snapshot.val()[0].dateTime);
+    AsyncStorage.setItem("myRecord", snapshot.val()[0].phoneNumber);
+    AsyncStorage.setItem("myDateTime", snapshot.val()[0].dateTime);
   });
 }
 
