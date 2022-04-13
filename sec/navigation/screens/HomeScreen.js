@@ -89,7 +89,7 @@ export default function HomeScreen({ navigation }) {
             if (snapshot.val() != null) {
                 setLat(snapshot.val().latitude);
                 setLong(snapshot.val().longitude);
-                console.log("[HomeScreen] Location: ",snapshot.val());
+                console.log("[HomeScreen]: ",snapshot.val());
             } 
         });
     }
