@@ -84,7 +84,7 @@ export default function SettingsScreen({ navigation }) {
         <View style={styles.main}>
         <Text style={styles.codetitle0}> 你的代碼: {code} </Text>
         <Text style={styles.codetitle}> 已連結的代碼: {userCode} </Text>
-        <Text style={styles.title}>連結新的代碼</Text>
+        <Text style={styles.title}>輸入代碼以連接新的用戶</Text>
 
         <TextInput style={styles.itemInput} onChangeText={text => onChangeText(text)} />
         <TouchableHighlight
@@ -92,7 +92,7 @@ export default function SettingsScreen({ navigation }) {
           underlayColor="white"
             onPress={handleSubmit}
         >
-        <Text style={styles.buttonText}>Add</Text>
+        <Text style={styles.buttonText}>連接用戶</Text>
         </TouchableHighlight>
         </View>
     );
