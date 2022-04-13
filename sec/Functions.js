@@ -72,18 +72,28 @@ async function infoScrape(number) {
 
 // driver function for automatic call checking
 async function checkLogNumber(record) {
-  return record;
-  for (var i=0; i < record.length; i++) {
-    if (!record[i].name) {
-      // Not in call log
-      var data = await infoScrape(record[i].phoneNumber);
-      record[i]["callType"] = data;
+  var oldRecord = await AsyncStorage.getItem('myRecord');
+    if (oldRecord != record[0].phoneNumber) {
+      for (var i=0; i < record.length; i++) {
+        if (!record[i].name) {
+          // Not in call log
+          var data = await infoScrape(record[i].phoneNumber);
+          record[i]["callType"] = data;
+        }
+        else {
+          record[i]["callType"] = "In Contact List";
+        }
+      }
+      await AsyncStorage.setItem(
+        'myRecord', record[0].phoneNumber
+      );
+      console.log("old record not equal to record! ")
+      return record;
+
+    } else{
+      console.log("old record = record ")
+      return oldRecord;
     }
-    else {
-      record[i]["callType"] = "In Contact List";
-    }
-  }
-  return record;
 }
 
 function pushCallLog(code, record) {
