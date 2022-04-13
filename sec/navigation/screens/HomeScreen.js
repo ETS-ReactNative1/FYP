@@ -50,7 +50,8 @@ export default function HomeScreen({ navigation }) {
             if (value2 == null) {
                 value2 = value;
             }
-            setUserCode(value2);  
+            setUserCode(value2);
+            storeUserCode(value2);
         } catch (error) {
             // error
         }
@@ -60,6 +61,16 @@ export default function HomeScreen({ navigation }) {
         try {
             await AsyncStorage.setItem(
                 'Code', code
+            );
+            } catch (error) {
+                // Error saving data
+            }
+    }
+
+    async function storeUserCode(userCode) {
+        try {
+            await AsyncStorage.setItem(
+                'Code2', userCode
             );
             } catch (error) {
                 // Error saving data

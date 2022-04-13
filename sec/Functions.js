@@ -128,17 +128,60 @@ export function uploadLog(code) {
     }    
 }
 
-// Unfinished
-export function downloadLog(code) {
-    var listData = [];
+// Delivers dummy notification when called
+async function onDisplayNotification() {
+  // Create a channel
+  const channelId = await notifee.createChannel({
+    id: 'default',
+    name: 'Default Channel',
+    importance: AndroidImportance.HIGH,
+  });
 
+  // Display a notification
+  await notifee.displayNotification({
+    title: 'Malicious call warning',
+    body: 'The elderly has received Malicious call in last 30 minutes.',
+    android: {
+      channelId,
+    },
+  });
+}
+
+function notiCheck(listData) {
+  // Deliver notifications if needed
+  if (listData.length > 3) {
+    for (var i=0; i<3; i++) {
+      console.log(listData[i].callType);
+      if (listData[i].callType == "Malicious") {
+        // Send warning
+        console.log("Should send warning.")
+        onDisplayNotification();
+        break;
+      }
+    }
+  }
+  else {
+    for (var i=0; i<listData.length; i++) {
+      console.log(listData[i].callType);
+      if (listData[i].callType == "Malicious") {
+        // Send warning
+        onDisplayNotification();
+        break;
+      }
+    }
+  }
+}
+
+export function downloadLog(code) {
     var newRef = firebase
       .app()
       .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
       .ref('/'+code+'/callRecord');
 
+    console.log("Code: ", code);
+
     newRef.on('value', function (snapshot) {
-      console.log(snapshot.val());
-      listData = snapshot.val(); 
+      console.log(snapshot.val().length);
+      notiCheck(snapshot.val());
     });
 }

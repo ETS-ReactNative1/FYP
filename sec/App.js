@@ -32,9 +32,9 @@ const veryIntensiveTask = async (taskDataArguments) => {
 
     for (let i = 0; BackgroundService.isRunning(); i++) {
         //console.log('before',i);
-        AsyncStorage.getItem('Code', (err, item) => uploadMap(item));
-        AsyncStorage.getItem('Code', (err, item) => uploadLog(item));
-        //AsyncStorage.getItem('Code2', (err, item) => downloadLog(item));
+        //AsyncStorage.getItem('Code', (err, item) => uploadMap(item));
+        //AsyncStorage.getItem('Code', (err, item) => uploadLog(item));
+        AsyncStorage.getItem('Code2', (err, item) => downloadLog(item));
         //console.log('after',i);
         await sleep(delay);
     }
