@@ -85,9 +85,8 @@ export default function DetailsScreen({ navigation }) {
         return (
           // FlatList Item
           <View style={styles.contactStyle}>
-            <Text style={styles.textStyle}>
+            <Text style={styles.safetextStyle}>
               與 {item.name}的通話
-              {'\n'}
             </Text>
             <Text style = {styles.typeStyle}>
               通訊錄聯絡人
@@ -211,10 +210,17 @@ const styles = StyleSheet.create({
       padding: 10,
     },
     textStyle: {
-      fontSize: 16,
+      fontSize: 17,
       color: 'black',
       marginVertical: 10,
-      paddingLeft: 10,
+      paddingLeft: 12,
+    },
+    safetextStyle: {
+      fontSize: 20,
+      color: 'black',
+      marginTop: 10,
+      marginBottom: 14,
+      paddingLeft: 12,
     },
     contactStyle: {
       backgroundColor: 'lightgreen',
@@ -231,8 +237,8 @@ const styles = StyleSheet.create({
     typeStyle: {
       fontSize: 22,
       color: 'black',
-      marginVertical: 5,
-      paddingRight: 10,
+      marginBottom: 6,
+      paddingRight: 15,
       textAlign: 'right',
     },
     buttonText: {

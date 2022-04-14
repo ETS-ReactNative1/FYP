@@ -75,26 +75,19 @@ const styles = StyleSheet.create({
     //justifyContent: 'center',
     backgroundColor: '#266C45'
   },
-  codetitle0: {
-    top: 0,
-    left: 0,
-    marginBottom: 5,
-    fontSize: 18,
-    textAlign: 'left',
-    color: 'lightgrey'
-  },
+ 
   codetitle: {
     top: 0,
     left: 0,
     marginBottom: '30%',
-    fontSize: 18,
+    fontSize: 19,
     textAlign: 'left',
-    color: 'lightgrey'
+    color: 'white'
   },
   title: {
     marginTop: 20,
     marginBottom: 20,
-    fontSize: 25,
+    fontSize: 26,
     textAlign: 'center',
     justifyContent: 'center',
     color: 'white',
@@ -111,8 +104,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#266C45'
   },
   buttonText: {
-    fontSize: 18,
-    color: '#111',
+    fontSize: 20,
+    color: '#1D4728',
     alignSelf: 'center'
   },
   button: {
