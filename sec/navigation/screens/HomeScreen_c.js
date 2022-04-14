@@ -86,10 +86,6 @@ export default function HomeScreen({ navigation }) {
                     description={"已連線用戶的位置"}
                 />
             </MapView>
-
-            <Text
-                onPress={onLoad2} //callLocation
-                style={{ fontSize: 24, fontWeight: 'bold' }}>更新位置</Text>
         </View>
     );
 }
@@ -97,7 +93,7 @@ export default function HomeScreen({ navigation }) {
 const styles= StyleSheet.create({
     map: {
         width: '100%',
-        height: '95%',
+        height: '100%',
     }
 
 })

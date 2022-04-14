@@ -184,9 +184,9 @@ export default function DetailsScreen({ navigation }) {
                       placeholder='輸入電話號碼'
                     />
                     <Button color='#266C45' title="查詢" onPress={() => infoScrape(text).then((c) => onDisplayNotification(text, c))} />
-                    <Text style={{marginTop: '1%', height: 16 }}>{"電話號碼檢查完成後，將會發送通知提供結果。"}</Text>
+                    <Text style={{marginTop: '1%', height: 18}}>{"電話號碼檢查完成後，將會發送通知提供結果。"}</Text>
               
-                    <Text style={{borderBottomColor: 'black', borderBottomWidth: 1, marginBottom:'2%', height:'3%' }}></Text>
+                    <Text style={{borderBottomColor: 'black', borderBottomWidth: 1, marginBottom:'2%', height:9 }}></Text>
                     <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom: '2%', height: 35 }}>通話記錄</Text>
                     <FlatList nestedScrollEnabled
                             data={record}
@@ -217,13 +217,13 @@ const styles = StyleSheet.create({
     },
     textStyle: {
       fontSize: 17,
-      color: 'black',
+      color: '#333333',
       marginVertical: 10,
       paddingLeft: 12,
     },
     safetextStyle: {
       fontSize: 20,
-      color: 'black',
+      color: '#333333',
       marginTop: 10,
       marginBottom: 14,
       paddingLeft: 12,
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     },
     typeStyle: {
       fontSize: 22,
-      color: 'black',
+      color: '#333333',
       marginBottom: 6,
       paddingRight: 15,
       textAlign: 'right',
