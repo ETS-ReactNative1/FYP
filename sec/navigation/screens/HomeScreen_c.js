@@ -2,10 +2,8 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import GetLocation from 'react-native-get-location';
 import {firebase} from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { PermissionsAndroid } from 'react-native';
 
 
 export default function HomeScreen({ navigation }) {
@@ -17,16 +15,6 @@ export default function HomeScreen({ navigation }) {
       .app()
       .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
       .ref('/'+userCode+'/Location');
-
-    function genCode() {
-        var text = ""
-        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        
-        for (var i = 0; i < 8; i++)
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-        storeCode(text);
-    }
 
     async function getCode() {
         try {

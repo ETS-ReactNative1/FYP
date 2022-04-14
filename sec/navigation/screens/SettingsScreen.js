@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View, Text, TouchableHighlight, StyleSheet, TextInput, Alert } from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 
 import {firebase} from '@react-native-firebase/database';
 
 export default function SettingsScreen({ navigation }) {
-    const [inputCode, onChangeText] = React.useState("");
     var [code, setCode] = useState(null);
 
     var reference1 = firebase
