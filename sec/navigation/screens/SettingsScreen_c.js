@@ -6,7 +6,7 @@ import {firebase} from '@react-native-firebase/database';
 
 export default function SettingsScreen({ navigation }) {
     const [inputCode, onChangeText] = React.useState("");
-    var [userCode, setUserCode] = useState("");
+    var [userCode, setUserCode] = useState(" 無");
 
     var reference1 = firebase
       .app()
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     borderRadius: 8,
     color: 'white',
-    backgroundColor: '#266C45'
+    backgroundColor: '#1D4728'
   },
   buttonText: {
     fontSize: 20,
