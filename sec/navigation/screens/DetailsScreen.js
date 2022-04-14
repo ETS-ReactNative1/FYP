@@ -21,20 +21,6 @@ export default function DetailsScreen({ navigation }) {
       .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
       .ref('/'+code+'/callRecord');
 
-    function getCallLog() {
-      AsyncStorage.getItem("recentLog", (err, item) => {
-        if (item != null) {
-          // Only update display when changes prominent; avoid flashing
-          console.log("loaded from local storage.");
-          setRecord(JSON.parse(item));
-        }
-        else {
-          console.log("Need checking first");
-          loadCallLog();
-        } 
-      });
-    }
-
     function genCode() {
       var text = ""
       var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -58,6 +44,12 @@ export default function DetailsScreen({ navigation }) {
       } catch (error) {
           // error
       }
+    }
+
+    function getCallLog() {
+      newRef.on('value', function (snapshot) {
+          setRecord(snapshot.val()); 
+      });
     }
 
     // Web-scraping function for call type identification
@@ -84,66 +76,6 @@ export default function DetailsScreen({ navigation }) {
       }); 
       console.log(type);
       return type;
-    }
-
-    // Driver function for call checking
-    async function checkLogNumber(record) {
-      var oldRecord = await AsyncStorage.getItem('myRecord');
-      var oldDateTime = await AsyncStorage.getItem('myDateTime');
-        if ((oldRecord != record[0].phoneNumber) || (oldDateTime != record[0].dateTime)) {
-          for (var i=0; i < record.length; i++) {
-            if (!record[i].name) {
-              // Not in call log
-              var data = await infoScrape(record[i].phoneNumber);
-              record[i]["callType"] = data;
-            }
-            else {
-              record[i]["callType"] = "In Contact List";
-            }
-          }
-          await AsyncStorage.setItem('myRecord', record[0].phoneNumber);
-          await AsyncStorage.setItem('myDateTime', record[0].dateTime);
-          // Record updated, should upload to firebase
-          return record;
-        } else {
-          // No changes, skip this upload
-          return null;
-        }
-    }
-
-    function loadCallLog() { 
-      // Get permission
-      if (Platform.OS === 'android') {
-        PermissionsAndroid.request(
-              PermissionsAndroid.PERMISSIONS.READ_CALL_LOG,
-              {
-                  'title': 'Call Log',
-                  'message': 'Access your call logs',
-                  buttonNeutral: 'Ask Me Later',
-                  buttonNegative: 'Cancel',
-                  buttonPositive: 'OK',
-              }
-          )
-      }
-      // Loading Call Log 
-      CallLogs.load(10,isDistinct=true).then((c) => setNewRecord(c));
-      checkLogNumber(newRecord).then(
-        (c) => {
-          if (c != null) {
-            // Changes prominent
-            console.log("[DetailScreen]: will upload to server", c);
-            newRef.set(c);
-            // Safe to local storage for read
-            AsyncStorage.setItem("recentLog", JSON.stringify(c));
-          }
-        }
-      );
-      // Pull edited call log from local storage
-      AsyncStorage.getItem("recentLog", (err, item) => {
-        if (record != JSON.parse(item)) 
-          // Only update display when changes prominent; avoid flashing
-          setRecord(JSON.parse(item));
-      });
     }
 
     // Delivers dummy notification when called
@@ -259,13 +191,6 @@ export default function DetailsScreen({ navigation }) {
                     />
                     <Button color='#266C45' title="查詢" onPress={() => infoScrape(text).then((c) => onDisplayNotification(text, c))} />
                     <Text>{"電話號碼檢查完成後，將會發送通知提供結果。"}</Text>
-
-                    <TouchableHighlight
-                      underlayColor="white"
-                        onPress={getCallLog}
-                    >
-                    <Text style={styles.buttonText}>Pull Call Logs</Text>
-                    </TouchableHighlight>
               
                     <Text style={{borderBottomColor: 'black', borderBottomWidth: 1, marginBottom:10 }}></Text>
                     <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom:10 }}>通話記錄</Text>
