@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   },
   itemInput: {
     height: 50,
-    padding: 4,
+    padding: 10,
     marginRight: 5,
     fontSize: 23,
     borderWidth: 1,
