@@ -30,41 +30,13 @@ export default function HomeScreen({ navigation }) {
 
     async function getCode() {
         try {
-            var value = await AsyncStorage.getItem('Code');
-            if (value == null) {
-                // No code yet, generate a code
-                //genCode();
-            }
-            // Always try to display a code
-            value = await AsyncStorage.getItem('Code');
             var value2 = await AsyncStorage.getItem('Code2');
             if (value2 != null) {
                 setUserCode(value2);
-                storeUserCode(value2);
             }
         } catch (error) {
             // error
         }
-    }
-
-    async function storeCode(code) {
-        try {
-            await AsyncStorage.setItem(
-                'Code', code
-            );
-            } catch (error) {
-                // Error saving data
-            }
-    }
-
-    async function storeUserCode(userCode) {
-        try {
-            await AsyncStorage.setItem(
-                'Code2', userCode
-            );
-            } catch (error) {
-                // Error saving data
-            }
     }
 
     async function logPermission() {    
@@ -84,7 +56,7 @@ export default function HomeScreen({ navigation }) {
 
     function getLocation() {
         newRef.on('value', function (snapshot) {
-            console.log("[HomeScreen] Location updated.");
+            console.log("[HomeScreen_c] Location updated.");
             if (snapshot.val() != null) {
                 setLat(snapshot.val().latitude);
                 setLong(snapshot.val().longitude);
@@ -93,7 +65,7 @@ export default function HomeScreen({ navigation }) {
     }
 
     function onLoad() {
-        console.log("[HomeScreen] onLoad triggered.")
+        console.log("[HomeScreen_c] onLoad triggered.")
         logPermission();
         getCode();
     }
@@ -106,7 +78,7 @@ export default function HomeScreen({ navigation }) {
     useEffect (() => {
         onLoad();
         const interval=setInterval(()=>{
-            console.log("[HomeScreen] Auto Reload Code.")
+            console.log("[HomeScreen_c] Auto Reload Code.")
             getCode();
            },5000)
              
@@ -116,7 +88,7 @@ export default function HomeScreen({ navigation }) {
     useEffect (() => {
         getLocation();
         const interval=setInterval(()=>{
-            console.log("[HomeScreen] Auto Reload location.")
+            console.log("[HomeScreen_c] Auto Reload location.")
             getLocation();
            },5000)
              

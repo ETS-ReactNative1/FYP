@@ -6,13 +6,12 @@ import {firebase} from '@react-native-firebase/database';
 
 export default function SettingsScreen({ navigation }) {
     const [inputCode, onChangeText] = React.useState("");
-    var [code, setCode] = useState("none");
     var [userCode, setUserCode] = useState("");
 
     var reference1 = firebase
       .app()
       .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
-      .ref('/'+code+'/testingText');
+      .ref('/'+userCode+'/Companion');
 
     let addItem = item => {
         reference1.set(item);
@@ -21,7 +20,7 @@ export default function SettingsScreen({ navigation }) {
     const handleSubmit = () => {
         addItem(inputCode);
         setUserCode(inputCode);
-        storeUserCode(inputCode)
+        storeUserCode(inputCode);
         Alert.alert('已儲存用戶代碼');
     };
  
@@ -35,53 +34,24 @@ export default function SettingsScreen({ navigation }) {
             }
     }
 
-    async function storeCode(code) {
-      try {
-          await AsyncStorage.setItem(
-              'Code', code
-          );
-          } catch (error) {
-              // Error saving data
-          }
-    }
-
     async function getCode() {
       try {
-          var value = await AsyncStorage.getItem('Code');
-          if (value == null) {
-              // No code yet, generate a code
-              //genCode();
-          }
-          // Always try to display a code
-          value = await AsyncStorage.getItem('Code');
           var value2 = await AsyncStorage.getItem('Code2');
           if (value2 != null) {
               setUserCode(value2);
-              storeUserCode(value2);
           }
       } catch (error) {
           // error
       }
-  }
-
-    function genCode() {
-        var text = ""
-        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        
-        for (var i = 0; i < 6; i++)
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-        storeCode(text);
     }
 
     useEffect (() => {
-      console.log("[SettingScreen] onLoad triggered.")
+      console.log("[SettingScreen_c] onLoad triggered.")
       getCode();
     },[]);
 
     return (
         <View style={styles.main}>
-        <Text style={styles.codetitle0}> 你的代碼: {code} </Text>
         <Text style={styles.codetitle}> 已連結的代碼: {userCode} </Text>
         <Text style={styles.title}>輸入代碼以連結用戶</Text>
 

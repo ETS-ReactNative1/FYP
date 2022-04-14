@@ -10,7 +10,6 @@ export default function DetailsScreen({ navigation }) {
     const cheerio = require('react-native-cheerio');
 
     var [record, setRecord] = useState([]);
-    var [code, setCode] = useState("");
     var [userCode, setUserCode] = useState("");
 
     var newRef = firebase
@@ -19,40 +18,22 @@ export default function DetailsScreen({ navigation }) {
       .ref('/'+userCode+'/callRecord');
 
     function getCallLog() {
-      console.log('[DetailScreen] Code & userCode: ', code, userCode);
+      console.log('[DetailScreen_c] userCode: ', userCode);
       newRef.on('value', function (snapshot) {
           setRecord(snapshot.val()); 
       });
     }
 
-    function genCode() {
-      var text = ""
-      var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-      
-      for (var i = 0; i < 6; i++)
-          text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-      storeCode(text);
-    }
-
     async function getCode() {
       try {
-          var value = await AsyncStorage.getItem('Code');
-          if (value == null) {
-              // No code yet, generate a code
-              //genCode();
-          }
-          // Always try to display a code
-          value = await AsyncStorage.getItem('Code');
           var value2 = await AsyncStorage.getItem('Code2');
           if (value2 != null) {
               setUserCode(value2);
-              storeUserCode(value2);
           }
       } catch (error) {
           // error
       }
-  }
+    }
 
     // Web-scraping function for call type identification
     async function infoScrape(number) {
@@ -166,10 +147,10 @@ export default function DetailsScreen({ navigation }) {
     };
 
     useEffect (() => {
-      console.log("[DetailScreen] onLoad triggered.")
+      console.log("[DetailScreen_c] onLoad triggered.")
       getCode();
       const interval=setInterval(()=>{
-        console.log("[DetailScreen] Auto Reload Code.")
+        console.log("[DetailScreen_c] Auto Reload Code.")
         getCode();
        },10000)
          
@@ -179,7 +160,7 @@ export default function DetailsScreen({ navigation }) {
     useEffect (() => {
       getCallLog();
       const interval=setInterval(()=>{
-        console.log("[DetailScreen] Auto Reload log.")
+        console.log("[DetailScreen_c] Auto Reload log.")
         getCallLog();
        },10000)
          
