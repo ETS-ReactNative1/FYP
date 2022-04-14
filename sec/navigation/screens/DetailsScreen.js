@@ -86,11 +86,17 @@ export default function DetailsScreen({ navigation }) {
         name: 'Default Channel',
         importance: AndroidImportance.HIGH,
       });
+      if (data == "Malicious") {
+        data = "可疑來電"
+      }
+      else {
+        data = "安全來電"
+      }
   
       // Display a notification
       await notifee.displayNotification({
-        title: 'Phone Number Checking',
-        body: 'The phone number '+number+' is found to be '+data+'.',
+        title: '電話號碼查詢',
+        body: '電話號碼 '+number+' 已驗證為'+data+'。',
         android: {
           channelId,
         },
