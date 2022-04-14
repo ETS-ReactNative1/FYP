@@ -10,16 +10,15 @@ export default function DetailsScreen({ navigation }) {
     const cheerio = require('react-native-cheerio');
 
     var [record, setRecord] = useState([]);
-    var [code, setCode] = useState("");
-    var [userCode, setUserCode] = useState("");
+    var [code, setCode] = useState(null);
 
     var newRef = firebase
       .app()
       .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
-      .ref('/'+userCode+'/callRecord');
+      .ref('/'+code+'/callRecord');
 
     function getCallLog() {
-      console.log('[DetailScreen] Code & userCode: ', code, userCode);
+      console.log('[DetailScreen] Code: ', code);
       newRef.on('value', function (snapshot) {
           setRecord(snapshot.val()); 
       });
@@ -45,14 +44,9 @@ export default function DetailsScreen({ navigation }) {
           // Always try to display a code
           value = await AsyncStorage.getItem('Code');
           setCode(value);
-          var value2 = await AsyncStorage.getItem('Code2');
-          if (value2 == null) {
-            value2 = value;
-          }
-          setUserCode(value2); 
-          } catch (error) {
-              // error
-          }
+      } catch (error) {
+          // error
+      }
     }
 
     // Web-scraping function for call type identification
@@ -169,12 +163,6 @@ export default function DetailsScreen({ navigation }) {
     useEffect (() => {
       console.log("[DetailScreen] onLoad triggered.")
       getCode();
-      const interval=setInterval(()=>{
-        console.log("[DetailScreen] Auto Reload Code.")
-        getCode();
-       },10000)
-         
-       return()=>clearInterval(interval)
     },[]);
 
     useEffect (() => {
@@ -183,9 +171,8 @@ export default function DetailsScreen({ navigation }) {
         console.log("[DetailScreen] Auto Reload log.")
         getCallLog();
        },10000)
-         
        return()=>clearInterval(interval)
-    }, [userCode])
+    },[code]);
 
     return (
         <View style={{ flex: 1, paddingLeft: 20, paddingRight: 20, width: '100%'}}>

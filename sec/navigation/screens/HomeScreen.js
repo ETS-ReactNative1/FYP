@@ -11,12 +11,12 @@ import { PermissionsAndroid } from 'react-native';
 export default function HomeScreen({ navigation }) {
     var [lat, setLat] = useState(0)
     var [long, setLong] = useState(0)
-    var [userCode, setUserCode] = useState("");
+    var [code, setCode] = useState(null);
 
     var newRef = firebase
       .app()
       .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
-      .ref('/'+userCode+'/Location');
+      .ref('/'+code+'/Location');
 
     function genCode() {
         var text = ""
@@ -37,12 +37,7 @@ export default function HomeScreen({ navigation }) {
             }
             // Always try to display a code
             value = await AsyncStorage.getItem('Code');
-            var value2 = await AsyncStorage.getItem('Code2');
-            if (value2 == null) {
-                value2 = value;
-            }
-            setUserCode(value2);
-            storeUserCode(value2);
+            setCode(value);
         } catch (error) {
             // error
         }
@@ -52,16 +47,6 @@ export default function HomeScreen({ navigation }) {
         try {
             await AsyncStorage.setItem(
                 'Code', code
-            );
-            } catch (error) {
-                // Error saving data
-            }
-    }
-
-    async function storeUserCode(userCode) {
-        try {
-            await AsyncStorage.setItem(
-                'Code2', userCode
             );
             } catch (error) {
                 // Error saving data
@@ -106,12 +91,6 @@ export default function HomeScreen({ navigation }) {
 
     useEffect (() => {
         onLoad();
-        const interval=setInterval(()=>{
-            console.log("[HomeScreen] Auto Reload Code.")
-            getCode();
-           },5000)
-             
-           return()=>clearInterval(interval)
     },[]);
 
     useEffect (() => {
@@ -122,7 +101,7 @@ export default function HomeScreen({ navigation }) {
            },5000)
              
            return()=>clearInterval(interval)
-    },[userCode]);
+    },[code]);
 
     return (
         
@@ -145,7 +124,7 @@ export default function HomeScreen({ navigation }) {
             </MapView>
 
             <Text
-                onPress={onLoad2} //callLocation
+                onPress={onLoad2}
                 style={{ fontSize: 24, fontWeight: 'bold' }}>更新位置</Text>
         </View>
     );

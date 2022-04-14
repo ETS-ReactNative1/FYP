@@ -11,7 +11,7 @@ import { PermissionsAndroid } from 'react-native';
 export default function HomeScreen({ navigation }) {
     var [lat, setLat] = useState(0)
     var [long, setLong] = useState(0)
-    var [userCode, setUserCode] = useState("");
+    var [userCode, setUserCode] = useState(null);
 
     var newRef = firebase
       .app()
@@ -39,21 +39,6 @@ export default function HomeScreen({ navigation }) {
         }
     }
 
-    async function logPermission() {    
-        if (Platform.OS === 'android') {
-          PermissionsAndroid.request(
-              PermissionsAndroid.PERMISSIONS.READ_CALL_LOG,
-              {
-                  'title': 'Call Log',
-                  'message': 'Access your call logs',
-                  buttonNeutral: 'Ask Me Later',
-                  buttonNegative: 'Cancel',
-                  buttonPositive: 'OK',
-              }
-          )
-        }
-    }
-
     function getLocation() {
         newRef.on('value', function (snapshot) {
             console.log("[HomeScreen_c] Location updated.");
@@ -66,7 +51,6 @@ export default function HomeScreen({ navigation }) {
 
     function onLoad() {
         console.log("[HomeScreen_c] onLoad triggered.")
-        logPermission();
         getCode();
     }
 

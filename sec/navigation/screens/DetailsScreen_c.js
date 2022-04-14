@@ -10,7 +10,7 @@ export default function DetailsScreen({ navigation }) {
     const cheerio = require('react-native-cheerio');
 
     var [record, setRecord] = useState([]);
-    var [userCode, setUserCode] = useState("");
+    var [userCode, setUserCode] = useState(null);
 
     var newRef = firebase
       .app()
@@ -18,7 +18,6 @@ export default function DetailsScreen({ navigation }) {
       .ref('/'+userCode+'/callRecord');
 
     function getCallLog() {
-      console.log('[DetailScreen_c] userCode: ', userCode);
       newRef.on('value', function (snapshot) {
           setRecord(snapshot.val()); 
       });
@@ -152,7 +151,7 @@ export default function DetailsScreen({ navigation }) {
       const interval=setInterval(()=>{
         console.log("[DetailScreen_c] Auto Reload Code.")
         getCode();
-       },10000)
+       },5000)
          
        return()=>clearInterval(interval)
     },[]);
@@ -162,7 +161,7 @@ export default function DetailsScreen({ navigation }) {
       const interval=setInterval(()=>{
         console.log("[DetailScreen_c] Auto Reload log.")
         getCallLog();
-       },10000)
+       },5000)
          
        return()=>clearInterval(interval)
     }, [userCode])

@@ -24,11 +24,12 @@ const veryIntensiveTask = async (taskDataArguments) => {
 
     for (let i = 0; BackgroundService.isRunning(); i++) {
         // Main App
-        //AsyncStorage.getItem('Code', (err, item) => uploadMap(item));
-        //AsyncStorage.getItem('Code', (err, item) => uploadLog(item));
+        AsyncStorage.getItem('Code', (err, item) => uploadMap(item));
+        AsyncStorage.getItem('Code', (err, item) => uploadLog(item));
 
         // Companion App
-        AsyncStorage.getItem('Code2', (err, item) => {if (item != null) {downloadLog(item)}});
+        //AsyncStorage.getItem('Code2', (err, item) => {if (item != null) {downloadLog(item)}});
+        
         await sleep(delay);
     }
 };

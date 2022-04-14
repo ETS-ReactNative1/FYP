@@ -6,8 +6,7 @@ import {firebase} from '@react-native-firebase/database';
 
 export default function SettingsScreen({ navigation }) {
     const [inputCode, onChangeText] = React.useState("");
-    var [code, setCode] = useState("none");
-    var [userCode, setUserCode] = useState("");
+    var [code, setCode] = useState(null);
 
     var reference1 = firebase
       .app()
@@ -46,24 +45,18 @@ export default function SettingsScreen({ navigation }) {
     }
 
     async function getCode() {
-        try {
-            var value = await AsyncStorage.getItem('Code');
-            if (value == null) {
-                // No code yet, generate a code
-                genCode();
-            }
-            // Always try to display a code
-            value = await AsyncStorage.getItem('Code');
-            setCode(value);
-
-            var value2 = await AsyncStorage.getItem('Code2');
-            if (value2 == null) {
-              value2 = value;
-            }
-            setUserCode(value2);
-            } catch (error) {
-                // Error
-            }
+      try {
+          var value = await AsyncStorage.getItem('Code');
+          if (value == null) {
+              // No code yet, generate a code
+              genCode();
+          }
+          // Always try to display a code
+          value = await AsyncStorage.getItem('Code');
+          setCode(value);
+      } catch (error) {
+          // error
+      }
     }
 
     function genCode() {
@@ -84,17 +77,6 @@ export default function SettingsScreen({ navigation }) {
     return (
         <View style={styles.main}>
         <Text style={styles.codetitle0}> 你的代碼: {code} </Text>
-        <Text style={styles.codetitle}> 已連結的代碼: {userCode} </Text>
-        <Text style={styles.title}>輸入代碼以連結用戶</Text>
-
-        <TextInput style={styles.itemInput} onChangeText={text => onChangeText(text)} />
-        <TouchableHighlight
-          style={styles.button}
-          underlayColor="white"
-            onPress={handleSubmit}
-        >
-        <Text style={styles.buttonText}>連結用戶</Text>
-        </TouchableHighlight>
         </View>
     );
 }
