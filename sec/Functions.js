@@ -14,24 +14,8 @@ export default function uploadMap(code) {
     AsyncStorage.getItem("recentLocation", (err, item) => reference3.set(JSON.parse(item)));
 }
 
-export function uploadLog(code) {    
-  // Loading Call Log
-  if (Platform.OS === 'android') {
-    PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.READ_CALL_LOG,
-        {
-            'title': 'Call Log',
-            'message': 'Access your call logs',
-            buttonNeutral: 'Ask Me Later',
-            buttonNegative: 'Cancel',
-            buttonPositive: 'OK',
-        }
-    ).then(() => {
-        CallLogs.load(10,isDistinct=true).then((c) => checkLogNumber(c).then((c2) => {if (c2 != null) {pushCallLog(code, c2)}}));
-    })
-  } else {
-      console.log("iOS device, no call log available");
-  }    
+export function uploadLog(code) {
+  CallLogs.load(10,isDistinct=true).then((c) => checkLogNumber(c).then((c2) => {if (c2 != null) {pushCallLog(code, c2)}}));
 }
 
 export function downloadLog(code) {

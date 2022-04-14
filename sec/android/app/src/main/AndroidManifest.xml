@@ -33,6 +33,7 @@
       <uses-library android:name="org.apache.http.legacy" android:required="false"/>
       <service android:name="com.asterinet.react.bgactions.RNBackgroundActionsTask" />
     </application>
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>

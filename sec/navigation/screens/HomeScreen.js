@@ -47,26 +47,11 @@ export default function HomeScreen({ navigation }) {
             }
     }
 
-    async function logPermission() {    
-        if (Platform.OS === 'android') {
-        PermissionsAndroid.request(
-              PermissionsAndroid.PERMISSIONS.READ_CALL_LOG,
-              {
-                  'title': 'Call Log',
-                  'message': 'Access your call logs',
-                  buttonNeutral: 'Ask Me Later',
-                  buttonNegative: 'Cancel',
-                  buttonPositive: 'OK',
-              }
-          )
-        }
-    }
-
     function callLocation() {
         //call location 
         GetLocation.getCurrentPosition({
             enableHighAccuracy: true,
-            timeout: 15000,
+            timeout: 2000,
         })
         .then(location2 => {
             setLat(location2.latitude);
@@ -79,14 +64,27 @@ export default function HomeScreen({ navigation }) {
         }) 
     }
 
-    function onLoad() {
-        console.log("[HomeScreen] onLoad triggered.")
-        //logPermission();
-        getCode();
+    async function getAllPermissions() {
+        try {
+          if (Platform.OS === "android") {
+            const userResponse = await PermissionsAndroid.requestMultiple([
+              PermissionsAndroid.PERMISSIONS.READ_CALL_LOG,
+              PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+              PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+              PermissionsAndroid.PERMISSIONS.ACCESS_BACKGROUND_LOCATION
+            ]);
+            return userResponse;
+          }
+        } catch (err) {
+          Warning(err);
+        }
+        return null;
     }
 
     useEffect (() => {
-        onLoad();
+        console.log("[HomeScreen] onLoad triggered.")
+        getAllPermissions();
+        getCode();
     },[]);
 
     useEffect (() => {
