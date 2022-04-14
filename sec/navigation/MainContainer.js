@@ -4,14 +4,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 
 // Main App pages
-import HomeScreen from './screens/HomeScreen';
-import DetailsScreen from './screens/DetailsScreen';
-import SettingsScreen from './screens/SettingsScreen';
+//import HomeScreen from './screens/HomeScreen';
+//import DetailsScreen from './screens/DetailsScreen';
+//import SettingsScreen from './screens/SettingsScreen';
 
 // Companion App pages
-//import HomeScreen from './screens/HomeScreen_c';
-//import DetailsScreen from './screens/DetailsScreen_c';
-//import SettingsScreen from './screens/SettingsScreen_c';
+import HomeScreen from './screens/HomeScreen_c';
+import DetailsScreen from './screens/DetailsScreen_c';
+import SettingsScreen from './screens/SettingsScreen_c';
 
 //give names
 const homeName = "位置";

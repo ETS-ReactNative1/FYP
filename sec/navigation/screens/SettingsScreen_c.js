@@ -2,26 +2,14 @@ import React, {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, Text, TouchableHighlight, StyleSheet, TextInput, Alert } from 'react-native';
 
-import {firebase} from '@react-native-firebase/database';
-
 export default function SettingsScreen({ navigation }) {
     const [inputCode, onChangeText] = React.useState("");
     var [userCode, setUserCode] = useState(" 無");
 
-    var reference1 = firebase
-      .app()
-      .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
-      .ref('/'+userCode+'/Companion');
-
-    let addItem = item => {
-        reference1.set(item);
-    };
-
-    const handleSubmit = () => {
-        addItem(inputCode);
-        setUserCode(inputCode);
-        storeUserCode(inputCode);
-        Alert.alert('已儲存用戶代碼');
+    const handleSubmit = async () => {
+      setUserCode(inputCode);
+      storeUserCode(inputCode);
+      Alert.alert('已儲存用戶代碼。');
     };
  
     async function storeUserCode(userCode) {
