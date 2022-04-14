@@ -76,7 +76,9 @@ export default function SettingsScreen({ navigation }) {
 
     return (
         <View style={styles.main}>
-        <Text style={styles.codetitle0}> 你的代碼: {code} </Text>
+        <Text style={styles.mainAPP1}> 用戶代碼 </Text>
+        <Text style={styles.mainAPP2}> {code} </Text>
+        <Text style={styles.lowerTest}>使用輔助程式輸入此代碼以追蹤用戶的動態</Text>
         </View>
     );
 }
@@ -97,10 +99,24 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     color: 'lightgrey'
   },
-  codetitle: {
-    top: 0,
-    left: 0,
-    marginBottom: '30%',
+  mainAPP1: {
+    marginTop: '35%',
+    fontSize: 35,
+    textAlign: 'center',
+    color: 'lightgrey'
+  },
+  mainAPP2: {
+    marginTop: '5%',
+    fontSize: 45,
+    textAlign: 'center',
+    color: '#1D4728',
+    borderColor: 'white',
+    borderWidth: 1,
+    backgroundColor: 'lightgrey',
+  },
+  
+  lowerTest: {
+    top: '2%',
     fontSize: 18,
     textAlign: 'left',
     color: 'lightgrey'
