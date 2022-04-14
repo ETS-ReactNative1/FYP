@@ -193,7 +193,7 @@ export default function DetailsScreen({ navigation }) {
                             ItemSeparatorComponent={ItemSeparatorView}
                             renderItem={ItemView}
                             keyExtractor={(item, index) => index.toString()}
-                            contentContainerStyle={{ paddingBottom: '15%'}}
+                            contentContainerStyle={{ paddingBottom: '40%'}}
                         
                     />      
                             
