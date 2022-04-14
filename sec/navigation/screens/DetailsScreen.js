@@ -103,9 +103,8 @@ export default function DetailsScreen({ navigation }) {
         return (
           // FlatList Item
           <View style={styles.contactStyle}>
-            <Text style={styles.textStyle}>
+            <Text style={styles.safetextStyle}>
               與 {item.name}的通話
-              {'\n'}
             </Text>
             <Text style = {styles.typeStyle}>
               通訊錄聯絡人
@@ -156,7 +155,7 @@ export default function DetailsScreen({ navigation }) {
         // FlatList Item Separator
         <View
           style={{
-            height: 5,
+            height: '1%',
             width: '100%',
           }}
         />
@@ -181,7 +180,7 @@ export default function DetailsScreen({ navigation }) {
         <View style={{ flex: 1, paddingLeft: 20, paddingRight: 20, width: '100%'}}>
             <SafeAreaView style={{height: '105%' }}>
                 
-                  <Text style={{ position: 'relative', top: 15, fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom:10 }}>查詢電話號碼</Text>
+                  <Text style={{ position: 'relative', top: '2%', height: '7%', fontSize: 26, fontWeight: 'bold', color: '#282828'}}>查詢電話號碼</Text>
                     <Text></Text>
                     <TextInput
                       style={styles.input}
@@ -190,15 +189,16 @@ export default function DetailsScreen({ navigation }) {
                       placeholder='輸入電話號碼'
                     />
                     <Button color='#266C45' title="查詢" onPress={() => infoScrape(text).then((c) => onDisplayNotification(text, c))} />
-                    <Text>{"電話號碼檢查完成後，將會發送通知提供結果。"}</Text>
+                    <Text style={{marginTop: '1%', height: '3%' }}>{"電話號碼檢查完成後，將會發送通知提供結果。"}</Text>
               
-                    <Text style={{borderBottomColor: 'black', borderBottomWidth: 1, marginBottom:10 }}></Text>
-                    <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom:10 }}>通話記錄</Text>
+                    <Text style={{borderBottomColor: 'black', borderBottomWidth: 1, marginBottom:'2%', height:'3%' }}></Text>
+                    <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom: '2%', height: '6%' }}>通話記錄</Text>
                     <FlatList nestedScrollEnabled
                             data={record}
                             ItemSeparatorComponent={ItemSeparatorView}
                             renderItem={ItemView}
                             keyExtractor={(item, index) => index.toString()}
+                            contentContainerStyle={{ paddingBottom: '15%'}}
                     />
                     <Text></Text>                
                 
@@ -207,49 +207,54 @@ export default function DetailsScreen({ navigation }) {
         </View>
     );
 }
-
 const styles = StyleSheet.create({
-    item: {
-      padding: 10,
-      fontSize: 18,
-      height: '50%',
-      width: '100%',
-    },
-    input: {
-      height: 40,
-      //margin: 12,
-      borderWidth: 1,
-      padding: 10,
-    },
-    textStyle: {
-      fontSize: 16,
-      color: 'black',
-      marginVertical: 10,
-      paddingLeft: 10,
-    },
-    contactStyle: {
-      backgroundColor: 'lightgreen',
-      borderRadius: 20,
-    },
-    safeStyle: {
-      backgroundColor: 'lightyellow',
-      borderRadius: 20,
-    },
-    mStyle: {
-      backgroundColor: '#F58B70',
-      borderRadius: 20,
-    },
-    typeStyle: {
-      fontSize: 22,
-      color: 'black',
-      marginVertical: 5,
-      paddingRight: 10,
-      textAlign: 'right',
-    },
-    buttonText: {
-      fontSize: 18,
-      //height: '100%',
-      color: '#111',
-      alignSelf: 'center'
-    }
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: '50%',
+    width: '100%',
+  },
+  input: {
+    height: '8%',
+    borderWidth: 1,
+    padding: 10,
+  },
+  textStyle: {
+    fontSize: 17,
+    color: 'black',
+    marginVertical: 10,
+    paddingLeft: 12,
+  },
+  safetextStyle: {
+    fontSize: 20,
+    color: 'black',
+    marginTop: 10,
+    marginBottom: 14,
+    paddingLeft: 12,
+  },
+  contactStyle: {
+    backgroundColor: 'lightgreen',
+    borderRadius: 20,
+  },
+  safeStyle: {
+    backgroundColor: 'lightyellow',
+    borderRadius: 20,
+  },
+  mStyle: {
+    backgroundColor: '#F58B70',
+    borderRadius: 20,
+  },
+  typeStyle: {
+    fontSize: 22,
+    color: 'black',
+    marginBottom: 6,
+    paddingRight: 15,
+    textAlign: 'right',
+  },
+  buttonText: {
+    fontSize: 18,
+    //height: '100%',
+    color: '#111',
+    alignSelf: 'center'
+  }
 });
