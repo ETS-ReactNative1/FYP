@@ -54,7 +54,7 @@ export function downloadLog(code) {
     .ref('/'+code+'/callRecord');
 
   newRef.on('value', function (snapshot) {
-    //console.log("[Background] Call log from firebase: ", snapshot.val());
+    console.log("[Background] Call log from firebase: ", snapshot.val());
     // Check if the latest log time and phone number are same or not
     AsyncStorage.getItem("myDateTime").then(
       (c) => {

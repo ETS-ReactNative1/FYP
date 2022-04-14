@@ -40,20 +40,19 @@ export default function DetailsScreen({ navigation }) {
           var value = await AsyncStorage.getItem('Code');
           if (value == null) {
               // No code yet, generate a code
-              genCode();
+              //genCode();
           }
           // Always try to display a code
           value = await AsyncStorage.getItem('Code');
-          setCode(value);
           var value2 = await AsyncStorage.getItem('Code2');
-          if (value2 == null) {
-            value2 = value;
+          if (value2 != null) {
+              setUserCode(value2);
+              storeUserCode(value2);
           }
-          setUserCode(value2); 
-          } catch (error) {
-              // error
-          }
-    }
+      } catch (error) {
+          // error
+      }
+  }
 
     // Web-scraping function for call type identification
     async function infoScrape(number) {

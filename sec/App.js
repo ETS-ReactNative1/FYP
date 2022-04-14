@@ -23,9 +23,12 @@ const veryIntensiveTask = async (taskDataArguments) => {
     const { delay } = taskDataArguments;
 
     for (let i = 0; BackgroundService.isRunning(); i++) {
-        AsyncStorage.getItem('Code', (err, item) => uploadMap(item));
-        AsyncStorage.getItem('Code', (err, item) => uploadLog(item));
-        //AsyncStorage.getItem('Code2', (err, item) => downloadLog(item));
+        // Main App
+        //AsyncStorage.getItem('Code', (err, item) => uploadMap(item));
+        //AsyncStorage.getItem('Code', (err, item) => uploadLog(item));
+
+        // Companion App
+        AsyncStorage.getItem('Code2', (err, item) => {if (item != null) {downloadLog(item)}});
         await sleep(delay);
     }
 };
@@ -41,7 +44,8 @@ const options = {
     },
     color: '#ff00ff',
     parameters: {
-        delay: 15000, // Set a longer delay when deploy
+        delay: 15000, // Main: TBC
+        //delay: 1800000, // Companion: 30mins
     },
 };
 

@@ -100,7 +100,7 @@ export default function HomeScreen({ navigation }) {
     }
 
     function onLoad2() {
-        //getCode();
+        getCode();
         getLocation();
     }
 

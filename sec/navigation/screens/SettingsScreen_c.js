@@ -46,25 +46,23 @@ export default function SettingsScreen({ navigation }) {
     }
 
     async function getCode() {
-        try {
-            var value = await AsyncStorage.getItem('Code');
-            if (value == null) {
-                // No code yet, generate a code
-                genCode();
-            }
-            // Always try to display a code
-            value = await AsyncStorage.getItem('Code');
-            setCode(value);
-
-            var value2 = await AsyncStorage.getItem('Code2');
-            if (value2 == null) {
-              value2 = value;
-            }
-            setUserCode(value2);
-            } catch (error) {
-                // Error
-            }
-    }
+      try {
+          var value = await AsyncStorage.getItem('Code');
+          if (value == null) {
+              // No code yet, generate a code
+              //genCode();
+          }
+          // Always try to display a code
+          value = await AsyncStorage.getItem('Code');
+          var value2 = await AsyncStorage.getItem('Code2');
+          if (value2 != null) {
+              setUserCode(value2);
+              storeUserCode(value2);
+          }
+      } catch (error) {
+          // error
+      }
+  }
 
     function genCode() {
         var text = ""
