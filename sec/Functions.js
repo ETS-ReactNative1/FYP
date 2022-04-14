@@ -17,7 +17,7 @@ export default function uploadMap(code) {
         timeout: 15000,
     })
     .then(location2 => {
-        console.log("[Background]: ",location2);
+        console.log("[Background] Upload location: ",location2);
         reference3.set(location2);
     })
     .catch(error => {
