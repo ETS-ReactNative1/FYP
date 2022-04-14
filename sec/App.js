@@ -5,7 +5,7 @@ import uploadMap, { uploadLog, downloadLog } from './Functions'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Metro: Ignore log notification by message
-import { LogBox } from 'react-native';
+import { Alert, LogBox } from 'react-native';
 LogBox.ignoreAllLogs();
 
 function App() {
@@ -24,8 +24,8 @@ const veryIntensiveTask = async (taskDataArguments) => {
 
     for (let i = 0; BackgroundService.isRunning(); i++) {
         // Main App
-        AsyncStorage.getItem('Code', (err, item) => uploadMap(item));
-        AsyncStorage.getItem('Code', (err, item) => uploadLog(item));
+        AsyncStorage.getItem('Code', (err, item) => {if (item != null) {uploadLog(item)}});
+        AsyncStorage.getItem('Code', (err, item) => {if (item != null) {uploadMap(item)}});
 
         // Companion App
         //AsyncStorage.getItem('Code2', (err, item) => {if (item != null) {downloadLog(item)}});

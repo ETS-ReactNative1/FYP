@@ -3,6 +3,9 @@ import { View, Text, SafeAreaView, StyleSheet, Button, FlatList, TextInput, Touc
 import notifee, {AndroidImportance} from '@notifee/react-native';
 import {firebase} from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import CallLogs from 'react-native-call-log';
+import { PermissionsAndroid } from 'react-native';
+
 
 export default function DetailsScreen({ navigation }) {
     // Global variables
@@ -11,6 +14,7 @@ export default function DetailsScreen({ navigation }) {
 
     var [record, setRecord] = useState([]);
     var [code, setCode] = useState(null);
+    var [newRecord, setNewRecord] = useState([]);
 
     var newRef = firebase
       .app()
@@ -18,9 +22,16 @@ export default function DetailsScreen({ navigation }) {
       .ref('/'+code+'/callRecord');
 
     function getCallLog() {
-      console.log('[DetailScreen] Code: ', code);
-      newRef.on('value', function (snapshot) {
-          setRecord(snapshot.val()); 
+      AsyncStorage.getItem("recentLog", (err, item) => {
+        if (item != null) {
+          // Only update display when changes prominent; avoid flashing
+          console.log("loaded from local storage.");
+          setRecord(JSON.parse(item));
+        }
+        else {
+          console.log("Need checking first");
+          loadCallLog();
+        } 
       });
     }
 
@@ -73,6 +84,66 @@ export default function DetailsScreen({ navigation }) {
       }); 
       console.log(type);
       return type;
+    }
+
+    // Driver function for call checking
+    async function checkLogNumber(record) {
+      var oldRecord = await AsyncStorage.getItem('myRecord');
+      var oldDateTime = await AsyncStorage.getItem('myDateTime');
+        if ((oldRecord != record[0].phoneNumber) || (oldDateTime != record[0].dateTime)) {
+          for (var i=0; i < record.length; i++) {
+            if (!record[i].name) {
+              // Not in call log
+              var data = await infoScrape(record[i].phoneNumber);
+              record[i]["callType"] = data;
+            }
+            else {
+              record[i]["callType"] = "In Contact List";
+            }
+          }
+          await AsyncStorage.setItem('myRecord', record[0].phoneNumber);
+          await AsyncStorage.setItem('myDateTime', record[0].dateTime);
+          // Record updated, should upload to firebase
+          return record;
+        } else {
+          // No changes, skip this upload
+          return null;
+        }
+    }
+
+    function loadCallLog() { 
+      // Get permission
+      if (Platform.OS === 'android') {
+        PermissionsAndroid.request(
+              PermissionsAndroid.PERMISSIONS.READ_CALL_LOG,
+              {
+                  'title': 'Call Log',
+                  'message': 'Access your call logs',
+                  buttonNeutral: 'Ask Me Later',
+                  buttonNegative: 'Cancel',
+                  buttonPositive: 'OK',
+              }
+          )
+      }
+      // Loading Call Log 
+      CallLogs.load(10,isDistinct=true).then((c) => setNewRecord(c));
+      checkLogNumber(newRecord).then(
+        (c) => {
+          if (c != null) {
+            // Changes prominent
+            console.log("[DetailScreen]: will upload to server", c);
+            newRef.set(c);
+            // Safe to local storage for read
+            AsyncStorage.setItem("recentLog", JSON.stringify(c));
+          }
+        }
+      );
+      // Pull edited call log from local storage
+      AsyncStorage.getItem("recentLog", (err, item) => {
+        if (record != JSON.parse(item)) 
+          // Only update display when changes prominent; avoid flashing
+          setRecord(JSON.parse(item));
+      });
     }
 
     // Delivers dummy notification when called

@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import GetLocation from 'react-native-get-location';
-import {firebase} from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { PermissionsAndroid } from 'react-native';
 
@@ -12,11 +11,6 @@ export default function HomeScreen({ navigation }) {
     var [lat, setLat] = useState(0)
     var [long, setLong] = useState(0)
     var [code, setCode] = useState(null);
-
-    var newRef = firebase
-      .app()
-      .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
-      .ref('/'+code+'/Location');
 
     function genCode() {
         var text = ""
@@ -55,7 +49,7 @@ export default function HomeScreen({ navigation }) {
 
     async function logPermission() {    
         if (Platform.OS === 'android') {
-          PermissionsAndroid.request(
+        PermissionsAndroid.request(
               PermissionsAndroid.PERMISSIONS.READ_CALL_LOG,
               {
                   'title': 'Call Log',
@@ -68,25 +62,27 @@ export default function HomeScreen({ navigation }) {
         }
     }
 
-    function getLocation() {
-        newRef.on('value', function (snapshot) {
-            console.log("[HomeScreen] Location updated.");
-            if (snapshot.val() != null) {
-                setLat(snapshot.val().latitude);
-                setLong(snapshot.val().longitude);
-            } 
-        });
+    function callLocation() {
+        //call location 
+        GetLocation.getCurrentPosition({
+            enableHighAccuracy: true,
+            timeout: 15000,
+        })
+        .then(location2 => {
+            setLat(location2.latitude);
+            setLong(location2.longitude);
+            console.log("[HomeScreen] Location get.")
+            AsyncStorage.setItem("recentLocation", JSON.stringify(location2));
+        })
+        .catch(error => {
+            console.log(error);
+        }) 
     }
 
     function onLoad() {
         console.log("[HomeScreen] onLoad triggered.")
-        logPermission();
+        //logPermission();
         getCode();
-    }
-
-    function onLoad2() {
-        getCode();
-        getLocation();
     }
 
     useEffect (() => {
@@ -94,10 +90,10 @@ export default function HomeScreen({ navigation }) {
     },[]);
 
     useEffect (() => {
-        getLocation();
+        callLocation();
         const interval=setInterval(()=>{
             console.log("[HomeScreen] Auto Reload location.")
-            getLocation();
+            callLocation();
            },5000)
              
            return()=>clearInterval(interval)
@@ -124,7 +120,7 @@ export default function HomeScreen({ navigation }) {
             </MapView>
 
             <Text
-                onPress={onLoad2}
+                onPress={callLocation}
                 style={{ fontSize: 24, fontWeight: 'bold' }}>更新位置</Text>
         </View>
     );

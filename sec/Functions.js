@@ -11,20 +11,7 @@ export default function uploadMap(code) {
       .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
       .ref('/'+code+'/Location');
 
-    //call location 
-    GetLocation.getCurrentPosition({
-        enableHighAccuracy: true,
-        timeout: 15000,
-    })
-    .then(location2 => {
-        console.log("[Background] Upload location: ",location2);
-        reference3.set(location2);
-    })
-    .catch(error => {
-        //const { code, message } = error;
-        //console.warn(code, message);
-    })
-    
+    AsyncStorage.getItem("recentLocation", (err, item) => reference3.set(JSON.parse(item)));
 }
 
 export function uploadLog(code) {    
@@ -136,9 +123,7 @@ async function checkLogNumber(record) {
 }
 
 function pushCallLog(code, record) {
-  //console.log('Code: ',code);
-  //console.log('Record: ',record);
-  var newRef = firebase
+ var newRef = firebase
       .app()
       .database('https://fyp-project-337408-default-rtdb.asia-southeast1.firebasedatabase.app/')
       .ref('/'+code+'/callRecord');
