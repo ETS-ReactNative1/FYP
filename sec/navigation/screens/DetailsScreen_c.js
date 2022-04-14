@@ -143,7 +143,7 @@ export default function DetailsScreen({ navigation }) {
         // FlatList Item Separator
         <View
           style={{
-            height: '1%',
+            height: '0.7%',
             width: '100%',
           }}
         />
@@ -175,7 +175,7 @@ export default function DetailsScreen({ navigation }) {
         <View style={{flex: 1, paddingLeft: 20, paddingRight: 20, width: '100%'}}>
             <SafeAreaView style={{height: '105%' }}>
                 
-                  <Text style={{ position: 'relative', top: '2%', height: '7%', fontSize: 26, fontWeight: 'bold', color: '#282828', }}>查詢電話號碼</Text>
+                  <Text style={{ position: 'relative', top: 13, height: 40, fontSize: 26, fontWeight: 'bold', color: '#282828', }}>查詢電話號碼</Text>
                     <Text></Text>
                     <TextInput
                       style={styles.input}
@@ -184,10 +184,10 @@ export default function DetailsScreen({ navigation }) {
                       placeholder='輸入電話號碼'
                     />
                     <Button color='#266C45' title="查詢" onPress={() => infoScrape(text).then((c) => onDisplayNotification(text, c))} />
-                    <Text style={{marginTop: '1%', height: '3%' }}>{"電話號碼檢查完成後，將會發送通知提供結果。"}</Text>
+                    <Text style={{marginTop: '1%', height: 16 }}>{"電話號碼檢查完成後，將會發送通知提供結果。"}</Text>
               
                     <Text style={{borderBottomColor: 'black', borderBottomWidth: 1, marginBottom:'2%', height:'3%' }}></Text>
-                    <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom: '2%', height: '6%' }}>通話記錄</Text>
+                    <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#282828', marginBottom: '2%', height: 35 }}>通話記錄</Text>
                     <FlatList nestedScrollEnabled
                             data={record}
                             ItemSeparatorComponent={ItemSeparatorView}
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
       width: '100%',
     },
     input: {
-      height: '8%',
+      height: 45,
       borderWidth: 1,
       padding: 10,
     },
