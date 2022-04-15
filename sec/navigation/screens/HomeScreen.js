@@ -108,8 +108,8 @@ export default function HomeScreen({ navigation }) {
                 region={{
                 latitude: lat,
                 longitude: long,
-                latitudeDelta: 0.0,
-                longitudeDelta: 0.0,
+                latitudeDelta: 0.0007,
+                longitudeDelta: 0.0007,
                 }}
             >
                 <Marker
