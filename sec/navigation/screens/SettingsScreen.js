@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   
   lowerTest: {
     top: '2%',
-    fontSize: 18,
+    fontSize: 17,
     textAlign: 'left',
     color: 'lightgrey'
   },
