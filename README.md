@@ -23,7 +23,7 @@ Our app make use of various APIs/ dependencies.
 Installation of dependencies are required to run or build the application.  
 You can refer to the following list for installation:  
 (We suggest using `yarn add` over `npm i` for installing the dependencies.)  
-~~~
+~~~console
 1. cd sec
 2. yarn add @react-navigation/native
 3. expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
