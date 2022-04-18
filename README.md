@@ -9,9 +9,10 @@ This folder contains all the code reuqired for both of our applications.
 More details on how to run different apps will be explained later.  
   
   
-## Setting up & installing dependencies
+## Setting up & Installing dependencies
 ### Setting up the environment
-Our app is written with React Native, please make sure your device has React Native installed and configured before your proceed any further.  
+Our app is written with React Native.  
+Please make sure you have React Native installed and configured before your proceed any further.  
 Installtion of React Native can be found [here](https://reactnative.dev/docs/environment-setup).  
   
 This set of apps are made for Android devices.  
