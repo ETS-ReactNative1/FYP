@@ -2,13 +2,11 @@
 
 Welcome to FYP21027 codebase.  
 This will guide you on how to use our codebase and install the required dependencies.
-\
-\
+  
 ## sec is the project code folder.
 This folder contains all the code reuqired for both of our applications.  
 More details on how to run different apps will be explained later.  
-\
-\
+  
 ## Setting up & Installing dependencies
 ### Setting up the environment
 Our app is written with React Native.  
@@ -41,8 +39,7 @@ You can refer to the following list for installation:
 Alternatively, you can run `npm i` or `yarn add` in the project folder, where the package manager does all the work.  
 The project team do NOT suggest to install dependencies with this approach. Proceed with your own risk.  
 In addition, the `expo` module are still required to be installed manually if you take this approach.  
-\
-\
+  
 ## Using the App & Configuring which app to run
 ### Running our app
 If you have setup React Native environment and installed required dependencies, the App should run right away.  
@@ -51,8 +48,7 @@ To Run the application:
 2. Run `npx react-native start` on the first terminal.
 3. Run `npx react-native run-android` on the other terminal.
 4. The application should be loaded to your device/ emulator.
-\
-\
+  
 ### Configuring which app to run
 The project folder consists of 2 apps. By default, the main app will run.  
 In order to run different variants of the App, some code needs to be changed.  
