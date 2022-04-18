@@ -1,11 +1,39 @@
 # FYP21027 Codebase
 
-Welcome to FYP21027 codebase.\
+Welcome to FYP21027 codebase.
 
 ## sec is the project code folder
-After starting the App, you can check the device location at the "home screen".
-Get your call log at "detail screen" bottom section, and check if a telephone number is malicious by putting it in the box above (message will pop up as well) .
-Setting screen is currently a dummy screen. No workable features are there.
+The project folder consists of 2 apps.  
+In order to run different variants of the App, some code needs to be changed.  
+  
+To run the main application:  
+  
+In App.js (Line 25-34), keep the Companion App part commented:
+~~~
+for (let i = 0; BackgroundService.isRunning(); i++) {
+        // Main App
+        AsyncStorage.getItem('Code', (err, item) => {if (item != null) {uploadLog(item)}});
+        AsyncStorage.getItem('Code', (err, item) => {if (item != null) {uploadMap(item)}});
+
+        // Companion App
+        //AsyncStorage.getItem('Code2', (err, item) => {if (item != null) {downloadLog(item)}});
+        
+        await sleep(delay);
+    }
+~~~
+  
+In MainContainer.js (Line 6-14), also keep the Companion App part commented:
+~~~
+// Main App pages
+import HomeScreen from './screens/HomeScreen';
+import DetailsScreen from './screens/DetailsScreen';
+import SettingsScreen from './screens/SettingsScreen';
+
+// Companion App pages
+//import HomeScreen from './screens/HomeScreen_c';
+//import DetailsScreen from './screens/DetailsScreen_c';
+//import SettingsScreen from './screens/SettingsScreen_c';
+~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~
 STARTING GUIDLINES
