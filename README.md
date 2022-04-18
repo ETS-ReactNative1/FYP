@@ -3,12 +3,12 @@
 Welcome to FYP21027 codebase.  
 This will guide you on how to use our codebase and install the required dependencies.
   
-
+  
 ## sec is the project code folder.
 This folder contains all the code reuqired for both of our applications.  
 More details on how to run different apps will be explained later.  
   
-
+  
 ## Setting up & installing dependencies
 ### Setting up the environment
 Our app is written with React Native, please make sure your device has React Native installed and configured before your proceed any further.
@@ -50,6 +50,7 @@ To use <sec>, you should:
  npx react-native run-android
 
 ~~~
+  
   
 ## Using the App & Configuring which app to run
 ### Running our app
