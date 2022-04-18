@@ -11,10 +11,10 @@ More details on how to run different apps will be explained later.
   
 ## Setting up & installing dependencies
 ### Setting up the environment
-Our app is written with React Native, please make sure your device has React Native installed and configured before your proceed any further.
+Our app is written with React Native, please make sure your device has React Native installed and configured before your proceed any further.  
 Installtion of React Native can be found [here](https://reactnative.dev/docs/environment-setup).  
   
-This set of apps are made for Android devices.
+This set of apps are made for Android devices.  
 Please make sure you have an emulator configured or connect an Android device.  
 For device connection, please enable "USB Debugging Mode" on your device.  
   
@@ -37,21 +37,11 @@ You can refer to the following list for installation:
 11. yarn add @react-native-firebase/database
 12. yarn add react-native-background-actions
 ~~~
-~~~
-STARTING GUIDLINES
-To use <sec>, you should:
-1) unzip the project folder
-2) start a emulator
- cd  xxxx(your file location)\Android\Sdk\emulator
- emulator -avd YourEmulatorName
-3) cd the project folder and enter the following commands:
- npm i
- npx react-native start
- npx react-native run-android
+Alternatively, you can run `npm i` or `yarn add` in the project folder, where the package manager does all the work.  
+The project team do NOT suggest to install dependencies with this approach. Proceed with your own risk.  
+In addition, the `expo` module are still required to be installed manually if you take this approach.  
+  
 
-~~~
-  
-  
 ## Using the App & Configuring which app to run
 ### Running our app
 If you have setup React Native environment and installed required dependencies, the App should run right away.  
