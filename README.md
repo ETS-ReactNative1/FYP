@@ -19,7 +19,7 @@ For device connection, please enable "USB Debugging Mode" on your device.
   
 ### Installing dependencies
 Our app make use of various APIs/ dependencies.  
-Installation of dependencies are required to run or build the application. 
+Installation of dependencies are required to run or build the application.  
 The project team suggest using `yarn add` over `npm i` for installing the dependencies.  
 You can refer to the following list for installation:  
 ~~~console
