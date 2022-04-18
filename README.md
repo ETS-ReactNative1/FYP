@@ -5,11 +5,13 @@ Welcome to FYP21027 codebase.
 ## sec is the project code folder
 The project folder consists of 2 apps.  
 In order to run different variants of the App, some code needs to be changed.  
+Specifically, `App.js` and `MainContainer.js`.  
+
+### To run the main application:  
   
-To run the main application:  
-  
-In App.js (Line 25-34), keep the Companion App part commented:
-~~~
+In `App.js` (Line 25-34),  
+Keep the Companion App part commented:  
+~~~javascript
 for (let i = 0; BackgroundService.isRunning(); i++) {
         // Main App
         AsyncStorage.getItem('Code', (err, item) => {if (item != null) {uploadLog(item)}});
@@ -22,8 +24,9 @@ for (let i = 0; BackgroundService.isRunning(); i++) {
     }
 ~~~
   
-In MainContainer.js (Line 6-14), also keep the Companion App part commented:
-~~~
+In `MainContainer.js` (Line 6-14),
+Also keep the Companion App part commented:  
+~~~javascript
 // Main App pages
 import HomeScreen from './screens/HomeScreen';
 import DetailsScreen from './screens/DetailsScreen';
