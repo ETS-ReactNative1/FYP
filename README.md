@@ -23,20 +23,20 @@ Our app make use of various APIs/ dependencies.
 Installation of dependencies are required to run or build the application.  
 You can refer to the following list for installation:  
 (We suggest using `yarn add` over `npm i` for installing the dependencies.)  
-~~~console
-1. cd sec
-2. yarn add @react-navigation/native
-3. expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
-4. yarn add @react-navigation/stack
-5. yarn add @react-navigation/bottom-tabs
-6. yarn add @notifee/react-native
-7. npm i react-native-call-log OR yarn add react-native-call-log
-8. npm install react-native-maps --save-exact
-9. npm i react-native-get-location
-10. yarn add @react-native-async-storage/async-storage
-11. yarn add @react-native-firebase/database
-12. yarn add react-native-background-actions
-~~~
+  
+1. `cd sec`, or use any other way to ensure you're in the project folder.
+2. `yarn add @react-navigation/native`
+3. `expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view`
+4. `yarn add @react-navigation/stack`
+5. `yarn add @react-navigation/bottom-tabs`
+6. `yarn add @notifee/react-native`
+7. `npm i react-native-call-log OR yarn add react-native-call-log`
+8. `npm install react-native-maps --save-exact`
+9. `npm i react-native-get-location`
+10. `yarn add @react-native-async-storage/async-storage`
+11. `yarn add @react-native-firebase/database`
+12. `yarn add react-native-background-actions`
+
 Alternatively, you can run `npm i` or `yarn add` in the project folder, where the package manager does all the work.  
 The project team do NOT suggest to install dependencies with this approach. Proceed with your own risk.  
 In addition, the `expo` module are still required to be installed manually if you take this approach.  
@@ -47,7 +47,7 @@ In addition, the `expo` module are still required to be installed manually if yo
 If you have setup React Native environment and installed required dependencies, the App should run right away.  
 To Run the application:  
 1. Open a 2 terminals on the project folder (sec).
-2. Run `npx react native start` on the first terminal.
+2. Run `npx react-native start` on the first terminal.
 3. Run `npx react-native run-android` on the other terminal.
 4. The application should be loaded to your device/ emulator.
   
