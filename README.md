@@ -53,7 +53,7 @@ To Run the application:
   
 
 ### Configuring which app to run
-The project folder consists of 2 apps. By default, the main app will run. 
+The project folder consists of 2 apps. By default, the main app will run.  
 In order to run different variants of the App, some code needs to be changed.  
 Specifically, `App.js` and `MainContainer.js`.  
   
