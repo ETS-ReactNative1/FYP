@@ -3,12 +3,12 @@
 Welcome to FYP21027 codebase.  
 This will guide you on how to use our codebase and install the required dependencies.
   
-## sec is the project code folder.
+# sec is the project code folder.
 This folder contains all the code reuqired for both of our applications.  
 More details on how to run different apps will be explained later.  
   
-## Setting up & Installing dependencies
-### Setting up the environment
+# Setting up & Installing dependencies
+## Setting up the environment
 Our app is written with React Native.  
 Please make sure you have React Native installed and configured before your proceed any further.  
 Installtion of React Native can be found [here](https://reactnative.dev/docs/environment-setup).  
@@ -17,7 +17,7 @@ This set of apps are made for Android devices.
 Please make sure you have an emulator configured or connect an Android device.  
 For device connection, please enable "USB Debugging Mode" on your device.  
   
-### Installing dependencies
+## Installing dependencies
 Our app make use of various APIs/ dependencies.  
 Installation of dependencies are required to run or build the application.  
 The project team suggest using `yarn add` over `npm i` for installing the dependencies.  
@@ -41,8 +41,8 @@ Alternatively, you can run `npm i` or `yarn add` in the project folder, where th
 The project team do NOT suggest to install dependencies with this approach. Proceed with your own risk.  
 In addition, the `expo` modules are still required to be installed manually if you take this approach.  
   
-## Using the App & Configuring which app to run
-### Running our app
+# Using the App & Configuring which app to run
+## Running our app
 If you have setup React Native environment and installed required dependencies, the App should run right away.  
 To Run the application:  
 1. Open a 2 terminals on the project folder (sec).
@@ -50,16 +50,19 @@ To Run the application:
 3. Run `npx react-native run-android` on the other terminal.
 4. The application should be loaded to your device/ emulator.
   
-### Configuring which app to run
+
+#IMPORTANT
+## Configuring which app to run
 The project folder consists of 2 apps. By default, the main app will run.  
 In order to run different variants of the App, some code needs to be changed.  
 Specifically, `App.js` and `MainContainer.js`.  
   
-### To run the Main application:  
-  
+##Case 1
+## Run Main Application (Elderly App):  
+Step(1)  
 In `App.js` (Line 25-34),  
-Keep the Companion App part commented:  
-~~~javascript
+keep the Companion App part in commented:  
+~~~
 for (let i = 0; BackgroundService.isRunning(); i++) {
         // Main App
         AsyncStorage.getItem('Code', (err, item) => {if (item != null) {uploadLog(item)}});
@@ -71,9 +74,9 @@ for (let i = 0; BackgroundService.isRunning(); i++) {
         await sleep(delay);
     }
 ~~~
-  
+Step(2)
 In `MainContainer.js` (Line 6-14),
-Also keep the Companion App part commented:  
+keep the Companion App part in commented:  
 ~~~javascript
 // Main App pages
 import HomeScreen from './screens/HomeScreen';
@@ -86,12 +89,12 @@ import SettingsScreen from './screens/SettingsScreen';
 //import SettingsScreen from './screens/SettingsScreen_c';
 ~~~
   
-
-### To run the Companion application:  
-  
+##Case 2
+## Run Companion Application (Family App):   
+Step(1)
 In `App.js` (Line 25-34),  
-Keep the Main App part commented:  
-~~~javascript
+keep the Main App part in commented:  
+~~~
 for (let i = 0; BackgroundService.isRunning(); i++) {
         // Main App
         //AsyncStorage.getItem('Code', (err, item) => {if (item != null) {uploadLog(item)}});
@@ -103,9 +106,9 @@ for (let i = 0; BackgroundService.isRunning(); i++) {
         await sleep(delay);
     }
 ~~~
-  
+Step(2) 
 In `MainContainer.js` (Line 6-14),
-Also keep the Main App part commented:  
+keep the Main App part in commented:  
 ~~~javascript
 // Main App pages
 //import HomeScreen from './screens/HomeScreen';
@@ -117,3 +120,6 @@ import HomeScreen from './screens/HomeScreen_c';
 import DetailsScreen from './screens/DetailsScreen_c';
 import SettingsScreen from './screens/SettingsScreen_c';
 ~~~
+
+
+End.
