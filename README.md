@@ -5,6 +5,7 @@ This will guide you on how to use our codebase and install the required dependen
   
 # sec is the project code folder.
 This folder contains all the code reuqired for both of our applications.  
+Please set  /sec as your root folder before compile.
 More details on how to run different apps will be explained later.  
   
 # Setting up & Installing dependencies
@@ -75,7 +76,7 @@ for (let i = 0; BackgroundService.isRunning(); i++) {
     }
 ~~~
 Step(2)
-In `MainContainer.js` (Line 6-14),
+In `navigation/MainContainer.js` (Line 6-14),
 keep the Companion App part in commented:  
 ~~~javascript
 // Main App pages
@@ -107,7 +108,7 @@ for (let i = 0; BackgroundService.isRunning(); i++) {
     }
 ~~~
 Step(2) 
-In `MainContainer.js` (Line 6-14),
+In `navigation/MainContainer.js` (Line 6-14),
 keep the Main App part in commented:  
 ~~~javascript
 // Main App pages
